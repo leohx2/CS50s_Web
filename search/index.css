@@ -1,3 +1,7 @@
+body {
+  min-height: 100vh;
+}
+
 .navBar-container {
   align-items: center;
   column-gap: 20px;
@@ -15,11 +19,19 @@
 }
 
 .main-container {
-  align-items: center;
+  align-content: center;
   display: flex;
   margin: auto;
-  min-height: 80vh;
+  min-height: 70vh;
   width: 640px;
+  flex-wrap: wrap;
+}
+
+.main-logo {
+  margin-inline: auto;
+  margin-bottom: 10px;
+  max-width: 100%;
+  max-height: 30vh;
 }
 
 .form-row {
@@ -32,25 +44,50 @@
 .form-text {
   border: 1px solid rgba(223, 225, 229, 0.6784313725);
   border-radius: 30px;
+  padding: 1.5rem;
   height: 2rem;
 }
 
-.form-text:focus {
-  border: 1px solid rgba(223, 225, 229, 0.6784313725);
+.form-text:hover, .form-text:focus {
+  box-shadow: 0px 0px 6px rgba(223, 225, 229, 0.8509803922);
+  outline: none;
 }
 
-.form-text:hover {
-  box-shadow: 0px 0px 6px rgb(141, 141, 141);
+.buttons-holder {
+  display: flex;
+  justify-content: center;
 }
 
 .form-button {
   background-color: #f8f9fa;
   border: 1px solid #f8f9fa;
-  border-radius: 3px;
+  border-radius: 5px;
   font-size: 0.9rem;
-  margin: auto;
+  margin-left: 20px;
   padding: 10px;
   width: fit-content;
 }
+
+.form-button:hover {
+  border: 1px solid #dfe1e5;
+  box-shadow: 0px 0px 3px #dfe1e5;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(171, 170, 170, 0.3176470588);
+  height: 8vh;
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 20px;
+}
+footer p {
+  color: rgba(61, 56, 56, 0.9764705882);
+}
+
+/*# sourceMappingURL=index.css.map */
 
 /*# sourceMappingURL=index.css.map */
