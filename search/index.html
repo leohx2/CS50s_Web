@@ -15,16 +15,18 @@
         <header>
             <div class="navBar-container">
                 <a href="images.html" class="linkNv">Google Image Search</a>
-                <a href="#" class="linkNv">Google Advanced Search</a>
+                <a href="advanced_search.html" class="linkNv">Google Advanced Search</a>
             </div>
         </header>
         <main class="main-container">
-            <img class="main-logo" src="project_img/search-logo.jpeg">
+            <a href="#" class="main-logo">
+                <img class="main-logo" src="project_img/search-logo.jpeg" alt="Main logo">
+            </a>
             <form class="form-row" action="https://google.com/search">
                 <input class="form-text" type="text" name="q">
                 <div class="buttons-holder">
-                    <input class="form-button" type="submit" value="Google Search">
-                    <input class="form-button" type="submit" value="I'm Feeling Lucky">
+                    <input class="form-button" name="btnK" type="submit" value="Google Search">
+                    <input class="form-button" name="btnI" type="submit" value="I'm Feeling Lucky">
                 </div>
             </form>
         </main>

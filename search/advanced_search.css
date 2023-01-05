@@ -1,0 +1,71 @@
+.navBar-container {
+  align-items: flex-start !important;
+  height: 90px;
+  justify-content: space-between !important;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.imageNv-img {
+  height: 80px;
+  width: 80px;
+}
+
+.Adv-smtitle {
+  color: #d93025;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.row {
+  align-items: center !important;
+}
+
+.row-text {
+  border-radius: 1px;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  font-size: 13px;
+  height: 25px;
+  padding: 1px 8px;
+}
+
+.row-text:focus {
+  border: 1px solid #4d90fe;
+  outline: none;
+  box-shadow: inset 0px 2px 3px lightgrey;
+}
+
+.buttonPosition {
+  text-align: right;
+  padding: 0 !important;
+}
+
+.googlebtn {
+  background-color: #4d90fe;
+  border: 1px solid #4d90fe;
+  border-radius: 2px;
+  box-shadow: none;
+  color: white;
+  font-size: 0.8rem;
+  max-width: fit-content !important;
+  padding: 7px;
+}
+
+.googlebtn:hover {
+  background-image: -webkit-linear-gradient(top, #4d90fe, #4787ed);
+  border: 1px solid #3079ed;
+}
+
+@media only screen and (max-width: 575px) {
+  .row {
+    max-width: 95%;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .buttonPosition {
+    text-align: center;
+  }
+}
+
+/*# sourceMappingURL=advanced_search.css.map */
