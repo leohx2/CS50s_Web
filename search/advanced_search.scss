@@ -3,7 +3,7 @@ $googlecolorB: #4d90fe;
 .navBar-container{
     align-items: flex-start !important;
     height: 90px;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
     padding-left: 30px;
     padding-right: 30px;
 }
@@ -19,8 +19,16 @@ $googlecolorB: #4d90fe;
     margin-bottom: 10px;
 }
 
+hr {
+    color: lightgray !important;
+}
+
 .row {
     align-items: center !important;
+
+    p {
+        font-size: 0.9rem;
+    }
 }
 
 .row-text{
@@ -28,8 +36,17 @@ $googlecolorB: #4d90fe;
     border: 1px solid #d9d9d9;
     border-top: 1px solid #c0c0c0;
     font-size: 13px;
-    height: 25px;
+    height: 1.8rem;
     padding: 1px 8px;
+}
+
+.howToUse {
+    color: grey;
+    font-size: 0.8rem !important;
+}
+
+.row > * {
+    margin: 0.5rem 0px !important;
 }
 
 .row-text:focus {
@@ -60,14 +77,32 @@ $googlecolorB: #4d90fe;
     border: 1px solid #3079ed;
 }
 
-@media only screen and (max-width: 575px) {
-    .row {
-        max-width: 95%;
+@media only screen and (max-width: 1070px) {
+    .howToUse {
+        display: none;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .container {
+        margin: 20px 0px !important;
+        max-width: 98% !important;
+    }
+    .buttonPosition {
+        text-align: center;
+    }
+    .row > * {
+        margin: 0.2rem 0.5rem !important;
+    }
+    .firstRowItem {
+        margin: 0.5rem !important;
     }
 }
 
-@media only screen and (max-width: 991px) {
-    .buttonPosition {
-        text-align: center;
+@media only screen and (max-width: 575px) {
+    .Adv-smtitle {
+        margin-top: 0px;
+    }
+    .row {
+        max-width: 98%;
     }
 }

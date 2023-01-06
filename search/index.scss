@@ -88,5 +88,11 @@ body {
         color: #3d3838f9;
     }
   }
+
+  @media only screen and (max-width: 670px) {
+    .main-container { 
+        max-width: 95%;
+      }
+  }
   /*# sourceMappingURL=index.css.map */
   

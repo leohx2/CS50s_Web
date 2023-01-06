@@ -88,6 +88,11 @@ footer p {
   color: rgba(61, 56, 56, 0.9764705882);
 }
 
+@media only screen and (max-width: 670px) {
+  .main-container {
+    max-width: 95%;
+  }
+}
 /*# sourceMappingURL=index.css.map */
 
 /*# sourceMappingURL=index.css.map */
