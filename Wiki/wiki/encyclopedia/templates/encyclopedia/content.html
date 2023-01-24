@@ -1,0 +1,10 @@
+{% extends "encyclopedia/layout.html"%}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    {{body|safe}}<!-- safe is a function from django to say the html given template is safe to use
+                body is a html template given by views.py-->
+{% endblock %}

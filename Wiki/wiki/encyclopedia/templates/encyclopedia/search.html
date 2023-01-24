@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html"%}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block body %}
+    <h1>Related Pages</h1>
+
+    <ul>
+        {% for i in related %}
+            <li><a href="{% url 'encyclopedia-content' i %}">{{ i }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock%}
