@@ -35,3 +35,13 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def pass_requirements(title):
+    all_entries = []
+    for i in list_entries():
+        all_entries.append(i.lower())
+    for index in all_entries:
+        if title.lower() == index:
+            return False
+    return True
