@@ -56,7 +56,6 @@ def search(request):
 
 
 def newpage(request, edit=False, title=None):
-    print(f'\n\n\nTESTE {edit}\n')
     if request.method == 'POST':
         form = formsfield.NewPageForm(request.POST)
 
@@ -71,11 +70,14 @@ def newpage(request, edit=False, title=None):
                 if not util.pass_requirements(entryTitle):
                     messages.error(request, 'Entry title already exist.')
                     return(render(request, "encyclopedia/newpage.html", {'formnew': form}))
-            else:
-                util.save_entry(entryTitle, content)
+                    
         if edit == True and title != None:
+            messages.success(request, 'Page edited with sucess!')
+            util.save_entry(entryTitle, content)
             return redirect('encyclopedia-content', title=entryTitle)
         else:
+            messages.success(request, 'Page created with sucess!')
+            util.save_entry(entryTitle, content)
             return redirect('encyclopedia-index')
     
     if edit == True and title != None:
@@ -90,9 +92,13 @@ def newpage(request, edit=False, title=None):
 def random_page(request):
     all_entries = util.list_entries()
     random_entry = all_entries[randrange(0, len(all_entries))]
-    print(f'TESTANDO \n\n\n{random_entry}\n\n\n')
     return redirect('encyclopedia-content', title=random_entry)
 
 
 def edit_page(request, title_edit):
     return newpage(request, edit=True, title=title_edit)
+
+
+def page_not_found(request, exception='404'):
+    messages.error(request, f'Error 404 Page not found, here bellow you will find the list with all the entries!')
+    return redirect('encyclopedia-index')

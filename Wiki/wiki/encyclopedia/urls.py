@@ -11,3 +11,4 @@ urlpatterns = [
     path("random/", views.random_page, name="encyclopedia-random"),
     path("edit/<str:title_edit>", views.edit_page, name="encyclopedia-edit")
 ]
+
