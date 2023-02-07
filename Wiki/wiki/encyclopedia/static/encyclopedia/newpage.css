@@ -1,0 +1,30 @@
+.test {
+    display: flex;
+    flex-direction:column;
+    height: 100vh;
+    margin-right: auto;
+    padding: 20px;
+    width: 80%;
+}
+
+.text-newpage {
+    width: 100%;
+    height: 80%;
+}
+
+.dont_click{
+    pointer-events: none;
+}
+
+.input-newpage {
+    border: none;
+    margin-top: 10px;
+    width: 20%;
+    transition: all 0.2s ease-in-out;
+}
+
+.input-newpage:hover{
+    border: solid 1px grey;
+    border-radius: 5px;
+    transform: scale(1.02);
+}

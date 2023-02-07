@@ -7,21 +7,21 @@
 {% endblock %}
 
 {% block linkcss %}
-    <link rel="stylesheet" href="{% static 'newpage.css'%}">
+    <link rel="stylesheet" href="{% static 'encyclopedia/newpage.css' %}">
 {% endblock %}
 
 {% block body %}
     {% if edit_bool == True %}
-        <form action="{% url 'encyclopedia-edit' title_entry%}" method="post" class="formNewPage">
+        <form class="test" action="{% url 'encyclopedia-edit' title_entry%}" method="post" class="formNewPage">
             {% csrf_token %}
             {{ formnew }}
-            <input type="submit" value="Save">
+            <input class="input-newpage" type="submit" value="Save">
         </form>
     {% else %}
-        <form action="{% url 'encyclopedia-new-page'%}" method="post" class="formNewPage">
+        <form class="test" action="{% url 'encyclopedia-new-page'%}" method="post" class="formNewPage">
             {% csrf_token %}
             {{ formnew }}
-            <input type="submit" value="Save">
+            <input class="input-newpage" type="submit" value="Save">
         </form>
     {%endif%}
 {% endblock %}

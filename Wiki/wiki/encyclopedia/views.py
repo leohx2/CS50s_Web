@@ -63,13 +63,13 @@ def newpage(request, edit=False, title=None):
             entryTitle = form.cleaned_data['title']
             content = form.cleaned_data['text']
 
-            if (edit == True and title != entryTitle) and not util.pass_requirements(entryTitle):
-                messages.error(request, 'Entry title already exist, keep the same or change to a non existent one.')
+            if (edit == True and title != entryTitle):
+                messages.error(request, 'Entry title must be the same.')
                 return(redirect('encyclopedia-edit', title_edit=title))
             elif edit == False:
                 if not util.pass_requirements(entryTitle):
                     messages.error(request, 'Entry title already exist.')
-                    return(render(request, "encyclopedia/newpage.html", {'formnew': form}))
+                    return render(request, "encyclopedia/newpage.html", {'formnew': form, "form": formsfield.SearchForm()})
                     
         if edit == True and title != None:
             messages.success(request, 'Page edited with sucess!')
@@ -83,10 +83,13 @@ def newpage(request, edit=False, title=None):
     if edit == True and title != None:
         entry_content = util.get_entry(title)
         form = formsfield.NewPageForm(initial={'title': str(title), 'text': entry_content})
+        form.fields['title'].widget.attrs.update({'class': 'dont_click'})
     else:
         form = formsfield.NewPageForm()
         
-    return(render(request, "encyclopedia/newpage.html", {'formnew': form, 'edit_bool': edit , 'title_entry': title}))
+    return(render(request, "encyclopedia/newpage.html", {
+        'formnew': form, 'edit_bool': edit , 'title_entry': title, "form": formsfield.SearchForm()
+        }))
 
 
 def random_page(request):
@@ -102,3 +105,4 @@ def edit_page(request, title_edit):
 def page_not_found(request, exception='404'):
     messages.error(request, f'Error 404 Page not found, here bellow you will find the list with all the entries!')
     return redirect('encyclopedia-index')
+
