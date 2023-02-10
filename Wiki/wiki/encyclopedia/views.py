@@ -116,6 +116,6 @@ def edit_page(request, title_edit):
 
 
 def page_not_found(request, exception='404'):
-    messages.error(request, f'Error 404 Page not found, here bellow you will find the list with all the entries!')
+    messages.error(request, f'Error 404 page not found, below you will find the list with all the entries!')
     return redirect('encyclopedia-index')
 
