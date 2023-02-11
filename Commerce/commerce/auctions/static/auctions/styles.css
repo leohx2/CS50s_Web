@@ -1,3 +1,16 @@
 body {
     padding: 10px;
 }
+
+.small-text{
+    font-size: 0.70rem;
+    color: rgb(116, 116, 116)
+}
+
+.small-text-link{
+    color: rgb(97, 124, 203)
+}
+
+.small-text-link:hover{
+    text-decoration: none;
+}

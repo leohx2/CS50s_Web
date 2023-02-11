@@ -63,5 +63,5 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
-def newList(request):
-    pass
+def newListing(request):
+    return render(request, "auctions/newListing.html")
