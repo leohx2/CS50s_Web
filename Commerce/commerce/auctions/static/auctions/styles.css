@@ -14,3 +14,13 @@ body {
 .small-text-link:hover{
     text-decoration: none;
 }
+
+.responsive-form {
+    width: 100%;
+}
+
+@media only screen and (min-width: 991px) {
+    .responsive-form {
+        width: 50%;
+    }
+}

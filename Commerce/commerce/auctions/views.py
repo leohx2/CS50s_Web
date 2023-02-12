@@ -1,9 +1,12 @@
+from decimal import *
+
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from .helper import ListingClass
 from .models import User
 
 
@@ -64,4 +67,17 @@ def register(request):
 
 
 def newListing(request):
-    return render(request, "auctions/newListing.html")
+    # Decimal library config 
+    getcontext().prec = 2
+    errors = []
+    if request.method == "POST":
+        # class init -> def __init__(self, title, description, bid, category=None, url=None):
+        data = ListingClass(request.POST["title"], request.POST["description"], 
+            Decimal(request.POST["bid"]), request.POST["category"], request.POST["url"])
+        # data.valid_data returns a list with all errors detected, if errors len == 0 means it has no errors
+        errors = data.valid_data()
+        if len(errors) > 0:
+            # If there is an error display a message and refresh the page.
+            return render(request, "auctions/newListing.html", {"messages": errors})
+        
+    return render(request, "auctions/newListing.html", {"messages": errors})
