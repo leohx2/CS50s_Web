@@ -14,11 +14,11 @@ class ListingClass():
         errors = []
         if self.title == "" or len(self.title) <= 1:
             errors.append("Invalid Title. This field can't be empty and need to have more than 1 character.")
-        if self.category == "" or len(self.category) <= 1:
+        if self.description == "" or len(self.description) <= 1:
             errors.append("Invalid Description. This field can't be empty and need to have more than 1 character.")
         if self.bid == "" or self.bid <= 0:
             errors.append("Invalid Bid. It's must be greater than 0.")
-        if self.category != "" and len(self.url) < 2:
+        if self.category != "" and len(self.category) < 2:
             errors.append("Invalid category, this field can be empty or need to have more than 2 characters.")
        
         return errors

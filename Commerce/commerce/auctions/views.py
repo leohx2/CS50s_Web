@@ -7,8 +7,8 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .helper import ListingClass
-from .models import User
-
+from .models import Listings, User
+# Listings models has a Title, description, imageUrl(optional), category(optional), FK_user
 
 def index(request):
     return render(request, "auctions/index.html")
@@ -66,7 +66,7 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
-def newListing(request):
+def new_listing(request):
     # Decimal library config 
     getcontext().prec = 2
     errors = []
@@ -79,5 +79,15 @@ def newListing(request):
         if len(errors) > 0:
             # If there is an error display a message and refresh the page.
             return render(request, "auctions/newListing.html", {"messages": errors})
+        else:
+            # if no erros were found we can now create the listing db
+            l_db = Listings(title=data.title, description=data.description, imageUrl=data.url, category=data.category,
+             FK_user=request.user, min_bid=data.bid)
+            l_db.save()
         
     return render(request, "auctions/newListing.html", {"messages": errors})
+
+
+def listing_page(request, db_pk):
+    data = Listings.objects.filter(pk=db_pk)
+    return render(request, "auctions/listingpage.html")
