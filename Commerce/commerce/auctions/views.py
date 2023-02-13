@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .helper import ListingClass
-from .models import Listings, User
+from .models import Bids, Listings, User
 # Listings models has a Title, description, imageUrl(optional), category(optional), FK_user
 
 def index(request):
@@ -88,6 +88,7 @@ def new_listing(request):
     return render(request, "auctions/newListing.html", {"messages": errors})
 
 
-def listing_page(request, db_pk):
-    data = Listings.objects.filter(pk=db_pk)
+def listing_page(request, list_pk):
+    data = Listings.objects.filter(pk=list_pk)
+    bid = Bids.objects.filter(FK_list__pk=list_pk)
     return render(request, "auctions/listingpage.html")
