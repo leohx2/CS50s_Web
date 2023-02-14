@@ -2,6 +2,7 @@ from decimal import *
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -95,17 +96,46 @@ def listing_page(request, list_pk):
     bid_data = Bids.objects.filter(FK_list__pk=list_pk)
     context = {}
     if len(listing_data) == 0:
+        # if there is no Listing with that id (primary key) returns to index with a message error
         messages.error(request, 'Listing not found.')
         return HttpResponseRedirect(reverse("index"))
     elif len(listing_data) > 0 and len(bid_data) == 0:
+        # if there is a list without bids context gets the listing and bid gets a None value, check the html file to understand that part
         context.update({'listing': listing_data[0], 'bid':None})
     else:
-        context.update({'listing': listing_data[0], 'bid':bid_data.object.last()})
+        # If there is a list with bid the last bid is loaded it's never possible to add a new bid lower than the previous so the lastest is also the higher 
+        context.update({'listing': listing_data[0], 'bid':Bids.objects.filter(FK_list__pk=list_pk).latest('bid')})
 
     return render(request, "auctions/listingpage.html", context)
 
 
+@login_required
 def new_bid(request, list_pk):
     
-    
+    if request.method == 'POST':
+        current_user = request.user
+        listing_data = Listings.objects.get(id=list_pk)
+        bid = Decimal(request.POST["bid"])
+        has_bid = Bids.objects.filter(FK_list__pk=list_pk)
+        # If this is the first bid and the bid is greater than the minBid, register the bid, otherwhise error.
+        if len(has_bid) == 0 and bid > listing_data.minBid:
+            bid_register = Bids(bid=bid, FK_list=listing_data, FK_user=current_user)
+            bid_register.save()
+            listing_data.bidsUntilNow += 1
+            listing_data.save()
+        elif len(has_bid) == 0 and bid <= listing_data.minBid:
+            messages.error(request, 'Bid Must be greater than the minimum bid.')
+            return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
+        
+        # If it has another bid check the lastest to find out if it's bigger or not. 
+        last_bid = Bids.objects.filter(FK_list__pk=list_pk).latest('bid')
+        if bid <= last_bid.bid:
+            messages.error(request, 'Bid Must be greater than the currently bid.')
+            return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
+        else:
+            bid_register = Bids(bid=bid, FK_list=listing_data, FK_user=current_user)
+            bid_register.save()
+            listing_data.bidsUntilNow += 1
+            listing_data.save()
+
     return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
