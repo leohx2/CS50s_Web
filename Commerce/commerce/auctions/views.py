@@ -1,9 +1,10 @@
 from decimal import *
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .helper import ListingClass
@@ -27,9 +28,8 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "auctions/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            messages.error(request, "Invalid username and/or password.")
+            return render(request, "auctions/login.html")
     else:
         return render(request, "auctions/login.html")
 
@@ -77,18 +77,35 @@ def new_listing(request):
         # data.valid_data returns a list with all errors detected, if errors len == 0 means it has no errors
         errors = data.valid_data()
         if len(errors) > 0:
-            # If there is an error display a message and refresh the page.
-            return render(request, "auctions/newListing.html", {"messages": errors})
+            # If there is an error refresh the page and display a message.
+            for i in errors:
+                messages.error(request, i)
+            return render(request, "auctions/newListing.html")
         else:
             # if no erros were found we can now create the listing db
             l_db = Listings(title=data.title, description=data.description, imageUrl=data.url, category=data.category,
-             FK_user=request.user, min_bid=data.bid)
+             FK_user=request.user, minBid=data.bid)
             l_db.save()
         
     return render(request, "auctions/newListing.html", {"messages": errors})
 
 
 def listing_page(request, list_pk):
-    data = Listings.objects.filter(pk=list_pk)
-    bid = Bids.objects.filter(FK_list__pk=list_pk)
-    return render(request, "auctions/listingpage.html")
+    listing_data = Listings.objects.filter(pk=list_pk)
+    bid_data = Bids.objects.filter(FK_list__pk=list_pk)
+    context = {}
+    if len(listing_data) == 0:
+        messages.error(request, 'Listing not found.')
+        return HttpResponseRedirect(reverse("index"))
+    elif len(listing_data) > 0 and len(bid_data) == 0:
+        context.update({'listing': listing_data[0], 'bid':None})
+    else:
+        context.update({'listing': listing_data[0], 'bid':bid_data.object.last()})
+
+    return render(request, "auctions/listingpage.html", context)
+
+
+def new_bid(request, list_pk):
+    
+    
+    return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))

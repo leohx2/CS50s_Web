@@ -2,9 +2,37 @@
 
 {% block title %}
 {% endblock %}
-
+<!-- Variables from views, listing - contains .title .description .imageUrl .category .minBid .FK_user .bidsUntilow
+                           bid - contains .bid .FK_user .FK_list-->
 {% block body %}
-    <div class="container">
-        
+    <div class="container ml-0">
+        <h2>Listing: {{listing.title}}</h2>
+        {% if listing.imageUrl != "" %}
+            <div class="img-container mb-3">
+                <img class="img-fluid" src="{{listing.imageUrl}}">
+            </div>
+        {% endif %}
+        <p class="listings-description">{{listing.description}}</p>
+        {% if bid == None %}
+            <h4>Minimum bid: ${{listing.minBid}}</h4>
+        {% else %}
+            <h4>$bid.bid</h4>
+            <p class="listings-bid-amount"></p>
+        {% endif %}
+        <form class="responsive-form" action="{% url 'new_bid' listing.id %}" method="post">
+            {% csrf_token %}
+            {% if bid == None %}
+                <div class="small-text">No bids yet.</div>
+                <input class="form-control" type="number" step="0.01" min="{{listing.minBid}}" name="bid" placeholder="Bid">
+            {% else %}
+                <div class="small-text">{{listing.bidsUntilNow}} bid(s) so far. {% if user.authenticated and user.id == bid.FK_user.id %} Yor bid is the current bid {%endif%}</div>
+                <input class="form-control" type="number" step="0.01" min="{{bid.bid}}" name="bid" placeholder="Bid">
+            {% endif %}
+            {% if user.is_authenticated %}
+                <button type="submit" class="btn btn-primary mt-3" >Place Bid</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary mt-3" disabled>Login required</button>
+            {%endif%}
+        </form>
     </div>
 {% endblock %}

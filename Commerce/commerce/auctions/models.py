@@ -10,7 +10,8 @@ class Listings(models.Model):
     description = models.CharField(max_length=300)
     imageUrl = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=30, blank=True, null=True)
-    min_bid = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    minBid = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    bidsUntilNow = models.IntegerField(default=0)
     FK_user = models.ForeignKey(User, on_delete=models.CASCADE)
     # to access items from user e.g Listings.objects.filter(FK_user__username="leo")
                                                         # Note there is two underlines
@@ -20,8 +21,8 @@ class Listings(models.Model):
 
 class Bids(models.Model):
     bid = models.DecimalField(default=0, max_digits=8, decimal_places=2)
-    FK_list = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="bids")
-    FK_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    FK_list = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="list_bids")
+    FK_user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name="user_bids")
     
     def __str__(self):
         return f'Bid {self.bid}, from list - {self.FK_list.title}'
@@ -29,8 +30,16 @@ class Bids(models.Model):
 
 class Comments(models.Model):
     comment = models.DecimalField(default=0, max_digits=8, decimal_places=2)
-    FK_list = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="comments")
-    FK_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    FK_list = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="list_comments")
+    FK_user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name="user_comments")
     
     def __str__(self):
         return f'Comment from {self.FK_user.username} to the list {self.FK_list.title}'
+
+
+class WatchList(models.Model):
+    FK_list = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="list_watchList")
+    FK_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_watchlist")
+
+    def __str__(self):
+        return f'Watchlist {self.FK_list.title} to the user {self.FK_user.username}'

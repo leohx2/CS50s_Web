@@ -19,8 +19,22 @@ body {
     width: 100%;
 }
 
+.img-container {
+    height: auto;
+    margin: 30px 0px 30px 0;
+    width: 100%;
+}
+
+.img-fluid {
+    border-radius: 5px;
+}
+
 @media only screen and (min-width: 991px) {
     .responsive-form {
+        width: 50%;
+    }
+    .img-container {
+        height: auto;
         width: 50%;
     }
 }
