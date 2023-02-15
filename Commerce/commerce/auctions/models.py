@@ -6,12 +6,14 @@ class User(AbstractUser):
     pass
 
 class Listings(models.Model):
-    title = models.CharField(max_length=64)
+    bidsUntilNow = models.IntegerField(default=0)
+    category = models.CharField(max_length=30, blank=True, null=True)
     description = models.CharField(max_length=300)
     imageUrl = models.URLField(blank=True, null=True)
-    category = models.CharField(max_length=30, blank=True, null=True)
     minBid = models.DecimalField(default=0, max_digits=8, decimal_places=2)
-    bidsUntilNow = models.IntegerField(default=0)
+    title = models.CharField(max_length=64)
+    winner_id = models.IntegerField(blank=True, null=True)
+    is_close = models.BooleanField(default=False)
     FK_user = models.ForeignKey(User, on_delete=models.CASCADE)
     # to access items from user e.g Listings.objects.filter(FK_user__username="leo")
                                                         # Note there is two underlines
@@ -29,7 +31,7 @@ class Bids(models.Model):
 
 
 class Comments(models.Model):
-    comment = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    comment = models.CharField(max_length=240)
     FK_list = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="list_comments")
     FK_user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name="user_comments")
     

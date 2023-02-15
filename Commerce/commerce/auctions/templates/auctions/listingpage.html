@@ -1,38 +1,108 @@
 {% extends "auctions/layout.html" %}
 
 {% block title %}
+Auctions: {{listing.title}}   
 {% endblock %}
 <!-- Variables from views, listing - contains .title .description .imageUrl .category .minBid .FK_user .bidsUntilow
                            bid - contains .bid .FK_user .FK_list-->
 {% block body %}
-    <div class="container ml-0">
-        <h2>Listing: {{listing.title}}</h2>
-        {% if listing.imageUrl != "" %}
-            <div class="img-container mb-3">
-                <img class="img-fluid" src="{{listing.imageUrl}}">
-            </div>
-        {% endif %}
-        <p class="listings-description">{{listing.description}}</p>
-        {% if bid == None %}
-            <h4>Minimum bid: ${{listing.minBid}}</h4>
-        {% else %}
-            <h4>${{bid.bid}}</h4>
-            <p class="listings-bid-amount"></p>
-        {% endif %}
-        <form class="responsive-form" action="{% url 'new_bid' listing.id %}" method="post">
-            {% csrf_token %}
-            {% if bid == None %}
-                <div class="small-text">No bids yet.</div>
-                <input class="form-control" type="number" step="0.01" min="{{listing.minBid}}" name="bid" placeholder="Bid">
+    <div class="container-flex ml-3">
+        <div class="container-listing">
+
+            {% if listing.is_close == True %}
+                <h2> <del>Listing: {{listing.title}}</del> - CLOSED</h2>
             {% else %}
-                <div class="small-text">{{listing.bidsUntilNow}} bid(s) so far. {% if user.is_authenticated and user.id == bid.FK_user.id %} Yor bid is the current bid {%endif%}</div>
-                <input class="form-control" type="number" step="0.01" min="{{bid.bid}}" name="bid" placeholder="Bid">
+                <h2> Listing: {{listing.title}}</h2>
             {% endif %}
+
             {% if user.is_authenticated %}
-                <button type="submit" class="btn btn-primary mt-3" >Place Bid</button>
+                <form method="POST" class="responsive-form mb-1">
+                    {% csrf_token %}
+
+                    {% if watchList == True %}
+                        <button class="btn btn-primary btn-sm" type="submit" formaction="{% url 'watchlist' listing.id 'remove' %}">Remove from watchlist</button>
+                    {% else %}
+                        <button class="btn btn-primary btn-sm" type="submit" formaction="{% url 'watchlist' listing.id 'add' %}">Watchlist</button>
+                    {% endif %}
+                </form>
+            {% endif %}
+
+            {% if listing.imageUrl != "" %}
+                <div class="img-container mb-3">
+                    <img class="img-fluid" src="{{listing.imageUrl}}">
+                </div>
+            {% endif %}
+            <p class="listings-description">{{listing.description}}</p>
+
+            {% if bid == None %}
+                <h4>Minimum bid: ${{listing.minBid}}</h4>
             {% else %}
-                <button type="submit" class="btn btn-primary mt-3" disabled>Login required</button>
-            {%endif%}
-        </form>
+                <h4 style="display: inline-block;">
+                    ${{bid.bid}}
+                </h4>
+
+                {% if user.is_authenticated and user.id == listing.FK_user.id and listing.is_close == False %}
+                    <form action="{% url 'close_listing' listing.id%}" method="POST" style="display: inline-block;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary btn-sm">Close listing with the current bid</button>
+                    </form>
+                {% elif user.is_authenticated and bid != None and listing.is_close == True%}
+                    
+                    {% if user.id == listing.winner_id%}
+                        <h4 style="display: inline-block;"> - You Won!</h4>
+                    {% endif %}
+                {%endif%}
+            {% endif %}
+            <form class="responsive-form" action="{% url 'new_bid' listing.id %}" method="post">
+                {% csrf_token %}
+
+                {% if bid == None %}
+                    <div class="small-text">No bids yet.</div>
+                    <input class="form-control" type="number" step="0.01" min="{{listing.minBid}}" name="bid" placeholder="Bid">
+                {% else %}
+                    <div class="small-text">{{listing.bidsUntilNow}} bid(s) so far. {% if user.is_authenticated and user.id == bid.FK_user.id %} Yor bid is the current bid {%endif%}</div>
+                    <input class="form-control" type="number" step="0.01" min="{{bid.bid}}" name="bid" placeholder="Bid">
+                {% endif %}
+
+                {% if listing.is_close == False%}           
+                    {% if user.is_authenticated %}
+                        <button type="submit" class="btn btn-primary mt-3" >Place Bid</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary mt-3" disabled>Login required</button>
+                    {%endif%}
+                {%endif%}
+            </form>
+        </div>
+        <div class="container-comments">
+
+            {% if comments %}
+                <h3>Comments:</h3>
+                <div class="container-comments-boxes">
+                    {% for i in comments%}
+                        <div class="comment-box mb-2">
+                            <pre>{{i.comment}}</pre>    
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p> No comments yet, be the first to comment :)</p>
+            {% endif %}
+
+            {% if listing.is_close == False %}
+                <form action="{% url 'add_comment' listing.id%}" method="POST">
+                    {% csrf_token %}
+                    <div class="textarea-container">
+
+                        {% if user.is_authenticated %}
+                            <textarea class="form-control " rows="3" name="comment" placeholder="Write a comment..." maxlength="240"></textarea>
+                            <button type="submit" class="textarea-button">&#11153;</button>
+                        {% else %}
+                            <textarea class="form-control " rows="3" name="comment" placeholder="Write a comment... (Login required)"></textarea>
+                        {%endif%}
+                    </div>
+                </form>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
+
