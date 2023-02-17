@@ -15,7 +15,12 @@ from .models import Bids, Comments, Listings, User, WatchList
 # Listings models has a Title, description, imageUrl(optional), category(optional), FK_user
 
 def index(request):
-    return render(request, "auctions/index.html")
+    active_listings = Listings.objects.filter(is_close=False)
+    if len(active_listings) > 0:
+        context = {'active_listings': active_listings}
+    else:
+        context = {'active_listings': None}
+    return render(request, "auctions/index.html", context)
 
 
 def login_view(request):
@@ -69,6 +74,7 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
+@login_required
 def new_listing(request):
     # Decimal library config 
     getcontext().prec = 2
@@ -89,6 +95,7 @@ def new_listing(request):
             l_db = Listings(title=data.title, description=data.description, imageUrl=data.url, category=data.category,
              FK_user=request.user, minBid=data.bid)
             l_db.save()
+            return HttpResponseRedirect(reverse("listing_page", args=[l_db.id]))
         
     return render(request, "auctions/newListing.html", {"messages": errors})
 
@@ -140,6 +147,7 @@ def new_bid(request, list_pk):
             bid_register.save()
             listing_data.bidsUntilNow += 1
             listing_data.save()
+            return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
         elif len(has_bid) == 0 and bid < listing_data.minBid:
             messages.error(request, 'Bid Must be greater than the minimum bid.')
             return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
@@ -147,7 +155,7 @@ def new_bid(request, list_pk):
         # If it has another bid check the lastest to find out if it's bigger or not. 
         last_bid = Bids.objects.filter(FK_list__pk=list_pk).latest('bid')
         if bid <= last_bid.bid:
-            messages.error(request, 'Bid Must be greater than the currently bid.')
+            messages.error(request, 'Bid Must be greater than the current bid.')
             return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
         else:
             bid_register = Bids(bid=bid, FK_list=listing_data, FK_user=current_user)
@@ -207,3 +215,14 @@ def close_listing(request, list_pk):
             list_to_close.is_close = True
             list_to_close.save()
     return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
+
+
+@login_required
+def my_watch_list(request):
+    current_user = request.user
+    watchlist_data = WatchList.objects.filter(FK_user__id=current_user.id)
+    if len(watchlist_data) > 0:
+        context = {'watch_listings': watchlist_data}
+    else:
+        context = {'watch_listings': None}
+    return render(request, "auctions/watchlist.html", context)

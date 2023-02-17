@@ -3,5 +3,22 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    <div class="container-index">
+    {% if active_listings == None %}
+        <p>No active listings by now, would like to try?</p>
+    {% else %}
+        {% for listing in active_listings %}
+            <a href="{% url 'listing_page' listing.id %}" class="active-listing">
+                {% if listing.imageUrl != "" %}
+                    <div class="active-listing-image" style="background-image: url('{{listing.imageUrl}}');"></div>
+                {% endif %}
+                <div class="active-listing-details">
+                    <h4>{{listing.title}}</h4>
+                    <p class="index-description">Price: ${{listing.price}}</p>
+                    <p class="index-description">{{listing.description}}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+    </div>
 {% endblock %}

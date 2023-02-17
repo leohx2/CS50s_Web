@@ -13,6 +13,42 @@ body {
     padding: 10px;
 }
 
+.container-index {
+    display: flex;
+    flex-direction: column;
+}
+
+.active-listing {
+    border: solid 1px lightgray;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 10px;
+    overflow-y: scroll;
+    padding: 5px;
+    color: inherit;
+}
+
+.active-listing:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.active-listing-image{
+    background-position:50% 50%;
+    background-repeat: no-repeat;
+    background-size:contain;
+    border-radius: 10px;
+    height: 300px;
+    margin-right: 30px;
+    width: 300px;
+}
+
+.active-listing-details {
+    margin: 30px 10px 30px 10px;
+    vertical-align: middle;
+}
+
 .small-text{
     color: rgb(116, 116, 116);
     font-size: 0.70rem;
@@ -82,8 +118,15 @@ pre{
 }
 
 @media only screen and (min-width: 991px) {
+    .active-listing {
+        flex-direction: row;
+        min-height: 200px;
+    }
     .responsive-form {
         width: 90%;
+    }
+    .responsive-form.new-listing {
+        width: 50%;
     }
     .img-container {
         width: 90%;

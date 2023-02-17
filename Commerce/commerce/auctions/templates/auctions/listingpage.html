@@ -8,11 +8,14 @@ Auctions: {{listing.title}}
 {% block body %}
     <div class="container-flex ml-3">
         <div class="container-listing">
-
             {% if listing.is_close == True %}
                 <h2> <del>Listing: {{listing.title}}</del> - CLOSED</h2>
             {% else %}
-                <h2> Listing: {{listing.title}}</h2>
+
+                {% if listing.category != "" %}
+                    <h2> Listing: {{listing.title}}</h2>
+                    <p style="font-size: 0.875rem;">Category: {{listing.category}}</p>
+                {% endif %}
             {% endif %}
 
             {% if user.is_authenticated %}
@@ -35,24 +38,24 @@ Auctions: {{listing.title}}
             <p class="listings-description">{{listing.description}}</p>
 
             {% if bid == None %}
-                <h4>Minimum bid: ${{listing.minBid}}</h4>
+                <h4 style="display: inline-block;">Minimum bid: ${{listing.minBid}}</h4>
             {% else %}
                 <h4 style="display: inline-block;">
                     ${{bid.bid}}
                 </h4>
-
-                {% if user.is_authenticated and user.id == listing.FK_user.id and listing.is_close == False %}
-                    <form action="{% url 'close_listing' listing.id%}" method="POST" style="display: inline-block;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-secondary btn-sm">Close listing with the current bid</button>
-                    </form>
-                {% elif user.is_authenticated and bid != None and listing.is_close == True%}
-                    
-                    {% if user.id == listing.winner_id%}
-                        <h4 style="display: inline-block;"> - You Won!</h4>
-                    {% endif %}
-                {%endif%}
             {% endif %}
+
+            {% if user.is_authenticated and user.id == listing.FK_user.id and listing.is_close == False %}
+                <form action="{% url 'close_listing' listing.id%}" method="POST" style="display: inline-block;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary btn-sm">Close listing</button>
+                </form>
+            {% elif user.is_authenticated and bid != None and listing.is_close == True%}
+                
+                {% if user.id == listing.winner_id%}
+                    <h4 style="display: inline-block;"> - You Won!</h4>
+                {% endif %}
+            {%endif%}
             <form class="responsive-form" action="{% url 'new_bid' listing.id %}" method="post">
                 {% csrf_token %}
 

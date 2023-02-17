@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <form class="row g-3 responsive-form" action="{% url 'new_listing' %}" method="post">
+    <form class="row g-3 responsive-form new-listing" action="{% url 'new_listing' %}" method="post">
         {% csrf_token %}
         <div class="col-12 mb-3">
             <label class="form-label" for="inputTitle">Title</label>
