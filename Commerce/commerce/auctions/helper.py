@@ -1,3 +1,5 @@
+from .models import Bids
+
 
 # Listing class works to make it easier to have all the LISTINGS requiraments together,making it easier to
 # find errors or pass all the items to a validate function.
@@ -22,3 +24,4 @@ class ListingClass():
             errors.append("Invalid category, this field can be empty or need to have more than 2 characters.")
        
         return errors
+

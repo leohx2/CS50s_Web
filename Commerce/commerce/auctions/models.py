@@ -10,7 +10,7 @@ class Listings(models.Model):
     category = models.CharField(max_length=30, blank=True, null=True)
     description = models.CharField(max_length=300)
     imageUrl = models.URLField(blank=True, null=True)
-    minBid = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    currentBid = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     title = models.CharField(max_length=64)
     winner_id = models.IntegerField(blank=True, null=True)
     is_close = models.BooleanField(default=False)

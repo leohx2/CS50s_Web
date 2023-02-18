@@ -15,6 +15,8 @@ from .models import Bids, Comments, Listings, User, WatchList
 # Listings models has a Title, description, imageUrl(optional), category(optional), FK_user
 
 def index(request):
+
+    # Getting all the active_listings
     active_listings = Listings.objects.filter(is_close=False)
     if len(active_listings) > 0:
         context = {'active_listings': active_listings}
@@ -42,6 +44,7 @@ def login_view(request):
         return render(request, "auctions/login.html")
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
@@ -76,24 +79,29 @@ def register(request):
 
 @login_required
 def new_listing(request):
+
     # Decimal library config 
     getcontext().prec = 2
     errors = []
     if request.method == "POST":
+
         # class init -> def __init__(self, title, description, bid, category=None, url=None):
         data = ListingClass(request.POST["title"], request.POST["description"], 
             Decimal(request.POST["bid"]), request.POST["category"], request.POST["url"])
+
         # data.valid_data returns a list with all errors detected, if errors len == 0 means it has no errors
         errors = data.valid_data()
         if len(errors) > 0:
+
             # If there is an error refresh the page and display a message.
             for i in errors:
                 messages.error(request, i)
             return render(request, "auctions/newListing.html")
         else:
+
             # if no erros were found we can now create the listing db
             l_db = Listings(title=data.title, description=data.description, imageUrl=data.url, category=data.category,
-             FK_user=request.user, minBid=data.bid)
+             FK_user=request.user, currentBid=data.bid)
             l_db.save()
             return HttpResponseRedirect(reverse("listing_page", args=[l_db.id]))
         
@@ -107,19 +115,23 @@ def listing_page(request, list_pk):
     comments = Comments.objects.filter(FK_list__pk=list_pk).order_by('-id')
     if request.user.id:
         w_data = WatchList.objects.filter(Q(FK_user=request.user) & Q(FK_list__pk=list_pk))
+        
         # By getting the len of w_data we can know if there is a watchlist selecte by the user or not
         # Len == 0 -> no results Len == 1 -> already added to watchlist. By using filter and not get it's avoid a error
         # It's possible to use get to avoid the step bellow but it's necessary to use a try: Exception:
         if len(w_data) > 0:
             context = {"watchList": True}
     if len(listing_data) == 0:
+
         # if there is no Listing with that id (primary key) returns to index with a message error
         messages.error(request, 'Listing not found.')
         return HttpResponseRedirect(reverse("index"))
     elif len(listing_data) > 0 and len(bid_data) == 0:
+
         # if there is a list without bids context gets the listing and bid gets a None value, check the html file to understand that part
         context.update({'listing': listing_data[0], 'bid':None})
     else:
+
         # If there is a list with bid the last bid is loaded it's never possible to add a new bid lower than the previous so the lastest is also the higher 
         context.update({'listing': listing_data[0], 'bid':Bids.objects.filter(FK_list__pk=list_pk).latest('bid')})
 
@@ -141,14 +153,15 @@ def new_bid(request, list_pk):
 
         bid = Decimal(request.POST["bid"])
         has_bid = Bids.objects.filter(FK_list__pk=list_pk)
-        # If this is the first bid and the bid is greater or equal to the minBid, register the bid, otherwhise error.
-        if len(has_bid) == 0 and bid >= listing_data.minBid:
+        # If this is the first bid and the bid is greater or equal to the currentBid, register the bid, otherwhise error.
+        if len(has_bid) == 0 and bid >= listing_data.currentBid:
             bid_register = Bids(bid=bid, FK_list=listing_data, FK_user=current_user)
             bid_register.save()
             listing_data.bidsUntilNow += 1
+            listing_data.currentBid = bid
             listing_data.save()
             return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
-        elif len(has_bid) == 0 and bid < listing_data.minBid:
+        elif len(has_bid) == 0 and bid < listing_data.currentBid:
             messages.error(request, 'Bid Must be greater than the minimum bid.')
             return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
         
@@ -161,6 +174,7 @@ def new_bid(request, list_pk):
             bid_register = Bids(bid=bid, FK_list=listing_data, FK_user=current_user)
             bid_register.save()
             listing_data.bidsUntilNow += 1
+            listing_data.currentBid = bid
             listing_data.save()
 
     return HttpResponseRedirect(reverse('listing_page', args=[list_pk]))
@@ -223,6 +237,8 @@ def my_watch_list(request):
     watchlist_data = WatchList.objects.filter(FK_user__id=current_user.id)
     if len(watchlist_data) > 0:
         context = {'watch_listings': watchlist_data}
+        print(watchlist_data)
     else:
         context = {'watch_listings': None}
     return render(request, "auctions/watchlist.html", context)
+
