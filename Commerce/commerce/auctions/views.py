@@ -85,9 +85,10 @@ def new_listing(request):
     errors = []
     if request.method == "POST":
 
+        category_from_user = str(request.POST["category"])
         # class init -> def __init__(self, title, description, bid, category=None, url=None):
         data = ListingClass(request.POST["title"], request.POST["description"], 
-            Decimal(request.POST["bid"]), request.POST["category"], request.POST["url"])
+            Decimal(request.POST["bid"]), category_from_user.capitalize(), request.POST["url"])
 
         # data.valid_data returns a list with all errors detected, if errors len == 0 means it has no errors
         errors = data.valid_data()
@@ -237,8 +238,33 @@ def my_watch_list(request):
     watchlist_data = WatchList.objects.filter(FK_user__id=current_user.id)
     if len(watchlist_data) > 0:
         context = {'watch_listings': watchlist_data}
-        print(watchlist_data)
     else:
         context = {'watch_listings': None}
     return render(request, "auctions/watchlist.html", context)
 
+
+def render_categories(request, category):
+    context = {}
+    if category == "all":
+        listings = Listings.objects.values('category').distinct().exclude(category="")
+        categories = []
+        for listing in listings:
+            categories.append(listing["category"])
+        categories.sort()
+        context.update({"categories": categories})
+
+        # Case == 1 means the user asked for all the categories
+        context.update({"case": 1})
+    else:
+        listings = Listings.objects.filter(Q(category=category) & Q(is_close=False))
+        if len(listings) == 0:
+            messages.error(request, "Category not found.")
+            return HttpResponseRedirect(reverse('categories', args=["all"]))
+        context.update({"listings": listings})
+        context.update({"category": category})
+
+
+        # Case == " means the user clicked on a category and it will display all of listings on this category"
+        context.update({"case": 2})
+
+    return render(request, "auctions/categories.html", context)

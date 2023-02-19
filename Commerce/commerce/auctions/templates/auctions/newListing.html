@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+    <h2 class="title-page">New Listing</h2>
+    
     <form class="row g-3 responsive-form new-listing" action="{% url 'new_listing' %}" method="post">
         {% csrf_token %}
         <div class="col-12 mb-3">

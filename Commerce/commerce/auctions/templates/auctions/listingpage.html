@@ -22,9 +22,16 @@ Auctions: {{listing.title}}
                     {% csrf_token %}
 
                     {% if watchList == True %}
-                        <button class="btn btn-primary btn-sm" type="submit" formaction="{% url 'watchlist' listing.id 'remove' %}">Remove from watchlist</button>
+                        <button class="btn btn-secondary btn-sm" type="submit" formaction="{% url 'watchlist' listing.id 'remove' %}">
+                            <i class="fa-solid fa-eye-slash"></i>
+                            <span>Remove</span>
+                        </button>
                     {% else %}
-                        <button class="btn btn-primary btn-sm" type="submit" formaction="{% url 'watchlist' listing.id 'add' %}">Watchlist</button>
+                        <button class="btn btn-primary btn-sm" type="submit" formaction="{% url 'watchlist' listing.id 'add' %}">
+                            <i class="fa-solid fa-eye">
+                            </i>
+                            <span>Watchlist</span>
+                        </button>
                     {% endif %}
                 </form>
             {% endif %}
