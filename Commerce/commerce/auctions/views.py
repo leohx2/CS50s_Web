@@ -249,7 +249,7 @@ def render_categories(request, category):
         listings = Listings.objects.values('category').distinct().exclude(category="")
         categories = []
         for listing in listings:
-            categories.append(listing["category"])
+            categories.append(str(listing["category"]))
         categories.sort()
         context.update({"categories": categories})
 
