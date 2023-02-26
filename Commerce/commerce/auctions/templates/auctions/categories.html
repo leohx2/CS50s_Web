@@ -9,9 +9,11 @@ Auctions: Categories
         <h2 class="title-page">Categories</h2>
         <ul class="categories-ul">
             {% for category in categories%}
-                <li class="categories-li">
-                    <a class="categories-link" href="{% url 'categories' category%}"> {{ category }} </a>
-                </li>
+                {% if category != "None" %}
+                    <li class="categories-li">
+                        <a class="categories-link" href="{% url 'categories' category%}"> {{ category }} </a>
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
     {% else %}
