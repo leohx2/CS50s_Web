@@ -11,7 +11,7 @@ Auctions: {{listing.title}}
                 <h2> <del>Listing: {{listing.title}}</del> - CLOSED</h2>
             {% else %}
 
-                {% if listing.category != "" %}
+                {% if listing.category != "" and listing.category != None %}
                     <h2> Listing: {{listing.title}}</h2>
                     <p style="font-size: 0.875rem;">Category: {{listing.category}}</p>
                 {% endif %}
@@ -36,7 +36,7 @@ Auctions: {{listing.title}}
                 </form>
             {% endif %}
 
-            {% if listing.imageUrl != "" %}
+            {% if listing.imageUrl != ""  and listing.imageUrl != none %}
                 <div class="img-container mb-3">
                     <img class="img-fluid" src="{{listing.imageUrl}}">
                 </div>

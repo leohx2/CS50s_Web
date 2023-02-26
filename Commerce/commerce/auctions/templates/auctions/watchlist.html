@@ -9,12 +9,14 @@
     {% else %}
         {% for listing in watch_listings %}
             <a href="{% url 'listing_page' listing.FK_list.id %}" class="active-listing">
-                {% if listing.imageUrl != "" %}
+                {% if listing.FK_list.imageUrl != "" and listing.FK_list.imageUrl != none%}
                     <div class="active-listing-image" style="background-image: url('{{listing.FK_list.imageUrl}}');"></div>
+                {% else %}
+                    <div class="active-listing-image" style="background-image: url('https://web.ipca.pt/sap/wp-content/codevision/resources/images/no-image.jpg');"></div>
                 {% endif %}
                 <div class="active-listing-details">
                     <h4>{{listing.FK_list.title}}</h4>
-                    <p class="index-description">Price: ${{listing.FK_list.currentBid}}</p>
+                    <p class="index-description price">Price: ${{listing.FK_list.currentBid}}</p>
                     <p class="index-description">{{listing.FK_list.description}}</p>
                 </div>
             </a>

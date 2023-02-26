@@ -19,12 +19,14 @@ Auctions: Categories
         <div class="container-index">
             {% for listing in listings %}
                 <a href="{% url 'listing_page' listing.id %}" class="active-listing">
-                    {% if listing.imageUrl != "" %}
+                    {% if listing.imageUrl != ""  and listing.imageUrl != none %}
                         <div class="active-listing-image" style="background-image: url('{{listing.imageUrl}}');"></div>
+                    {% else %}
+                        <div class="active-listing-image" style="background-image: url('https://web.ipca.pt/sap/wp-content/codevision/resources/images/no-image.jpg');"></div>
                     {% endif %}
                     <div class="active-listing-details">
                         <h4>{{listing.title}}</h4>
-                        <p class="index-description">Price: ${{listing.currentBid}}</p>
+                        <p class="index-description price">Price: ${{listing.currentBid}}</p>
                         <p class="index-description">{{listing.description}}</p>
                     </div>
                 </a>
