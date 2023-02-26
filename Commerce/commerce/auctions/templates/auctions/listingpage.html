@@ -8,12 +8,14 @@ Auctions: {{listing.title}}
     <div class="container-flex ml-3">
         <div class="container-listing">
             {% if listing.is_close == True %}
-                <h2> <del>Listing: {{listing.title}}</del> - CLOSED</h2>
+                <h2> <del>{{listing.title}}</del> - CLOSED</h2>
             {% else %}
 
                 {% if listing.category != "" and listing.category != None %}
-                    <h2> Listing: {{listing.title}}</h2>
+                    <h2> {{listing.title}}</h2>
                     <p style="font-size: 0.875rem;">Category: {{listing.category}}</p>
+                {% else %}
+                    <h2> {{listing.title}}</h2>
                 {% endif %}
             {% endif %}
 
@@ -39,6 +41,10 @@ Auctions: {{listing.title}}
             {% if listing.imageUrl != ""  and listing.imageUrl != none %}
                 <div class="img-container mb-3">
                     <img class="img-fluid" src="{{listing.imageUrl}}">
+                </div>
+            {% else %}
+                <div class="img-container mb-3">
+                    <img class="img-fluid" src="https://web.ipca.pt/sap/wp-content/codevision/resources/images/no-image.jpg">
                 </div>
             {% endif %}
             <p class="listings-description">{{listing.description}}</p>
