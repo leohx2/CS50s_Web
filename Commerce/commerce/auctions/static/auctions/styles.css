@@ -23,6 +23,7 @@ main {
 
 .title-page {
     margin-left: 10px;
+    margin-bottom: 20px;
 }
 
 .navbar {
@@ -114,7 +115,6 @@ main {
     margin: 10px;
     padding: 5px;
     transition: all 200ms ease;
-    
     width: 325px;
 }
 
