@@ -224,7 +224,7 @@ def close_listing(request, list_pk):
             bid_owner = Bids.objects.filter(FK_list=list_to_close)
             if len(bid_owner) > 0:
                 bid_owner = Bids.objects.filter(FK_list=list_to_close).latest('bid')
-                list_to_close.winner_id = current_user.id
+                list_to_close.winner_id = bid_owner.FK_user.id
             else:
                 bid_owner = None
             list_to_close.is_close = True
