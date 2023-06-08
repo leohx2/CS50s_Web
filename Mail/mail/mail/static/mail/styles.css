@@ -1,0 +1,58 @@
+textarea {
+    min-height: 400px !important;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.emails-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.email {
+    background-color: #FFF;
+    border: 1px solid #aeaeae;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 1em;
+    transition: 0.2s ease-in-out;
+}
+
+.email:hover, .email.read:hover {
+    background-color: rgba(245, 245, 245, 0.86);
+}
+
+.email.read {
+    background-color: rgb(237, 237, 237);
+}
+
+.email.read span{
+    font-size: 1em;
+    font-weight: 600 ;
+}
+
+.sender_subject span {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.timestamp span {
+    color: gray
+}
+
+.emailPageDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.emailPageDetails span {
+    font-weight: bold;
+    font-size: 1.1em;
+}
