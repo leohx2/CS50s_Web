@@ -72,31 +72,60 @@ async function renderEmail(id) {
         })
     }) 
 }
+ 
+async function archiveEmail(Event, container, email, mode) {
+    Event.stopImmediatePropagation()
+    container.classList.add("archive_animation")
+    container.addEventListener("animationend", async () => {
+        await fetch(`/emails/${email.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                archived: !email.archived
+            })
+          })
+        load_mailbox(mode)
+    })
+}
 
 async function renderInboxOrSentPage(container, mode="inbox") {
+
     // Starting with a try catch to fetch the e-mails to render
     try {
         const response_get_email = await fetch(`/emails/${mode}`)
         const json_get_email = await response_get_email.json()
-        json_get_email.reverse().map((email) => {
+        let filtered
+        if (mode === "archive") {
+            filtered = json_get_email.filter((email => email.archived === true))
+        }
+        else {
+            filtered = json_get_email.filter((email => email.archived === false))
+        }
+        filtered.reverse().map((email, index) => {
             container.insertAdjacentHTML(
                 // The map will render all the e-mails one by one and it can be read already or not
                 // the onClick will redirec us to the e-mail page with their specific content.
                 "afterbegin",
-                `<div 
-                    ${email.read || mode==="sent" ? 'class="email read"': 'class="email"'}
-                    onClick="renderEmail(${email.id})">
+                `<div ${email.read || mode==="sent" ? 'class="email read"': 'class="email"'}
+                    id="emailInboxDiv${index}">
                     <div class="sender_subject">
                         <p>
                             <span>${email.sender}</span>
                             ${email.subject}
                         </p>
                     </div>
-                    <div class="timestamp">
-                        <p><span>${email.timestamp}</span></p>
+                    <div class="timestampAndArchive">
+                        <div class="timestamp">
+                            <span class=${mode === "sent" ? "noBorder": ""}>${email.timestamp}</span>
+                        </div>
+                        <button class=${mode === "sent" ? "displayNone" : "archivebtn"} id="archiveBtn${index}">
+                            <img src=${mode === "inbox" ? "../static/mail/archive.png" :"../static/mail/unarchive.png"}/>
+                        </button>
                     </div>
                 </div>`
                 )
+                // Adding event Listeners
+                document.querySelector(`#emailInboxDiv${index}`).addEventListener('click', () => renderEmail(email.id))
+                document.querySelector(`#archiveBtn${index}`).addEventListener('click', (Event) => archiveEmail(Event, document.querySelector(`#emailInboxDiv${index}`), email, mode))
         })
     } catch (error) {
         console.log(error)
@@ -134,7 +163,7 @@ function load_mailbox(mailbox) {
         renderInboxOrSentPage(container, mode="sent")
         break;
     case "archive":
-        console.log("not done yet too")
+        renderInboxOrSentPage(container, mode="archive")
         break;
     default:
         renderInboxOrSentPage(container)
