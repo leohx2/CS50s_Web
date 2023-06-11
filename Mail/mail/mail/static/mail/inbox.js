@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
-  document.querySelector('#compose').addEventListener('click', compose_email);
+  document.querySelector('#compose').addEventListener('click', () => compose_email("send"));
 
   // Adding event listener to our form to prevent the deafult behavior and do not refreshing the page
   document.querySelector('#compose-form').addEventListener('submit', form_submited)
@@ -27,31 +27,52 @@ function switch_view(view) {
     document.querySelector('#compose-view').style.display = (view === '#compose-view' ? 'block' : 'none');
 }
 
-function compose_email() {
+function reply_email(email) {
+    // Rendering the reply compose_email layout
+    // Creating the body structure
+    const body = `On ${email.timestamp} ${email.sender} wrote: \n${email.body}`
 
-  // Show compose view and hide other views
-  switch_view('#compose-view')
+    // Removing any initial space from subject and checking if is there already an "RE:"
+    email.subject = email.subject.trimStart()
+    const subject = (email.subject.startsWith("RE: ") ? email.subject : `RE: ${email.subject}`)
 
-  clear_out()
+    // Rendering with the current value
+    document.querySelector('#compose-recipients').value = email.sender;
+    document.querySelector('#compose-subject').value = subject;
+    document.querySelector('#compose-body').value = body;
+
 }
 
-async function renderEmail(id) {
+function compose_email(mode, email=null) {
+
+    // Show compose view and hide other views
+    switch_view('#compose-view')
+    console.log(mode)
+    if (mode==="send")
+    {
+        clear_out()
+    } else if (mode === "reply") {
+        reply_email(email)
+    }
+}
+
+async function renderEmail(email) {
     // preparing the email page to render.
     switch_view('#email-page-view')
 
     // Selecting everything we need to fill the email page
     const emailDetails = document.querySelector('.emailPageDetails')
     const emailBody = document.querySelector('.emailPageBody')
-    const res = await fetch(`/emails/${id}`)
+    const res = await fetch(`/emails/${email.id}`)
     const json_res = await res.json()
 
-    // Insert the page details
+    // Insert the page details and the button replyBtn
     emailDetails.innerHTML = `
         <p>
             <span>From: </span>${json_res.sender}
         </p>
         <p>
-            <span>To: </span>${json_res.recipients[0]}
+            <span>To: </span>${json_res.recipients}
         </p>
         <p>
             <span>Subject: </span>${json_res.subject}
@@ -59,13 +80,18 @@ async function renderEmail(id) {
         <p>
             <span>Timestamp: </span>${json_res.timestamp}
         </p>
+        <button id="replyBtn" class="btn btn-sm btn-outline-primary">
+        Reply
+        </button>
     `
     emailBody.innerHTML = `
         <pre>${json_res.body}</pre>
     `
 
+    // Adding the reply click eventListener
+    document.querySelector('#replyBtn').addEventListener('click', () => compose_email(mode="reply", email=email))
     // Setting email as read
-    await fetch(`/emails/${id}`, {
+    await fetch(`/emails/${email.id}`, {
         method: 'PUT',
         body: JSON.stringify({
             read: true
@@ -73,7 +99,7 @@ async function renderEmail(id) {
     }) 
 }
  
-async function archiveEmail(Event, container, email, mode) {
+async function archiveEmail(Event, container, email) {
     Event.stopImmediatePropagation()
     container.classList.add("archive_animation")
     container.addEventListener("animationend", async () => {
@@ -83,7 +109,7 @@ async function archiveEmail(Event, container, email, mode) {
                 archived: !email.archived
             })
           })
-        load_mailbox(mode)
+        load_mailbox("inbox")
     })
 }
 
@@ -124,8 +150,8 @@ async function renderInboxOrSentPage(container, mode="inbox") {
                 </div>`
                 )
                 // Adding event Listeners
-                document.querySelector(`#emailInboxDiv${index}`).addEventListener('click', () => renderEmail(email.id))
-                document.querySelector(`#archiveBtn${index}`).addEventListener('click', (Event) => archiveEmail(Event, document.querySelector(`#emailInboxDiv${index}`), email, mode))
+                document.querySelector(`#emailInboxDiv${index}`).addEventListener('click', () => renderEmail(email))
+                document.querySelector(`#archiveBtn${index}`).addEventListener('click', (Event) => archiveEmail(Event, document.querySelector(`#emailInboxDiv${index}`), email))
         })
     } catch (error) {
         console.log(error)
@@ -185,7 +211,7 @@ function checking_res(response) {
     else {
         // To get here everything should be fine, now we clear that out and redirect to inbox
         clear_out()
-        load_mailbox('inbox')
+        load_mailbox('sent')
     }
 }
 

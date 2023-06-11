@@ -95,7 +95,7 @@ p {
 
 .archive_animation {
     animation: archiving 0.2s forwards;
-    transition: ease-in-out;
+    transition: ease-out;
 }
 
 @keyframes archiving {
@@ -112,4 +112,8 @@ p {
 
 .displayNone {
     display: none;
+}
+
+#replyBtn {
+    width: fit-content;
 }
