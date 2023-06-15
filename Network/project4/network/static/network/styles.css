@@ -1,0 +1,48 @@
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+
+}
+
+::-webkit-scrollbar-track{
+    background-color: #05c19b5a;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #00e6a5b1; 
+}
+
+input:focus{
+    outline: none !important;
+    box-shadow:0 0 3px #00AC7C !important;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: #FFF !important;
+    box-shadow: 0px 5px 5px -4px #C6C6C6;
+}
+
+.nav-item.active {
+    border-bottom: solid 2px #05C19C;
+    border-radius: 1px;
+}
+
+.MyBtn {
+    background-color: #05C19C;
+    border: none;
+    border-radius: 5px;
+    color: #FFF;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.MyBtn:hover {
+    background-color: #00AC7C;
+}
