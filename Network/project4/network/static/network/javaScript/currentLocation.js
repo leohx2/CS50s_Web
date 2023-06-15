@@ -3,39 +3,41 @@ function getCurrentURL () {
 }
 
 function attActiveClass(allContainers, keep) {
-    allContainers.map((container) => {
-        if (container !== null) {
-            if (container !== keep && container.classList.contains('active'))
+    for (container in allContainers)
+    {
+        if (allContainers[container] !== null) {
+            if (allContainers[container] !== keep && allContainers[container].classList.contains('active'))
             {
-                container.classList.remove("active")
-            } else if (container === keep && !container.classList.contains('active')) {
-                container.classList.add("active")
+                allContainers[container].classList.remove("active")
+            } else if (allContainers[container] === keep && !allContainers[container].classList.contains('active')) {
+                allContainers[container].classList.add("active")
             }
         }
-    })
+    }
 }
 
 function insertActiveClass(currentUrl, allContainers) {
     switch(currentUrl){
         case 'http://127.0.0.1:8000/':
-            attActiveClass(allContainers, document.getElementById('allPosts'))
+            attActiveClass(allContainers, allContainers.allPosts)
             break;
         case 'http://127.0.0.1:8000/login':
-            attActiveClass(allContainers, document.getElementById('Log In'))
+            attActiveClass(allContainers, allContainers.logIn)
             break;
         case 'http://127.0.0.1:8000/register':
-            attActiveClass(allContainers, document.getElementById('Register'))
+            attActiveClass(allContainers, allContainers.register)
             break;
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     const allContainers = 
-    [
-        document.getElementById('allPosts'),
-        document.getElementById('Following'),
-        document.getElementById('Log In'),
-        document.getElementById('Register')
-    ]
+    {
+        allPosts: document.getElementById('allPosts'),
+        following: document.getElementById('Following'),
+        logIn: document.getElementById('Log In'),
+        register: document.getElementById('Register')
+    }
+
     insertActiveClass(getCurrentURL(), allContainers)
 })

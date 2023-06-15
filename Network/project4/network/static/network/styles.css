@@ -23,6 +23,10 @@ a:hover {
     text-decoration: none;
 }
 
+h2 {
+    letter-spacing: -0.03em;
+}
+
 .navbar {
     background-color: #FFF !important;
     box-shadow: 0px 5px 5px -4px #C6C6C6;
