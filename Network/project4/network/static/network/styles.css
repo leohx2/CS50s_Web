@@ -29,7 +29,7 @@ h2 {
 
 .navbar {
     background-color: #FFF !important;
-    box-shadow: 0px 5px 5px -4px #C6C6C6;
+    box-shadow: 0px 5px 5px -4px rgb(177, 177, 177);
 }
 
 .nav-item.active {

@@ -7,7 +7,29 @@
 {% endblock %}
 
 {% block body %}
-    <div class="containerIndex">
-        TODO
+    <div class="indexBackgroud">
+        <div class="containerIndex flexColumn">
+            {% if user.is_authenticated %}
+                <div class="newPost flexColumn">
+                    <p>New Post</p>
+                    <form class="flexColumn" action="{% url 'newPost' %}" method="post">
+                        {% csrf_token %}
+                        <textarea placeholder="Share your thoughts here..." name="postContent" maxlength="340"></textarea>
+                        <input type="submit" class="MyBtn" value="Share">
+                    </form>
+                </div>
+            {%endif%}
+            {% for post in posts %}
+                <div class="post">
+                    <div class="usernameAndTimestamp">
+                        <p class="postUserName">{{post.FK_user.username}}</p>
+                        <p class="postTimestamp"> {{post.timestamp}} </p>
+                    </div>
+                    <pre>{{post.content}}</pre>
+                    <button>&#9825;</button>
+                    <!-- <button style="color:red ;">&hearts;</button> -->
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

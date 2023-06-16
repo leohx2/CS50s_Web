@@ -18,14 +18,14 @@ function attActiveClass(allContainers, keep) {
 
 function insertActiveClass(currentUrl, allContainers) {
     switch(currentUrl){
-        case 'http://127.0.0.1:8000/':
-            attActiveClass(allContainers, allContainers.allPosts)
-            break;
         case 'http://127.0.0.1:8000/login':
             attActiveClass(allContainers, allContainers.logIn)
             break;
         case 'http://127.0.0.1:8000/register':
             attActiveClass(allContainers, allContainers.register)
+            break;
+        default:
+            attActiveClass(allContainers, allContainers.allPosts)
             break;
     }
 }

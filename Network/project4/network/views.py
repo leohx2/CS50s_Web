@@ -1,14 +1,20 @@
+import datetime
+
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import Posts, User
 
 
 def index(request):
-    return render(request, "network/index.html")
+    posts = Posts.objects.all()
+    for post in posts:
+        print(f'\n{post.FK_user.username}\t {post.content}\t {post.timestamp} \t {post.likes}\n')
+    context = {'posts': posts}
+    return render(request, "network/index.html", context)
 
 
 def login_view(request):
@@ -61,3 +67,15 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+# Send data 
+def newPost(request):
+    user = request.user
+    if request.method == "POST" and user:
+        post_content = request.POST["postContent"]
+        
+        # Creating a post
+        post = Posts(FK_user=user, content=post_content.rstrip(), timestamp=datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+        post.save()
+        # Todo -> adding error handling, like no user, blank fields, maxlen 
+    return HttpResponseRedirect(reverse("index"))
