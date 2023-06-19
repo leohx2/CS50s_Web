@@ -3,16 +3,26 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username
+        }
 
 class Posts(models.Model):
     content = models.CharField(max_length=340)
     timestamp = models.CharField(max_length=50)
-    likes = models.IntegerField(default=0)
+    FK_likes_from_users = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes_posts", blank=True, null=True)
     FK_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_posts")
-
-    def __str__(self):
-        return f'Post - "{self.id}", user - {self.FK_user.username}'
+    
+    def serialize(self):
+        return {
+            'id': self.id,
+            'content': self.content,
+            'timestamp': self.timestamp,
+            'users_likes': [self.FK_user.id for likes in self.FK_likes_from_users] if self.FK_likes_from_users else None,
+            'username': self.FK_user.username
+        }
 
 class Comments(models.Model):
     comments = models.ManyToManyField(Posts, related_name="comments")

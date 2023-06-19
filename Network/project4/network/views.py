@@ -1,8 +1,9 @@
 import datetime
+import json
 
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -11,8 +12,6 @@ from .models import Posts, User
 
 def index(request):
     posts = Posts.objects.all()
-    for post in posts:
-        print(f'\n{post.FK_user.username}\t {post.content}\t {post.timestamp} \t {post.likes}\n')
     context = {'posts': posts}
     return render(request, "network/index.html", context)
 
@@ -68,7 +67,7 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
-# Send data 
+# Creating a new Post
 def newPost(request):
     user = request.user
     if request.method == "POST" and user:
@@ -79,3 +78,11 @@ def newPost(request):
         post.save()
         # Todo -> adding error handling, like no user, blank fields, maxlen 
     return HttpResponseRedirect(reverse("index"))
+
+def infoPost(request):
+    user = request.user
+    posts = Posts.objects.all()
+    data = [post.serialize() for post in posts]
+    data.append(user.serialize())
+    print(f"\n\n{data}\n\n")
+    return JsonResponse(data, safe=False)
