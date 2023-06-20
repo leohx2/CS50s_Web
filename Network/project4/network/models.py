@@ -12,7 +12,7 @@ class User(AbstractUser):
 class Posts(models.Model):
     content = models.CharField(max_length=340)
     timestamp = models.CharField(max_length=50)
-    FK_likes_from_users = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes_posts", blank=True, null=True)
+    likes_from_users = models.ManyToManyField("User", related_name="likes_posts", blank=True)
     FK_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_posts")
     
     def serialize(self):
@@ -20,7 +20,7 @@ class Posts(models.Model):
             'id': self.id,
             'content': self.content,
             'timestamp': self.timestamp,
-            'users_likes': [self.FK_user.id for likes in self.FK_likes_from_users] if self.FK_likes_from_users else None,
+            'users_likes': [likes.id for likes in self.likes_from_users.all()] if self.likes_from_users else None,
             'username': self.FK_user.username
         }
 

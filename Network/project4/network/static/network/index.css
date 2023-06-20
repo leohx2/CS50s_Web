@@ -1,7 +1,8 @@
 
 .indexBackgroud{
     background-image: linear-gradient(to right top, #ffffff, #f8f8f8, #f1f1f1, #ebebeb, #e4e4e4);
-    height: calc(100vh - 51px);
+    min-height: 100vh;
+    max-height: fit-content;
     width: calc(100vw - 5px);
 }
 

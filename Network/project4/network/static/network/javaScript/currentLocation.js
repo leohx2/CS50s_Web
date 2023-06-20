@@ -2,7 +2,7 @@ function getCurrentURL () {
     return window.location.href
 }
 
-// Add a class "Active" to the current navItem related to the page.
+// Add a class "Active" to the current navItem related to the page and remove from the orders.
 function attActiveClass(allContainers, keep) {
     for (container in allContainers)
     {
@@ -17,6 +17,7 @@ function attActiveClass(allContainers, keep) {
     }
 }
 
+// Depending on the URL add a active class to a specific navbar item
 function insertActiveClass(currentUrl, allContainers) {
     switch(currentUrl){
         case 'http://127.0.0.1:8000/login':
@@ -31,28 +32,48 @@ function insertActiveClass(currentUrl, allContainers) {
     }
 }
 
-
-function like_post(is_liked, post_id) {
-    console.log(this)
+// Func to update the state on db, we send to our db true if the user is clicking on like or false if
+//the user is clicking on to remove the like
+async function like_post(btnid, post_id, user_id) {
+    if (user_id === null) {
+        window.location.replace('/login')
+        return
+    }
+    const btn = document.getElementById(btnid)
+    const isLiked = (btn.classList.contains("likedBtn") ? false : true)
+    await fetch(`postLikes/${post_id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            like: isLiked,
+        })
+    })
+    if (isLiked === false) {
+        btn.classList.replace("likedBtn", "likeBtn")
+        btn.innerHTML = '&#9825;'
+    } else {
+        btn.classList.replace("likeBtn", "likedBtn")
+        btn.innerHTML = '&hearts;'
+    }
+    
 }
 
 // check if the user already liked it or not, like button &#9825; liked button &hearts;
-function is_liked(user_id, users_likes, post_id) {
-    if (!users_likes){
-        return `<button onClick="like_post(${false}, ${post_id})" class="likeBtn">&#9825;</button>`
+function is_liked(user_id, users_likes, index) {
+    if (!users_likes){ //testar !users_likes || !users_likes.includes(user_id)
+        return `<button id="btn${index}"class="likeBtn">&#9825;</button>`
     }
-    else if (users_likes.includes(user_id)){
-        return `<button onClick="like_post(${true}, ${post_id})" class="likedBtn">&hearts;</button>`
+    else if (user_id && users_likes.includes(user_id)){
+        return `<button id="btn${index}" class="likedBtn">&hearts;</button>`
     }
     else {
-        return `<button onClick="like_post(${false}, ${post_id})" class="likeBtn">&#9825;</button>`
+        return `<button id="btn${index}" class="likeBtn">&#9825;</button>`
     }
 }
 
 async function renderPosts(divPost){
     // by fetching infopost our answer is an array with all the posts and the last item is the user info
     try {
-        const respose = await fetch('http://127.0.0.1:8000/infoPost')
+        const respose = await fetch('infoPost')
         const json = await respose.json()
 
         // now we loop the json const until the last item in the array
@@ -64,9 +85,10 @@ async function renderPosts(divPost){
                         <p class="postTimestamp"> ${json[i].timestamp} </p>
                     </div>
                     <pre>${json[i].content}</pre>
-                    ${is_liked(json[json.length - 1].id, json[i].users_likes, json[i].id)}
+                    ${is_liked((json[json.length - 1] ? json[json.length - 1].id : null), json[i].users_likes, i)}
                 </div>`
-            divPost.insertAdjacentHTML("beforeend",postHTML)
+                divPost.insertAdjacentHTML("beforeend",postHTML)
+                document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, json[i].id, (json[json.length - 1] ? json[json.length - 1].id : null) ))
         }
         
     } catch (error) {
