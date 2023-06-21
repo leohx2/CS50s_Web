@@ -40,7 +40,7 @@ async function like_post(btnid, post_id, user_id) {
         return
     }
     const btn = document.getElementById(btnid)
-    const isLiked = (btn.classList.contains("likedBtn") ? false : true)
+    const isLiked = (btn.classList.contains("liked") ? false : true)
     await fetch(`postLikes/${post_id}`, {
         method: "PUT",
         body: JSON.stringify({
@@ -48,10 +48,10 @@ async function like_post(btnid, post_id, user_id) {
         })
     })
     if (isLiked === false) {
-        btn.classList.replace("likedBtn", "likeBtn")
+        btn.classList.replace("liked", "like")
         btn.innerHTML = '&#9825;'
     } else {
-        btn.classList.replace("likeBtn", "likedBtn")
+        btn.classList.replace("like", "liked")
         btn.innerHTML = '&hearts;'
     }
     
@@ -60,13 +60,13 @@ async function like_post(btnid, post_id, user_id) {
 // check if the user already liked it or not, like button &#9825; liked button &hearts;
 function is_liked(user_id, users_likes, index) {
     if (!users_likes){ //testar !users_likes || !users_likes.includes(user_id)
-        return `<button id="btn${index}"class="likeBtn">&#9825;</button>`
+        return `<button id="btn${index}"class="postBtn like">&#9825;</button>`
     }
     else if (user_id && users_likes.includes(user_id)){
-        return `<button id="btn${index}" class="likedBtn">&hearts;</button>`
+        return `<button id="btn${index}" class="postBtn liked">&hearts;</button>`
     }
     else {
-        return `<button id="btn${index}" class="likeBtn">&#9825;</button>`
+        return `<button id="btn${index}" class="postBtn like">&#9825;</button>`
     }
 }
 

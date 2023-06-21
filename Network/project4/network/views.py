@@ -1,6 +1,7 @@
 import datetime
 import json
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -31,9 +32,8 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "network/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            messages.warning(request, 'Invalid username and/or password.')
+            return render(request, "network/login.html")
     else:
         return render(request, "network/login.html")
 
@@ -53,18 +53,16 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "network/register.html", {
-                "message": "Passwords must match."
-            })
+            messages.warning(request, 'Passwords must match.')
+            return render(request, "network/register.html")
 
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return render(request, "network/register.html", {
-                "message": "Username already taken."
-            })
+            messages.warning(request, 'Username already taken.')
+            return render(request, "network/register.html")
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
@@ -84,10 +82,10 @@ def newPost(request):
         # Todo -> adding error handling, like no user, blank fields, maxlen 
     return HttpResponseRedirect(reverse("index"))
 
-def doWhatiWant():
-    post = Posts.objects.all()
-    for i in post:
-        print(f"\n{i.likes_from_users.all()}\n")
+# def doWhatiWant():
+#     post = Posts.objects.all()
+#     for i in post:
+#         print(f"\n{i.likes_from_users.all()}\n")
 
 
 def infoPost(request):
@@ -100,7 +98,6 @@ def infoPost(request):
         data.append(user.serialize())
     else:
         data.append(False)
-    doWhatiWant()
     return JsonResponse(data, safe=False)
 
 
@@ -125,3 +122,11 @@ def postLikes(request, post_id):
             post.save()
     return HttpResponse(status=204)
 
+def renderProfile(request, profile):
+    try:
+        userProfile = User.objects.get(username=profile)
+    except User.DoesNotExist:
+        print("Entrei aqui??\n\n")
+        messages.warning(request, f'The user {profile} does not exist.')
+        return HttpResponseRedirect(reverse("index"))
+    return render(request, "network/profile.html")

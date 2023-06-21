@@ -1,7 +1,6 @@
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-
+    width: 3px;
+    height: 2px;
 }
 
 ::-webkit-scrollbar-track{
@@ -12,6 +11,18 @@
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #00e6a5b1; 
+}
+
+body {
+    background-image: linear-gradient(to right bottom, #dbdbdb, #d7d9de, #ced8e0, #c3d8e0, #b9d8db, #b8d7da, #b8d6d9, #b7d5d8, #bfd3db, #c8d1d9, #cfd1d5, #d1d1d1);
+    min-height: 100vh;
+    max-height: fit-content;
+    min-width: calc(100vw - 3px);
+    max-width: fit-content;
+}
+
+.alert {
+    margin-bottom: 0px !important;
 }
 
 input:focus{
@@ -27,9 +38,10 @@ h2 {
     letter-spacing: -0.03em;
 }
 
+
 .navbar {
     background-color: #FFF !important;
-    box-shadow: 0px 5px 5px -4px rgb(177, 177, 177);
+    box-shadow: 0px 5px 5px -4px rgb(98, 98, 98);
 }
 
 .nav-item.active {
