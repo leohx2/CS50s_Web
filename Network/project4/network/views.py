@@ -88,10 +88,14 @@ def newPost(request):
 #         print(f"\n{i.likes_from_users.all()}\n")
 
 
-def infoPost(request):
+def infoPost(request, username):
     # Send info from all posts to js
+    # if username == all, we send info about all posts, otherwise just from the username
     user = request.user
-    posts = Posts.objects.all()
+    if username == 'all':
+        posts = Posts.objects.all()
+    else:
+        posts = Posts.objects.filter(FK_user__username=username)
     posts = posts.order_by("-pk").all()
     data = [post.serialize() for post in posts]
     if user.id != None:
@@ -122,6 +126,7 @@ def postLikes(request, post_id):
             post.save()
     return HttpResponse(status=204)
 
+
 def renderProfile(request, profile):
     try:
         userProfile = User.objects.get(username=profile)
@@ -129,4 +134,4 @@ def renderProfile(request, profile):
         print("Entrei aqui??\n\n")
         messages.warning(request, f'The user {profile} does not exist.')
         return HttpResponseRedirect(reverse("index"))
-    return render(request, "network/profile.html")
+    return render(request, "network/profile.html", { 'userProfile': userProfile.username })

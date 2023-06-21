@@ -70,24 +70,38 @@ function is_liked(user_id, users_likes, index) {
     }
 }
 
-async function renderPosts(divPost){
+function renderNoPosts(divPost) {
+    const postHTML = `
+        <div class="post">
+            <p>There are no posts yet, check here our <a class="postUserName" href="/">home</a> page!</p>
+        </div>`
+        divPost.insertAdjacentHTML("beforeend", postHTML)
+}
+
+async function renderPosts(divPost, username=null){
     // by fetching infopost our answer is an array with all the posts and the last item is the user info
     try {
-        const respose = await fetch('infoPost')
+        const respose = await fetch(username===null ? `infoPost/all` : `infoPost/${username}`)
         const json = await respose.json()
-
+        
+        // if there is no posts, render some "post" telling there is no posts
+        if (json.length === 1) {
+            renderNoPosts(divPost)
+            return
+        }
         // now we loop the json const until the last item in the array
+        let postHTML
         for (let i = 0; i < json.length - 1; i++ ) {
             postHTML = `
                 <div class="post">
                     <div class="usernameAndTimestamp">
-                        <p class="postUserName">${json[i].username}</p>
+                        <a href="${json[i].username}" class="postUserName">${json[i].username}</a>
                         <p class="postTimestamp"> ${json[i].timestamp} </p>
                     </div>
                     <pre>${json[i].content}</pre>
                     ${is_liked((json[json.length - 1] ? json[json.length - 1].id : null), json[i].users_likes, i)}
                 </div>`
-                divPost.insertAdjacentHTML("beforeend",postHTML)
+                divPost.insertAdjacentHTML("beforeend", postHTML)
                 document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, json[i].id, (json[json.length - 1] ? json[json.length - 1].id : null) ))
         }
         
@@ -106,9 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
         register: document.getElementById('Register')
     }
 
-    const divPost = document.getElementById('postInsert')
-    if (divPost) {
-        renderPosts(divPost)
+    if (document.getElementById('postInsert')) {
+        renderPosts(document.getElementById('postInsert'))
+    }
+    else if (document.getElementById('userPostsInsert')) {
+        const username = getCurrentURL().split('/').pop()
+        renderPosts(document.getElementById('userPostsInsert'), username)
     }
     insertActiveClass(getCurrentURL(), allContainers)
 })

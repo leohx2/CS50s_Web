@@ -2,10 +2,17 @@
 
 {% load static %}
 
-<!-- {% block link %}
-<link rel="stylesheet" href="{% static 'network/index.css' %}"/>
-{% endblock %} -->
+{% block link %}
+    <link rel="stylesheet" href="{% static 'network/index.css' %}"/>
+{% endblock %}
+
+{% block profile %}
+    <span class="userProfileName">({{userProfile}})</span>
+{% endblock %}
 
 {% block body %}
-    
+    <div class="containerPosts flexColumn">
+        <div id="userPostsInsert"></div>    
+    </div>
 {% endblock %}
+

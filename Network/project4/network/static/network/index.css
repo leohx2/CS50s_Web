@@ -7,7 +7,7 @@ pre {
     flex-direction: column;
 }
 
-.containerIndex {
+.containerPosts {
     justify-content: center;
     margin: 0px auto;
     padding-top: 20px;
@@ -59,6 +59,13 @@ textarea:focus{
 
 .postUserName {
     font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.4s ease-in-out;
+}
+
+.postUserName:hover {
+    text-decoration: underline;
 }
 
 .postTimestamp{

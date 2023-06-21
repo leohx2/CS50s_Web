@@ -12,17 +12,17 @@
     <body>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'network/images/networking1.png' %}" alt="Networking"></a>
+            <a class="navbar-brand brand" href="{% url 'index' %}"><img src="{% static 'network/images/networking1.png' %}" alt="Networking"></a>
           
             <div class="w-100">
               <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
+                        <a class="nav-link" href="{% url 'renderProfile' user.username%}"><strong>{{ user.username }}</strong></a>
                     </li>
                 {% endif %}
                 <li class="nav-item" id="allPosts">
-                  <a class="nav-link" href="{% url 'index' %}">All Posts</a>
+                  <a class="nav-link" href="{% url 'index' %}">All Posts{% block profile %}{% endblock %}</a>
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item" id="Following">

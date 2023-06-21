@@ -38,15 +38,21 @@ h2 {
     letter-spacing: -0.03em;
 }
 
-
 .navbar {
     background-color: #FFF !important;
     box-shadow: 0px 5px 5px -4px rgb(98, 98, 98);
+    padding-inline: 10px;
+}
+
+.userProfileName {
+    font-size: 0.7em;
+    font-weight: 300 !important;
 }
 
 .nav-item.active {
     border-bottom: solid 2px #05C19C;
     border-radius: 1px;
+    font-weight: 600;
 }
 
 .MyBtn {
