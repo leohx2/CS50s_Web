@@ -94,12 +94,15 @@ async function renderPosts(divPost, username=null){
         for (let i = 0; i < json.length - 1; i++ ) {
             postHTML = `
                 <div class="post">
-                    <div class="usernameAndTimestamp">
-                        <a href="${json[i].username}" class="postUserName">${json[i].username}</a>
-                        <p class="postTimestamp"> ${json[i].timestamp} </p>
+                    <img class="profilePicturePost" src="${json[i].picture}">
+                    <div class="postContent">
+                        <div class="userAndTimestamp">
+                            <a href="${json[i].username}" class="postUserName">${json[i].username}</a>
+                            <p class="postTimestamp"> ${json[i].timestamp} </p>
+                        </div>
+                        <pre>${json[i].content}</pre>
+                        ${is_liked((json[json.length - 1] ? json[json.length - 1].id : null), json[i].users_likes, i)}
                     </div>
-                    <pre>${json[i].content}</pre>
-                    ${is_liked((json[json.length - 1] ? json[json.length - 1].id : null), json[i].users_likes, i)}
                 </div>`
                 divPost.insertAdjacentHTML("beforeend", postHTML)
                 document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, json[i].id, (json[json.length - 1] ? json[json.length - 1].id : null) ))

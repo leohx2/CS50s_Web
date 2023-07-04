@@ -1,0 +1,15 @@
+.contatinerProfile {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+.followDetails {
+    display: flex;
+}
+
+.profilePicture {
+    border-radius: 50%;
+    height: 133px;
+    width: 133px;
+}

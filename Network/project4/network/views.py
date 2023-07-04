@@ -117,7 +117,6 @@ def postLikes(request, post_id):
         
         # Get the post db
         post = Posts.objects.get(pk = post_id)
-        print(f"\n\n{user.id} {data['like']}")
         if data["like"] == True:
             post.likes_from_users.add(user)
             post.save()
@@ -131,7 +130,6 @@ def renderProfile(request, profile):
     try:
         userProfile = User.objects.get(username=profile)
     except User.DoesNotExist:
-        print("Entrei aqui??\n\n")
         messages.warning(request, f'The user {profile} does not exist.')
         return HttpResponseRedirect(reverse("index"))
-    return render(request, "network/profile.html", { 'userProfile': userProfile.username })
+    return render(request, "network/profile.html", { 'userProfile': userProfile.username, 'userdata': userProfile })

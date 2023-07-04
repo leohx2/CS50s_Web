@@ -3,6 +3,8 @@ from django.db import models
 
 
 class User(AbstractUser):
+    profile_picture = models.ImageField(default="images/noPicture.png", upload_to="images/")
+
     def serialize(self):
         return {
             "id": self.id,
@@ -21,7 +23,8 @@ class Posts(models.Model):
             'content': self.content,
             'timestamp': self.timestamp,
             'users_likes': [likes.id for likes in self.likes_from_users.all()] if self.likes_from_users else None,
-            'username': self.FK_user.username
+            'username': self.FK_user.username,
+            'picture': self.FK_user.profile_picture.url
         }
 
 class Comments(models.Model):

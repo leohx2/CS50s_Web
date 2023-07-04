@@ -15,7 +15,7 @@ pre {
     width: 60vw;
 }
 
-.newPost, .post {
+.newPost, .post, .contatinerProfile {
     background-color: #FFF;
     border: 1px solid lightgrey;
     border-radius: 5px;
@@ -47,14 +47,30 @@ textarea:focus{
     box-shadow:0 0 2px #00AC7C !important;
 }
 
+.picturePlusPost {
+    display: flex;
+}
+
+.profilePicturePost {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
 .post {
+    display: flex;
     margin-top: 10px;
 }
 
-.usernameAndTimestamp{
+.postContent {
+    align-items:flex-start;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.userAndTimestamp{
     align-items: center;
     display: flex;
-    justify-content: space-between;
 }
 
 .postUserName {
@@ -69,8 +85,9 @@ textarea:focus{
 }
 
 .postTimestamp{
-    font-size: 0.8em;
     color: gray;
+    font-size: 0.8em;
+    margin-left: auto;
 }
 
 .postBtn {
