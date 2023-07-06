@@ -123,7 +123,8 @@ def postLikes(request, post_id):
         elif data["like"] == False:
             post.likes_from_users.remove(user)
             post.save()
-    return HttpResponse(status=204)
+        return JsonResponse(post.likes_from_users.count(), safe=False)
+    
 
 
 def renderProfile(request, profile):

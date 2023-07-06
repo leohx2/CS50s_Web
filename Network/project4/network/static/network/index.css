@@ -109,3 +109,7 @@ textarea:focus{
 .postBtn.liked {
     color: #d9585e
 }
+
+.likeCounter {
+    font-size: 0.8em;
+}

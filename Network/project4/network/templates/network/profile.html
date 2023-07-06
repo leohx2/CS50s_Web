@@ -13,14 +13,18 @@
 
 {% block body %}
     <div class="containerPosts flexColumn">
-        <div class="contatinerProfile">
+        <div id="profileContainer" class="contatinerProfile">
             <img src="{{ userdata.profile_picture.url }}" class="profilePicture">
             <p>{{userdata.username}}</p>
             <div class="followDetails">
                 <p>Followers: </p>
                 <p>Following: </p>
             </div>
-            <button class="MyBtn">Follow</button>
+            {% if userdata == user %}
+                <button id="btnSettings" class="MyBtn changePicture">Edit profile picture</button>
+            {% else%}
+                <button id="btnSettings" class="MyBtn follow">Follow</button>
+            {% endif %}
         </div>
         <div id="userPostsInsert"></div>    
     </div>

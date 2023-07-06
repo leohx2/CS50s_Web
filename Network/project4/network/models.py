@@ -4,7 +4,8 @@ from django.db import models
 
 class User(AbstractUser):
     profile_picture = models.ImageField(default="images/noPicture.png", upload_to="images/")
-
+    following = models.IntegerField(default=0)
+    follows = models.IntegerField(default=0)
     def serialize(self):
         return {
             "id": self.id,
@@ -30,7 +31,6 @@ class Posts(models.Model):
 class Comments(models.Model):
     comments = models.ManyToManyField(Posts, related_name="comments")
     FK_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
-    FK_post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name="post_comments")
 
     def __str__(self):
         return f'Comment - {self.id} from post - {self.FK_post.id}'

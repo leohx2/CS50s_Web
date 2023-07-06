@@ -34,43 +34,59 @@ function insertActiveClass(currentUrl, allContainers) {
 
 // Func to update the state on db, we send to our db true if the user is clicking on like or false if
 //the user is clicking on to remove the like
-async function like_post(btnid, post_id, user_id) {
+async function like_post(btnid, post_id, user_id, index) {
     if (user_id === null) {
         window.location.replace('/login')
         return
     }
     const btn = document.getElementById(btnid)
+    const likeCounter = document.getElementById(`likeCounter${index}`)
     const isLiked = (btn.classList.contains("liked") ? false : true)
-    await fetch(`postLikes/${post_id}`, {
+    const res = await fetch(`postLikes/${post_id}`, {
         method: "PUT",
         body: JSON.stringify({
             like: isLiked,
         })
     })
+    const json = await res.json()
+
     if (isLiked === false) {
         btn.classList.replace("liked", "like")
         btn.innerHTML = '&#9825;'
+        likeCounter.innerHTML = json > 0 ? json : ""
     } else {
         btn.classList.replace("like", "liked")
         btn.innerHTML = '&hearts;'
+        likeCounter.innerHTML = json
     }
     
 }
 
 // check if the user already liked it or not, like button &#9825; liked button &hearts;
-function is_liked(user_id, users_likes, index) {
+function is_liked(user_id, users_likes, index, likeCounter) {
     if (!users_likes){ //testar !users_likes || !users_likes.includes(user_id)
-        return `<button id="btn${index}"class="postBtn like">&#9825;</button>`
+        return `<button id="btn${index}"class="postBtn like">
+                    &#9825; 
+                </button>
+                <span class="likeCounter" id="likeCounter${index}">${likeCounter > 0 ? likeCounter : ""}</span>`
     }
     else if (user_id && users_likes.includes(user_id)){
-        return `<button id="btn${index}" class="postBtn liked">&hearts;</button>`
+        return `<button id="btn${index}" class="postBtn liked">
+                    &hearts;
+                </button>
+                <span class="likeCounter" id="likeCounter${index}">${likeCounter}</span>`
     }
     else {
-        return `<button id="btn${index}" class="postBtn like">&#9825;</button>`
+        return `<button id="btn${index}" class="postBtn like">
+                    &#9825;
+                </button>
+                <span class="likeCounter" id="likeCounter${index}">${likeCounter > 0 ? likeCounter : ""}</span>`
+                
     }
 }
 
 function renderNoPosts(divPost) {
+    // Render a message telling there is no posts yet
     const postHTML = `
         <div class="post">
             <p>There are no posts yet, check here our <a class="postUserName" href="/">home</a> page!</p>
@@ -101,16 +117,29 @@ async function renderPosts(divPost, username=null){
                             <p class="postTimestamp"> ${json[i].timestamp} </p>
                         </div>
                         <pre>${json[i].content}</pre>
-                        ${is_liked((json[json.length - 1] ? json[json.length - 1].id : null), json[i].users_likes, i)}
+                        ${is_liked((json[json.length - 1] ? json[json.length - 1].id : null), json[i].users_likes, i, json[i].users_likes.length)}
                     </div>
                 </div>`
                 divPost.insertAdjacentHTML("beforeend", postHTML)
-                document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, json[i].id, (json[json.length - 1] ? json[json.length - 1].id : null) ))
+                document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, json[i].id, (json[json.length - 1] ? json[json.length - 1].id : null), i ))
         }
         
     } catch (error) {
         console.log(error)
     }
+}
+
+// Function to follow and unfllow users and to change a picture in case the user needs to
+function profileSettings() {
+        // the btnSettings is a button that will be used to change a picture from a profile or to follow and unfollow users
+        const btn = document.getElementById('btnSettings')
+        if (btn.classList.contains("follow")) {
+            // that means we have the follow button instead the edit profile picture
+            console.log("Config Follow")
+        }
+        else {
+            console.log("Config Change Pic")
+        }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -125,10 +154,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.getElementById('postInsert')) {
         renderPosts(document.getElementById('postInsert'))
-    }
+    } 
     else if (document.getElementById('userPostsInsert')) {
         const username = getCurrentURL().split('/').pop()
         renderPosts(document.getElementById('userPostsInsert'), username)
+    }
+    
+    // Checking if the user is on the profile page
+    if (document.getElementById('profileContainer')) {
+        profileSettings()
     }
     insertActiveClass(getCurrentURL(), allContainers)
 })
