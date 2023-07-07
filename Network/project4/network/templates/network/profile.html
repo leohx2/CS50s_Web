@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block profile %}
-    <span class="userProfileName">({{userProfile}})</span>
+    <span class="userProfileName">({{userdata.username}})</span>
 {% endblock %}
 
 {% block body %}
@@ -17,13 +17,17 @@
             <img src="{{ userdata.profile_picture.url }}" class="profilePicture">
             <p>{{userdata.username}}</p>
             <div class="followDetails">
-                <p>Followers: </p>
-                <p>Following: </p>
+                <p>Followers: <span id="FollowersCounter">{{followers|length}}</span></p>
+                <p>Following: <span id="FollowsCounter">{{follows|length}}</span></p>
             </div>
             {% if userdata == user %}
                 <button id="btnSettings" class="MyBtn changePicture">Edit profile picture</button>
             {% else%}
-                <button id="btnSettings" class="MyBtn follow">Follow</button>
+                {% if isFollowing == "Login Necessary" %}
+                    <button id="btnSettings" class="MyBtn disabled" disabled>Follow</button>
+                {% else %}
+                    <button id="btnSettings" class="MyBtn follow">{{isFollowing}}</button>
+                {% endif %}
             {% endif %}
         </div>
         <div id="userPostsInsert"></div>    

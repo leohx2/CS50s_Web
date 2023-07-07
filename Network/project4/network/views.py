@@ -10,7 +10,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Posts, User
+from .models import Posts, Profile, User
 
 
 def index(request):
@@ -82,11 +82,6 @@ def newPost(request):
         # Todo -> adding error handling, like no user, blank fields, maxlen 
     return HttpResponseRedirect(reverse("index"))
 
-# def doWhatiWant():
-#     post = Posts.objects.all()
-#     for i in post:
-#         print(f"\n{i.likes_from_users.all()}\n")
-
 
 def infoPost(request, username):
     # Send info from all posts to js
@@ -129,8 +124,59 @@ def postLikes(request, post_id):
 
 def renderProfile(request, profile):
     try:
-        userProfile = User.objects.get(username=profile)
+        # Get the userData and the profile page info as well
+        userData = User.objects.get(username=profile)
+        userProfile = Profile.objects.get(userProfile=userData)
     except User.DoesNotExist:
         messages.warning(request, f'The user {profile} does not exist.')
         return HttpResponseRedirect(reverse("index"))
-    return render(request, "network/profile.html", { 'userProfile': userProfile.username, 'userdata': userProfile })
+    follows = userProfile.follows.all()
+    followers = userProfile.followers.all()
+
+    # Check if the user is following or not the current profile and send the information to the template
+    user = request.user
+    if user.username is not "":
+        print(f"\n\n\n***{type(user.username)}***\n\n\n")
+        currentUserProfile = Profile.objects.get(userProfile=user)
+        if currentUserProfile in followers:
+            isFollowing = "Unfollow"
+        else:
+            isFollowing = "Follow"
+    else:
+        isFollowing = "Login Necessary"
+
+    context = {'userProfile': userData.username, 'userdata': userData, 'follows':follows, 'followers': followers, 'isFollowing':isFollowing}
+    return render(request, "network/profile.html", context)
+
+@csrf_exempt
+@login_required
+def follow(request, profile):
+    user = request.user
+    followed = User.objects.get(username=profile)
+    if request.method == 'PUT':
+     
+        # Profile to add or remove data in the "follows" row
+        profileFollow = Profile.objects.get(userProfile=followed)
+            
+        # The user profile
+        userProfile = Profile.objects.get(userProfile=user)
+
+        # Check if the user is following or not profileFollow
+        if userProfile in profileFollow.followers.all():
+            # Remove the profile to follow in the Follows db
+            userProfile.follows.remove(profileFollow)
+            userProfile.save()
+
+            # Remove the user profile in the Followers db from the profile followed
+            profileFollow.followers.remove(userProfile)
+            profileFollow.save()
+            return JsonResponse({'status': 'unfollowing', 'current': len(profileFollow.followers.all())}, safe=False)
+        else:
+            #Save the profile to follow in the Follows db
+            userProfile.follows.add(profileFollow)
+            userProfile.save()
+
+            # Save the user profile in the Followers db from the profile followed
+            profileFollow.followers.add(userProfile)
+            profileFollow.save()
+            return JsonResponse({'status': 'following', 'current': len(profileFollow.followers.all())}, safe=False)

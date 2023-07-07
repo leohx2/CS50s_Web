@@ -130,14 +130,26 @@ async function renderPosts(divPost, username=null){
 }
 
 // Function to follow and unfllow users and to change a picture in case the user needs to
-function profileSettings() {
+function profileSettings(username) {
         // the btnSettings is a button that will be used to change a picture from a profile or to follow and unfollow users
         const btn = document.getElementById('btnSettings')
         if (btn.classList.contains("follow")) {
             // that means we have the follow button instead the edit profile picture
-            console.log("Config Follow")
+            btn.addEventListener('click', async () => {
+                const res = await fetch(`follow/${username}`, { method: "PUT" })
+                const json = await res.json()
+                // according to the info coming from django we set the button value and followers number, status can be unfollowing or following
+                // if the status is unfollwing the user just unfollowed the profile than we change the button to "Follow", otherwise whe change it o "Unfollow"
+                if (json['status'] === "unfollowing") {
+                    btn.innerHTML="Follow"
+                    document.getElementById("FollowersCounter").innerHTML = json['current']
+                } else {
+                    btn.innerHTML="Unfollow"
+                    document.getElementById("FollowersCounter").innerHTML = json['current']
+                }
+            })
         }
-        else {
+        else if (btn.classList.contains("changePicture")) {
             console.log("Config Change Pic")
         }
 }
@@ -159,10 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = getCurrentURL().split('/').pop()
         renderPosts(document.getElementById('userPostsInsert'), username)
     }
-    
+
     // Checking if the user is on the profile page
     if (document.getElementById('profileContainer')) {
-        profileSettings()
+        const username = getCurrentURL().split('/').pop()
+        profileSettings(username)
     }
     insertActiveClass(getCurrentURL(), allContainers)
 })
