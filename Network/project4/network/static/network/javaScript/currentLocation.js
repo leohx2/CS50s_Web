@@ -102,30 +102,30 @@ async function renderPosts(divPost, username=null){
     try {
         const respose = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all` : `http://127.0.0.1:8000/infoPost/${username}`)
         const json = await respose.json()
-        
         // if there is no posts, render some "post" telling there is no posts
+        console.log(json)
         if (json.length === 1) {
             renderNoPosts(divPost)
             return
         }
-        // now we loop the json const until the last item in the array
+        // the json const recevied 2 itens "posts" and "user"
         let postHTML
-        for (let i = 0; i < json.length - 1; i++ ) {
+        json['posts'].forEach( (post, i) => {
             postHTML = `
                 <div class="post">
-                    <img class="profilePicturePost" src="${json[i].picture}">
+                    <img class="profilePicturePost" src="${post.picture}">
                     <div class="postContent">
                         <div class="userAndTimestamp">
-                            <a href="http://127.0.0.1:8000/profile/${json[i].username}" class="postUserName">${json[i].username}</a>
-                            <p class="postTimestamp"> ${json[i].timestamp} </p>
+                            <a href="http://127.0.0.1:8000/profile/${post.username}" class="postUserName">${post.username}</a>
+                            <p class="postTimestamp"> ${post.timestamp} </p>
                         </div>
-                        <pre>${json[i].content}</pre>
-                        ${is_liked((json[json.length - 1] ? json[json.length - 1].id : null), json[i].users_likes, i, json[i].users_likes.length)}
+                        <pre>${post.content}</pre>
+                        ${is_liked((json['user'] ? json['user'].id : null), post.users_likes, i, post.users_likes.length)}
                     </div>
                 </div>`
                 divPost.insertAdjacentHTML("beforeend", postHTML)
-                document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, json[i].id, (json[json.length - 1] ? json[json.length - 1].id : null), i ))
-        }
+                document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, post.id, (json['user'] ? json['user'].id : null), i ))
+        })
         
     } catch (error) {
         console.log(error)

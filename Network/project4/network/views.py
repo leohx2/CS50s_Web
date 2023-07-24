@@ -91,18 +91,15 @@ def infoPost(request, username):
         posts = Posts.objects.all()
     elif username == 'following' and user.id != None:
         profile = Profile.objects.get(userProfile=user).follows.all()
-        idList = [index.id for index in profile]
-        print(f"\n{idList}")
-        posts = Posts.objects.filter(FK_user__id__in=idList)
+        userList = [index.userProfile.username for index in profile]
+        posts = Posts.objects.filter(FK_user__username__in=userList)
+        print(f"\n{userList}")
+        print(f"\n{posts}")
     else:
         posts = Posts.objects.filter(FK_user__username=username)
     posts = posts.order_by("-pk").all()
-    data = [post.serialize() for post in posts]
-    if user.id != None:
-        data.append(user.serialize())
-    else:
-        data.append(False)
-    return JsonResponse(data, safe=False)
+    data2 = {'posts': [post.serialize() for post in posts], 'user': user.serialize() if user.id != None else False}
+    return JsonResponse(data2, safe=False)
 
 
 # Updating likes data base

@@ -14,6 +14,7 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
+    id = models.AutoField(primary_key=True)
     userProfile = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     follows = models.ManyToManyField('self', related_name="user_following", symmetrical=False, blank=True)
     followers = models.ManyToManyField('self', related_name="followed_by", symmetrical=False, blank=True)
