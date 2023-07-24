@@ -116,7 +116,7 @@ async function renderPosts(divPost, username=null){
                     <img class="profilePicturePost" src="${json[i].picture}">
                     <div class="postContent">
                         <div class="userAndTimestamp">
-                            <a href="profile/${json[i].username}" class="postUserName">${json[i].username}</a>
+                            <a href="http://127.0.0.1:8000/profile/${json[i].username}" class="postUserName">${json[i].username}</a>
                             <p class="postTimestamp"> ${json[i].timestamp} </p>
                         </div>
                         <pre>${json[i].content}</pre>
