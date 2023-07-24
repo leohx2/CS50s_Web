@@ -113,3 +113,8 @@ textarea:focus{
 .likeCounter {
     font-size: 0.8em;
 }
+
+.edit {
+    background-color: inherit;
+    border: none;
+}

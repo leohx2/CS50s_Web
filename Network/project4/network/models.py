@@ -42,6 +42,7 @@ class Posts(models.Model):
     def serialize(self):
         return {
             'id': self.id,
+            'user_id': self.FK_user.id,
             'content': self.content,
             'timestamp': self.timestamp,
             'users_likes': [likes.id for likes in self.likes_from_users.all()] if self.likes_from_users else None,

@@ -97,6 +97,27 @@ function renderNoPosts(divPost) {
         divPost.insertAdjacentHTML("beforeend", postHTML)
 }
 
+// function to edit post
+async function editPost(post, divContent) {
+    divContent.innerHTML = `
+    <textarea id="idEditTextArea" class="textAreaEdit">${post.content}</textarea>
+    <button id="saveBtn">Save</button>
+    <button id="discardBtn">Discard</button>
+    `
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+        textarea = document.getElementById("idEditTextArea")
+        post.content = textarea.value
+        divContent.innerHTML=`<pre>${post.content}</pre>`
+        await fetch(`http://127.0.0.1:8000/editPost/${post.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+                content: post.content
+            })
+        }) 
+    })
+    document.getElementById("discardBtn").addEventListener("click", () => {divContent.innerHTML=`<pre>${post.content}</pre>`})
+}
+
 async function renderPosts(divPost, username=null){
     // by fetching infopost our answer is an array with all the posts and the last item is the user info
     try {
@@ -117,14 +138,20 @@ async function renderPosts(divPost, username=null){
                     <div class="postContent">
                         <div class="userAndTimestamp">
                             <a href="http://127.0.0.1:8000/profile/${post.username}" class="postUserName">${post.username}</a>
+                            ${json['user'].id === post.user_id ? `<button id="editButton${i}" class="edit">&#9998;</button>` : ''}
                             <p class="postTimestamp"> ${post.timestamp} </p>
                         </div>
-                        <pre>${post.content}</pre>
+                        <div id="divContent${i}">
+                            <pre>${post.content}</pre>
+                        </div>
                         ${is_liked((json['user'] ? json['user'].id : null), post.users_likes, i, post.users_likes.length)}
                     </div>
                 </div>`
                 divPost.insertAdjacentHTML("beforeend", postHTML)
                 document.getElementById(`btn${i}`).addEventListener("click", () => like_post(`btn${i}`, post.id, (json['user'] ? json['user'].id : null), i ))
+                if (json['user'].id === post.user_id) {
+                    document.getElementById(`editButton${i}`).addEventListener("click", () => {editPost(post, document.getElementById(`divContent${i}`))})
+                }
         })
         
     } catch (error) {

@@ -93,8 +93,6 @@ def infoPost(request, username):
         profile = Profile.objects.get(userProfile=user).follows.all()
         userList = [index.userProfile.username for index in profile]
         posts = Posts.objects.filter(FK_user__username__in=userList)
-        print(f"\n{userList}")
-        print(f"\n{posts}")
     else:
         posts = Posts.objects.filter(FK_user__username=username)
     posts = posts.order_by("-pk").all()
@@ -107,7 +105,7 @@ def infoPost(request, username):
 def postLikes(request, post_id):
     user = request.user
     if request.method == "PUT":
-        # Data receive from js a updated info about the post, if the user likes it we get Frue
+        # Data received from js to updated info about the post, if the user likes it we get True
         # After that we will change on DB based on the info received, eg:
         # If the the post was already liked data gets False, if the post was not liked data gets True
         data = json.loads(request.body)
@@ -123,9 +121,30 @@ def postLikes(request, post_id):
         return JsonResponse(post.likes_from_users.count(), safe=False)
     
 
+@csrf_exempt
+@login_required
+def editPost(request, post_id):
+    user = request.user
+    if request.method == 'PUT':
+
+        # Data received from js
+        data = json.loads(request.body)
+
+        # Get the post to update only if the user is equal to the post user
+        post = Posts.objects.get(pk = post_id)
+
+        # Check if the user is the real post author
+        if user != post.FK_user:
+            messages.warning(request, 'You can only edit your own posts.')
+            return render(request, "network/index.html")
+        else:
+            # Save the new content
+            post.content = data["content"]
+            post.save()
+        return JsonResponse({'status': 'done'}, safe=False)
+
 
 def renderProfile(request, profile):
-    print(f"\n**\n{profile}\n**\n")
     try:
         # Get the userData and the profile page info as well
         userData = User.objects.get(username=profile)
@@ -138,7 +157,7 @@ def renderProfile(request, profile):
 
     # Check if the user is following or not the current profile and send the information to the template
     user = request.user
-    if user.username is not "":
+    if user.username != "":
         currentUserProfile = Profile.objects.get(userProfile=user)
         if currentUserProfile in followers:
             isFollowing = "Unfollow"
