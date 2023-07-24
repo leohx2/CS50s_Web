@@ -26,6 +26,9 @@ function insertActiveClass(currentUrl, allContainers) {
         case 'http://127.0.0.1:8000/register':
             attActiveClass(allContainers, allContainers.register)
             break;
+        case 'http://127.0.0.1:8000/followingPosts':
+            attActiveClass(allContainers, allContainers.following)
+            break
         default:
             attActiveClass(allContainers, allContainers.allPosts)
             break;
@@ -42,7 +45,7 @@ async function like_post(btnid, post_id, user_id, index) {
     const btn = document.getElementById(btnid)
     const likeCounter = document.getElementById(`likeCounter${index}`)
     const isLiked = (btn.classList.contains("liked") ? false : true)
-    const res = await fetch(`postLikes/${post_id}`, {
+    const res = await fetch(`http://127.0.0.1:8000/postLikes/${post_id}`, {
         method: "PUT",
         body: JSON.stringify({
             like: isLiked,
@@ -97,7 +100,7 @@ function renderNoPosts(divPost) {
 async function renderPosts(divPost, username=null){
     // by fetching infopost our answer is an array with all the posts and the last item is the user info
     try {
-        const respose = await fetch(username===null ? `infoPost/all` : `infoPost/${username}`)
+        const respose = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all` : `http://127.0.0.1:8000/infoPost/${username}`)
         const json = await respose.json()
         
         // if there is no posts, render some "post" telling there is no posts
@@ -113,7 +116,7 @@ async function renderPosts(divPost, username=null){
                     <img class="profilePicturePost" src="${json[i].picture}">
                     <div class="postContent">
                         <div class="userAndTimestamp">
-                            <a href="${json[i].username}" class="postUserName">${json[i].username}</a>
+                            <a href="profile/${json[i].username}" class="postUserName">${json[i].username}</a>
                             <p class="postTimestamp"> ${json[i].timestamp} </p>
                         </div>
                         <pre>${json[i].content}</pre>
@@ -136,7 +139,7 @@ function profileSettings(username) {
         if (btn.classList.contains("follow")) {
             // that means we have the follow button instead the edit profile picture
             btn.addEventListener('click', async () => {
-                const res = await fetch(`follow/${username}`, { method: "PUT" })
+                const res = await fetch(`http://127.0.0.1:8000/follow/${username}`, { method: "PUT" })
                 const json = await res.json()
                 // according to the info coming from django we set the button value and followers number, status can be unfollowing or following
                 // if the status is unfollwing the user just unfollowed the profile than we change the button to "Follow", otherwise whe change it o "Unfollow"
@@ -170,6 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (document.getElementById('userPostsInsert')) {
         const username = getCurrentURL().split('/').pop()
         renderPosts(document.getElementById('userPostsInsert'), username)
+    }
+    else if (document.getElementById('followingPostsInsert')) {
+        renderPosts(document.getElementById('followingPostsInsert'), "following")
     }
 
     // Checking if the user is on the profile page

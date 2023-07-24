@@ -89,6 +89,11 @@ def infoPost(request, username):
     user = request.user
     if username == 'all':
         posts = Posts.objects.all()
+    elif username == 'following' and user.id != None:
+        profile = Profile.objects.get(userProfile=user).follows.all()
+        idList = [index.id for index in profile]
+        print(f"\n{idList}")
+        posts = Posts.objects.filter(FK_user__id__in=idList)
     else:
         posts = Posts.objects.filter(FK_user__username=username)
     posts = posts.order_by("-pk").all()
@@ -123,6 +128,7 @@ def postLikes(request, post_id):
 
 
 def renderProfile(request, profile):
+    print(f"\n**\n{profile}\n**\n")
     try:
         # Get the userData and the profile page info as well
         userData = User.objects.get(username=profile)
@@ -136,7 +142,6 @@ def renderProfile(request, profile):
     # Check if the user is following or not the current profile and send the information to the template
     user = request.user
     if user.username is not "":
-        print(f"\n\n\n***{type(user.username)}***\n\n\n")
         currentUserProfile = Profile.objects.get(userProfile=user)
         if currentUserProfile in followers:
             isFollowing = "Unfollow"
@@ -147,6 +152,7 @@ def renderProfile(request, profile):
 
     context = {'userProfile': userData.username, 'userdata': userData, 'follows':follows, 'followers': followers, 'isFollowing':isFollowing}
     return render(request, "network/profile.html", context)
+
 
 @csrf_exempt
 @login_required
@@ -180,3 +186,8 @@ def follow(request, profile):
             profileFollow.followers.add(userProfile)
             profileFollow.save()
             return JsonResponse({'status': 'following', 'current': len(profileFollow.followers.all())}, safe=False)
+
+
+@login_required
+def followingPosts(request):
+    return render(request, "network/following.html")

@@ -1,0 +1,13 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'network/index.css' %}"/>
+{% endblock %}
+
+{% block body %}
+    <div class="containerPosts flexColumn">
+        <div id="followingPostsInsert"></div> 
+    </div>
+{% endblock %}
