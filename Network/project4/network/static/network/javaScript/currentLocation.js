@@ -118,13 +118,21 @@ async function editPost(post, divContent) {
     document.getElementById("discardBtn").addEventListener("click", () => {divContent.innerHTML=`<pre>${post.content}</pre>`})
 }
 
-async function renderPosts(divPost, username=null){
+async function renderPosts(divPost, username=null, page=1){
     // by fetching infopost our answer is an array with all the posts and the last item is the user info
     try {
-        const respose = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all` : `http://127.0.0.1:8000/infoPost/${username}`)
-        const json = await respose.json()
+        let response
+
+        if (page === 1) {
+            response = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all` : `http://127.0.0.1:8000/infoPost/${username}`)
+            console.log(username)
+        }
+        else {
+            console.log(username)
+            response = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all/page/${page}` : `http://127.0.0.1:8000/infoPost/${username}/page/${page}`)
+        }
+        const json = await response.json()
         // if there is no posts, render some "post" telling there is no posts
-        console.log(json)
         if (json.length === 1) {
             renderNoPosts(divPost)
             return
@@ -184,6 +192,16 @@ function profileSettings(username) {
         }
 }
 
+function getCurrentPage() {
+    // Get the page number based on the url
+    const currentUrl = getCurrentURL().split('/')
+    console.log(currentUrl)
+    if (currentUrl.includes('page'))
+        return currentUrl.pop();
+    return 1;
+    
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Creating a dict with all containers needed to use the activeClass
     const allContainers = 
@@ -195,14 +213,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (document.getElementById('postInsert')) {
-        renderPosts(document.getElementById('postInsert'))
+        renderPosts(document.getElementById('postInsert'), null ,getCurrentPage())
     } 
     else if (document.getElementById('userPostsInsert')) {
-        const username = getCurrentURL().split('/').pop()
-        renderPosts(document.getElementById('userPostsInsert'), username)
+        const username = getCurrentURL().split('/')
+        console.log(username)
+        renderPosts(document.getElementById('userPostsInsert'), username[4], getCurrentPage())
     }
     else if (document.getElementById('followingPostsInsert')) {
-        renderPosts(document.getElementById('followingPostsInsert'), "following")
+        renderPosts(document.getElementById('followingPostsInsert'), "following", getCurrentPage())
     }
 
     // Checking if the user is on the profile page

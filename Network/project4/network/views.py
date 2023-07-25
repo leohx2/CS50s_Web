@@ -4,6 +4,7 @@ import json
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
@@ -13,7 +14,8 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Posts, Profile, User
 
 
-def index(request):
+def index(request, page=1):
+    # page var is an optional value that by default is 1, use to indicate the current page on the site.
     posts = Posts.objects.all()
     context = {'posts': posts}
     return render(request, "network/index.html", context)
@@ -82,8 +84,18 @@ def newPost(request):
         # Todo -> adding error handling, like no user, blank fields, maxlen 
     return HttpResponseRedirect(reverse("index"))
 
+def locationErrorPage(username):
+    # Check if the user is trying to acess an incorrect page from the home, profile or following page to indicate a better error message.
+    # the output message will be something like: The {return of that function} page {page} does not exist, the last page is {pages.num_pages} we can check it on the "infoPost" function
+    if username == 'all':
+        return 'Home'
+    if username == 'following':
+        return 'Following'
+    else:
+        return f'{username} profile'
 
-def infoPost(request, username):
+
+def infoPost(request, username, page=1):
     # Send info from all posts to js
     # if username == all, we send info about all posts, otherwise just from the username
     user = request.user
@@ -96,13 +108,25 @@ def infoPost(request, username):
     else:
         posts = Posts.objects.filter(FK_user__username=username)
     posts = posts.order_by("-pk").all()
-    data2 = {'posts': [post.serialize() for post in posts], 'user': user.serialize() if user.id != None else False}
+
+    # Pages will work as the paginator variable
+    pages = Paginator(posts, 2)
+
+    # If the variable "page" is greater than pages.num_pages we return it to index with an error message 
+    print(f"\n\nLAB \n----- \n{username}\n-----\n")
+    if page > pages.num_pages or page <= 0:
+        messages.warning(request, f'The {locationErrorPage(username)} page {page} does not exist, the last page is {pages.num_pages}')
+        return HttpResponseRedirect(reverse("index"))
+    data2 = {'posts': [post.serialize() for post in pages.page(page)], 
+            'user': user.serialize() if user.id != None else False,
+            }
     return JsonResponse(data2, safe=False)
 
 
 # Updating likes data base
 @csrf_exempt
 def postLikes(request, post_id):
+    # page var is an optional value that by default is 1, use to indicate the current page on the site.
     user = request.user
     if request.method == "PUT":
         # Data received from js to updated info about the post, if the user likes it we get True
@@ -144,7 +168,7 @@ def editPost(request, post_id):
         return JsonResponse({'status': 'done'}, safe=False)
 
 
-def renderProfile(request, profile):
+def renderProfile(request, profile, page=1):
     try:
         # Get the userData and the profile page info as well
         userData = User.objects.get(username=profile)
@@ -205,5 +229,6 @@ def follow(request, profile):
 
 
 @login_required
-def followingPosts(request):
+def followingPosts(request, page=1):
+    # page var is an optional value that by default is 1, use to indicate the current page on the site.
     return render(request, "network/following.html")
