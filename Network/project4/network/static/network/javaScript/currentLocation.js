@@ -118,10 +118,27 @@ async function editPost(post, divContent) {
     document.getElementById("discardBtn").addEventListener("click", () => {divContent.innerHTML=`<pre>${post.content}</pre>`})
 }
 
+// function to create pagination buttons
+function createPaginationButtons (paginatorDiv, numPages, currentPage) {
+
+    // creat an array with the pages buttons to use inside the paginatorDiv.innerHtml as a forEach 
+    const pageList = []
+    for (let i = 1; i <= numPages; i++){
+        pageList.push(i)
+    }
+
+    // if the currentPage is the first we don't ad a "previous button" and if it's the last one (currentPage === numPages) we don't add the "next" button
+    if (currentPage === 1) {
+        return
+    }
+}
+
+// function to render posts and pagination no matter which page the user is
 async function renderPosts(divPost, username=null, page=1){
     // by fetching infopost our answer is an array with all the posts and the last item is the user info
     try {
         let response
+        const paginatorContainer = document.getElementById("paginatorDiv")
 
         if (page === 1) {
             response = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all` : `http://127.0.0.1:8000/infoPost/${username}`)
@@ -137,8 +154,9 @@ async function renderPosts(divPost, username=null, page=1){
             renderNoPosts(divPost)
             return
         }
-        // the json const recevied 2 itens "posts" and "user"
+        // the json const recevied 4 itens "posts", "user" and "num_pages"
         let postHTML
+        // For each post we render the posts
         json['posts'].forEach( (post, i) => {
             postHTML = `
                 <div class="post">
@@ -161,7 +179,10 @@ async function renderPosts(divPost, username=null, page=1){
                     document.getElementById(`editButton${i}`).addEventListener("click", () => {editPost(post, document.getElementById(`divContent${i}`))})
                 }
         })
-        
+        // Creating a pagination
+        if (json['num_pages'] > 1) {
+            createPaginationButtons(paginatorContainer, json['num_pages'], page)
+        }
     } catch (error) {
         console.log(error)
     }

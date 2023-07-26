@@ -113,12 +113,13 @@ def infoPost(request, username, page=1):
     pages = Paginator(posts, 2)
 
     # If the variable "page" is greater than pages.num_pages we return it to index with an error message 
-    print(f"\n\nLAB \n----- \n{username}\n-----\n")
+    print(f"\n\nLAB \n----- \n{pages.num_pages}\n-----\n")
     if page > pages.num_pages or page <= 0:
         messages.warning(request, f'The {locationErrorPage(username)} page {page} does not exist, the last page is {pages.num_pages}')
         return HttpResponseRedirect(reverse("index"))
     data2 = {'posts': [post.serialize() for post in pages.page(page)], 
             'user': user.serialize() if user.id != None else False,
+            'num_pages': pages.num_pages,
             }
     return JsonResponse(data2, safe=False)
 
