@@ -118,18 +118,65 @@ async function editPost(post, divContent) {
     document.getElementById("discardBtn").addEventListener("click", () => {divContent.innerHTML=`<pre>${post.content}</pre>`})
 }
 
-// function to create pagination buttons
-function createPaginationButtons (paginatorDiv, numPages, currentPage) {
+function pageLink(typeOfPage) {
+    if (typeOfPage === null) {
+        return 'http://127.0.0.1:8000'
+    } else if (typeOfPage === 'following') {
+        return 'http://127.0.0.1:8000/followingPosts'
+    } else {
+        return `http://127.0.0.1:8000/profile/${typeOfPage}`
+    }
+}
 
-    // creat an array with the pages buttons to use inside the paginatorDiv.innerHtml as a forEach 
+// function to create pagination buttons
+function createPaginationButtons (paginatorDiv, numPages, currentPage, typeOfPage) {
+    console.log(currentPage)
+    // creat an array with the pages to kmow how many buttons we need
     const pageList = []
     for (let i = 1; i <= numPages; i++){
         pageList.push(i)
     }
 
     // if the currentPage is the first we don't ad a "previous button" and if it's the last one (currentPage === numPages) we don't add the "next" button
-    if (currentPage === 1) {
-        return
+    // if numPages is greater we can insert the pagination
+    if (numPages > 1) {
+        // If the current page is not the first we add the previous page link.
+        if (currentPage > 1){
+            const linkPre = document.createElement("a")
+            if (currentPage == 2) {
+                linkPre.href = pageLink(typeOfPage)
+            } else {
+                linkPre.href = `${pageLink(typeOfPage)}/page/${parseInt(currentPage) - 1}`
+            }
+            linkPre.textContent = `<< Previous`
+            linkPre.classList.add("paginatorNumber")
+            paginatorDiv.appendChild(linkPre)
+        }
+        // check each number of the pageList
+        pageList.forEach((page) => {
+            const link = document.createElement("a")
+    
+            if (page === parseInt(currentPage)){
+                link.href = "#"
+                link.classList.add("current")
+            } 
+            else if (page === 1) {
+                link.href = pageLink(typeOfPage)
+            }
+            else {
+                link.href = `${pageLink(typeOfPage)}/page/${page}`
+            }
+            link.textContent = `${page}`
+            link.classList.add("paginatorNumber")
+            paginatorDiv.appendChild(link)
+        })
+        if (currentPage < numPages){
+            const linkNext = document.createElement("a")
+            linkNext.href = `${pageLink(typeOfPage)}/page/${parseInt(currentPage) + 1}`
+            linkNext.textContent = "Next >>"
+            linkNext.classList.add("paginatorNumber")
+            paginatorDiv.appendChild(linkNext)
+        }
     }
 }
 
@@ -181,7 +228,7 @@ async function renderPosts(divPost, username=null, page=1){
         })
         // Creating a pagination
         if (json['num_pages'] > 1) {
-            createPaginationButtons(paginatorContainer, json['num_pages'], page)
+            createPaginationButtons(paginatorContainer, json['num_pages'], page, username)
         }
     } catch (error) {
         console.log(error)

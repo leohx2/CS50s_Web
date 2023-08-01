@@ -79,3 +79,33 @@ h2 {
 .MyBtn:hover {
     background-color: #00AC7C;
 }
+
+.pagination {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.paginatorNumber {
+    background-color: #FFF;
+    border-radius: 5px;
+    color: rgba(14, 14, 14, 0.892);
+    font-size: 0.9em;
+    margin-left: 3px;
+    padding: 5px 1em;
+    text-decoration: none;
+    transition: 0.4s all;
+}
+
+.paginatorNumber.current{
+    background-color: #05C19C;
+    color: white;
+}
+
+.paginatorNumber:hover {
+    background-color: #e6e6e6;
+}
+
+.paginatorNumber.current:hover{
+    background-color: #00AC7C;
+}
