@@ -10,8 +10,11 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from PIL import Image
 
 from .models import Posts, Profile, User
+
+POST_PER_PAGE = 10
 
 
 def index(request, page=1):
@@ -110,10 +113,9 @@ def infoPost(request, username, page=1):
     posts = posts.order_by("-pk").all()
 
     # Pages will work as the paginator variable
-    pages = Paginator(posts, 2)
+    pages = Paginator(posts, POST_PER_PAGE)
 
     # If the variable "page" is greater than pages.num_pages we return it to index with an error message 
-    print(f"\n\nLAB \n----- \n{pages.num_pages}\n-----\n")
     if page > pages.num_pages or page <= 0:
         messages.warning(request, f'The {locationErrorPage(username)} page {page} does not exist, the last page is {pages.num_pages}')
         return HttpResponseRedirect(reverse("index"))
@@ -232,4 +234,48 @@ def follow(request, profile):
 @login_required
 def followingPosts(request, page=1):
     # page var is an optional value that by default is 1, use to indicate the current page on the site.
-    return render(request, "network/following.html")
+    profile = Profile.objects.get(userProfile = request.user)
+    is_following_users = True
+    if profile.follows.count() == 0:
+        is_following_users = False
+    return render(request, "network/following.html", {'has_following': is_following_users})
+
+
+# Check if the file is an image
+def is_an_image(file):
+    try:
+        with Image.open(file) as img:
+            return True
+    except Exception as e:
+        return False
+
+
+@login_required
+def profile_pic_update(request):
+    if request.method == 'POST':
+        
+        # Checking with a try if the user send a file otherwise render a message
+        try:
+            # Requesting the image
+            request.FILES['profilePic']
+            profile_pic = request.FILES['profilePic']
+
+            # Checking if the file is a picture if the file yes change the profile picture
+            if is_an_image(profile_pic):
+                user = User.objects.get(pk=request.user.id)
+                
+                # If the user is changing the picture the system deletes the last one, but not if it's the default image
+                if user.profile_picture != "images/noPicture.png":
+                    user.profile_picture.delete()
+
+                # Save the changes
+                user.profile_picture = profile_pic
+                user.save()
+            else:
+                messages.warning(request, 'The file must be an Image.')
+        except Exception as e:
+            messages.warning(request, 'A file is necessary to save.')
+        
+    # Render the profile page.
+    profile_page = reverse("renderProfile", args=[request.user.username])
+    return redirect(profile_page)

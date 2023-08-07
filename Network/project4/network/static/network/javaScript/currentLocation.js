@@ -101,8 +101,8 @@ function renderNoPosts(divPost) {
 async function editPost(post, divContent) {
     divContent.innerHTML = `
     <textarea id="idEditTextArea" class="textAreaEdit">${post.content}</textarea>
-    <button id="saveBtn">Save</button>
-    <button id="discardBtn">Discard</button>
+    <button id="saveBtn" class="saveDiscard save">Save</button>
+    <button id="discardBtn" class="saveDiscard discard">Discard</button>
     `
     document.getElementById("saveBtn").addEventListener("click", async () => {
         textarea = document.getElementById("idEditTextArea")

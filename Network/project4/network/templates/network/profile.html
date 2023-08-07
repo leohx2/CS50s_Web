@@ -21,7 +21,11 @@
                 <p>Following: <span id="FollowsCounter">{{follows|length}}</span></p>
             </div>
             {% if userdata == user %}
-                <button id="btnSettings" class="MyBtn changePicture">Edit profile picture</button>
+                <form action="http://127.0.0.1:8000/profile_pic_update/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="profilePic">
+                    <button type="submit" id="btnSettings" class="MyBtn changePicture">Save</button>
+                </form>
             {% else%}
                 {% if isFollowing == "Login Necessary" %}
                     <button id="btnSettings" class="MyBtn disabled" disabled>Follow</button>

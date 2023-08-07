@@ -8,6 +8,12 @@
 
 {% block body %}
     <div class="containerPosts flexColumn">
-        <div id="followingPostsInsert"></div> 
+        {%if has_following == False%}
+            <div class="post">
+                <p>You are not following any user, check out our <a class="postUserName" href="/">home</a> page!</p>
+            </div>
+        {%endif%}
+        <div id="followingPostsInsert">
+        </div> 
     </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 ::-webkit-scrollbar {
     width: 3px;
-    height: 2px;
+    height: 4px;
 }
 
 ::-webkit-scrollbar-track{
@@ -84,6 +84,7 @@ h2 {
     align-items: center;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .paginatorNumber {
@@ -108,4 +109,22 @@ h2 {
 
 .paginatorNumber.current:hover{
     background-color: #00AC7C;
+}
+
+.saveDiscard {
+    border: none;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    transition: all 0.4s ease-in-out;
+    padding: 5px 10px;
+}
+
+.saveDiscard.save:hover {
+    background-color: #05C19C;
+    color: #FFF;
+}
+
+.saveDiscard.discard:hover {
+    background-color: #F34C51;
+    color: #FFF;
 }

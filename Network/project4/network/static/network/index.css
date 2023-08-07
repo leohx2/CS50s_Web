@@ -14,7 +14,6 @@ pre {
     max-width: 1240px;
     width: 60vw;
 }
-
 .newPost, .post, .contatinerProfile {
     background-color: #FFF;
     border: 1px solid lightgrey;
@@ -59,13 +58,18 @@ textarea:focus{
 
 .post {
     display: flex;
+    justify-content: center;
     margin-top: 10px;
+}
+
+.post p {
+    margin-bottom: 0;
 }
 
 .postContent {
     align-items:flex-start;
     margin-left: 10px;
-    width: 100%;
+    width: 95%;
 }
 
 .userAndTimestamp{
@@ -117,4 +121,12 @@ textarea:focus{
 .edit {
     background-color: inherit;
     border: none;
+}
+
+.textAreaEdit{
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    height: 5em;
+    padding: 10px;
+    width: 100%;
 }
