@@ -4,12 +4,55 @@
     flex-direction: column;
 }
 
+.contatinerProfile form{
+    margin: auto;
+}
+
+.userName{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: auto;
+}
+
 .followDetails {
     display: flex;
+    margin: auto;
+}
+.followDetails span {
+    margin-right: 10px;
 }
 
 .profilePicture {
     border-radius: 50%;
     height: 133px;
+    margin: auto;
     width: 133px;
 }
+
+.profileBtn, .customFileBtn {
+    border: 1px solid #0a0a0a;
+    background-color: #FFF;
+    border-radius: 5px;
+    color: rgb(12, 12, 12);
+    cursor: pointer;
+    margin: auto;
+    padding: 3px 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.profileBtn.follow:hover, .profileBtn.save:hover{
+    background-color: #05C19C;
+    border-color: #05C19C;
+    color: #FFF;
+}
+
+.profileBtn.unfollow:hover {
+    background-color: #F34C51;
+    border-color: #F34C51;
+    color: #FFF;
+}
+
+.customFileBtn:hover {
+    background-color: #d0d0d0;
+  }
+

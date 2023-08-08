@@ -237,27 +237,45 @@ async function renderPosts(divPost, username=null, page=1){
 
 // Function to follow and unfllow users and to change a picture in case the user needs to
 function profileSettings(username) {
-        // the btnSettings is a button that will be used to change a picture from a profile or to follow and unfollow users
-        const btn = document.getElementById('btnSettings')
-        if (btn.classList.contains("follow")) {
-            // that means we have the follow button instead the edit profile picture
-            btn.addEventListener('click', async () => {
-                const res = await fetch(`http://127.0.0.1:8000/follow/${username}`, { method: "PUT" })
-                const json = await res.json()
-                // according to the info coming from django we set the button value and followers number, status can be unfollowing or following
-                // if the status is unfollwing the user just unfollowed the profile than we change the button to "Follow", otherwise whe change it o "Unfollow"
-                if (json['status'] === "unfollowing") {
-                    btn.innerHTML="Follow"
-                    document.getElementById("FollowersCounter").innerHTML = json['current']
-                } else {
-                    btn.innerHTML="Unfollow"
-                    document.getElementById("FollowersCounter").innerHTML = json['current']
-                }
-            })
-        }
-        else if (btn.classList.contains("changePicture")) {
-            console.log("Config Change Pic")
-        }
+    // the btnSettings is a button that will be used to change a picture from a profile or to follow and unfollow users
+    const btn = document.getElementById('btnSettings')
+    if (btn.classList.contains("follow") || btn.classList.contains("unfollow")) {
+        // that means we have the follow button instead the edit profile picture
+        btn.addEventListener('click', async () => {
+            const res = await fetch(`http://127.0.0.1:8000/follow/${username}`, { method: "PUT" })
+            const json = await res.json()
+            // according to the info coming from django we set the button value and followers number, status can be unfollowing or following
+            // if the status is unfollwing the user just unfollowed the profile than we change the button to "Follow", otherwise whe change it o "Unfollow"
+            if (json['status'] === "unfollowing") {
+                btn.classList.replace("unfollow", "follow")
+                btn.innerHTML="Follow"
+                document.getElementById("FollowersCounter").innerHTML = json['current']
+            } else {
+                btn.classList.replace("follow", "unfollow")
+                btn.innerHTML="Unfollow"
+                document.getElementById("FollowersCounter").innerHTML = json['current']
+            }
+        })
+    }
+    else if (btn.classList.contains("changePicture")) {
+        // If we access our profile we'll be able to change the picture.
+        // That part of the code works to change the style of the text to display on the button file
+        const fileInput = document.getElementById("file-upload")
+        const imageNameText = document.getElementById("image-name-text")
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.value === '') {
+                // If it's there no files, set to nothing to display
+                imageNameText.innerHTML = ""
+            }
+            else {
+                // If the user uploads an image  we display the file name
+                const imagePath = fileInput.value.split('\\');
+
+                imageNameText.innerHTML= imagePath.pop()
+            }
+        })
+    }
 }
 
 function getCurrentPage() {

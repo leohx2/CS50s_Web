@@ -15,7 +15,7 @@
     <div class="containerPosts flexColumn">
         <div id="profileContainer" class="contatinerProfile">
             <img src="{{ userdata.profile_picture.url }}" class="profilePicture">
-            <p>{{userdata.username}}</p>
+            <p class="userName">{{userdata.username}}</p>
             <div class="followDetails">
                 <p>Followers: <span id="FollowersCounter">{{followers|length}}</span></p>
                 <p>Following: <span id="FollowsCounter">{{follows|length}}</span></p>
@@ -23,14 +23,16 @@
             {% if userdata == user %}
                 <form action="http://127.0.0.1:8000/profile_pic_update/" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" name="profilePic">
-                    <button type="submit" id="btnSettings" class="MyBtn changePicture">Save</button>
+                    <input id="file-upload" type="file" name="profilePic" style="display:none;"/>
+                    <label id="file-upload-label" for="file-upload" class="customFileBtn">Change profile picture</label>
+                    <spam id="image-name-text"></spam>
+                    <button type="submit" id="btnSettings" class="profileBtn save changePicture">Save</button>
                 </form>
             {% else%}
                 {% if isFollowing == "Login Necessary" %}
-                    <button id="btnSettings" class="MyBtn disabled" disabled>Follow</button>
+                    <button id="btnSettings" class="profileBtn disabled" disabled>Follow</button>
                 {% else %}
-                    <button id="btnSettings" class="MyBtn follow">{{isFollowing}}</button>
+                    <button id="btnSettings" class="profileBtn {%if isFollowing == 'Follow'%}follow{%else%}unfollow{%endif%}">{{isFollowing}}</button>
                 {% endif %}
             {% endif %}
         </div>
