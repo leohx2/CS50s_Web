@@ -17,8 +17,39 @@
             <img src="{{ userdata.profile_picture.url }}" class="profilePicture">
             <p class="userName">{{userdata.username}}</p>
             <div class="followDetails">
-                <p>Followers: <span id="FollowersCounter">{{followers|length}}</span></p>
-                <p>Following: <span id="FollowsCounter">{{follows|length}}</span></p>
+                <p id="followers"><span id="FollowersCounter">{{followers|length}}</span> Followers</p>
+                <p id="following"><span id="FollowsCounter">{{follows|length}}</span> Following</p>
+                <dialog id="modalFollowers">
+                    <div class="modalClose">
+                        <span id="closeModalFollowers">&#10799;</span>
+                    </div>
+                    <ul>
+                        {%for profile in followers %}
+                            <li>
+                                <img src="{{profile.userProfile.profile_picture.url}}" class="dialogPicture">
+                                <a href="{% url 'renderProfile' profile%}" class="dialog-link">{{profile}}</a>
+                            </li>
+                        {%endfor%}
+                    </ul>
+                </dialog>
+                <dialog id="modalFollowing">
+                    <div class="modalClose">
+                        <span id="closeModalFollowing">&#10799;</span>
+                    </div>
+                    <ul>
+                        {%for profile in follows %}
+                            <li>
+                                <img src="{{profile.userProfile.profile_picture.url}}" class="dialogPicture">
+                                <a href="{% url 'renderProfile' profile%}" class="dialog-link">{{profile}}</a>
+                                {% if isFollowing == "Login Necessary" %}
+                                    <button id="btnSettings" class="profileBtn disabled" disabled>Follow</button>
+                                {% else %}
+                                    <button id="btnSettings" class="profileBtn {%if isFollowing == 'Follow'%}follow{%else%}unfollow{%endif%}">{{isFollowing}}</button>
+                                {% endif %}
+                            </li>
+                        {%endfor%}
+                    </ul>
+                </dialog>
             </div>
             {% if userdata == user %}
                 <form action="http://127.0.0.1:8000/profile_pic_update/" method="post" enctype="multipart/form-data">

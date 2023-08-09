@@ -50,7 +50,7 @@ textarea:focus{
     display: flex;
 }
 
-.profilePicturePost {
+.profilePicturePost, .dialogPicture {
     border-radius: 50%;
     height: 40px;
     width: 40px;

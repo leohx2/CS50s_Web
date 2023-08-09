@@ -130,7 +130,6 @@ function pageLink(typeOfPage) {
 
 // function to create pagination buttons
 function createPaginationButtons (paginatorDiv, numPages, currentPage, typeOfPage) {
-    console.log(currentPage)
     // creat an array with the pages to kmow how many buttons we need
     const pageList = []
     for (let i = 1; i <= numPages; i++){
@@ -189,10 +188,8 @@ async function renderPosts(divPost, username=null, page=1){
 
         if (page === 1) {
             response = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all` : `http://127.0.0.1:8000/infoPost/${username}`)
-            console.log(username)
         }
         else {
-            console.log(username)
             response = await fetch(username===null ? `http://127.0.0.1:8000/infoPost/all/page/${page}` : `http://127.0.0.1:8000/infoPost/${username}/page/${page}`)
         }
         const json = await response.json()
@@ -233,6 +230,22 @@ async function renderPosts(divPost, username=null, page=1){
     } catch (error) {
         console.log(error)
     }
+}
+
+// This function will create the open and close modal functionalities 
+function createModal(modal, openModal, closeModal) {
+    // get the 3 parts of the modal, itself, the way to open and the element to close it
+    const v_modal = document.getElementById(modal)
+    const v_openModal = document.getElementById(openModal)
+    const v_closeModal = document.getElementById(closeModal)
+
+    v_openModal.addEventListener('click', () => {
+        v_modal.showModal()
+    })
+
+    v_closeModal.addEventListener('click', () => {
+        v_modal.close()
+    })
 }
 
 // Function to follow and unfllow users and to change a picture in case the user needs to
@@ -276,12 +289,16 @@ function profileSettings(username) {
             }
         })
     }
+    // After render the profile page now we render the modal to be displayed everytime the user wants to see
+    // who are the following and followers, just by clicking on "Followers" or "Following"
+    // The only reason I'm calling the function here is to makesure we are in the rightPage.
+    createModal("modalFollowers", "followers", "closeModalFollowers")
+    createModal("modalFollowing", "following", "closeModalFollowing")
 }
 
 function getCurrentPage() {
     // Get the page number based on the url
     const currentUrl = getCurrentURL().split('/')
-    console.log(currentUrl)
     if (currentUrl.includes('page'))
         return currentUrl.pop();
     return 1;
@@ -303,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } 
     else if (document.getElementById('userPostsInsert')) {
         const username = getCurrentURL().split('/')
-        console.log(username)
         renderPosts(document.getElementById('userPostsInsert'), username[4], getCurrentPage())
     }
     else if (document.getElementById('followingPostsInsert')) {

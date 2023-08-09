@@ -18,8 +18,64 @@
     display: flex;
     margin: auto;
 }
+
+.followDetails p {
+    color: gray;
+    cursor: pointer;
+}
+
+.followDetails p:hover {
+    color: gray;
+    text-decoration: underline;
+}
+
+dialog {
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 0 1em rgb(0 0 0 / .3);
+    max-height: 300px;
+    padding: 5px 5px 10px 5px;
+    overflow-y: auto;
+    width: 400px;
+}
+
+dialog:focus-visible {
+    outline: none;
+}
+
+dialog::backdrop {
+    background: rgb(0 0 0 / .2);
+}
+
+dialog ul {
+    margin-bottom: 0px;
+    padding: 0px 5px;
+}
+
+dialog li {
+    font-weight: 600;
+    list-style: none;
+}
+
+.dialog-link {
+    color: #0a0a0a;
+    text-decoration: none;
+}
+
+.modalClose {
+    width: 95%;
+    text-align: right;
+}
+
+.modalClose span{
+    cursor: pointer;
+    position: fixed;
+}
+
 .followDetails span {
-    margin-right: 10px;
+    color: #000;
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 .profilePicture {
@@ -29,6 +85,10 @@
     width: 133px;
 }
 
+.dialogPicture {
+    margin: 10px 0 10px 0;
+}
+
 .profileBtn, .customFileBtn {
     border: 1px solid #0a0a0a;
     background-color: #FFF;
@@ -36,7 +96,7 @@
     color: rgb(12, 12, 12);
     cursor: pointer;
     margin: auto;
-    padding: 3px 10px;
+    padding: 10px;
     transition: all 0.3s ease-in-out;
 }
 
