@@ -41,11 +41,6 @@
                             <li>
                                 <img src="{{profile.userProfile.profile_picture.url}}" class="dialogPicture">
                                 <a href="{% url 'renderProfile' profile%}" class="dialog-link">{{profile}}</a>
-                                {% if isFollowing == "Login Necessary" %}
-                                    <button id="btnSettings" class="profileBtn disabled" disabled>Follow</button>
-                                {% else %}
-                                    <button id="btnSettings" class="profileBtn {%if isFollowing == 'Follow'%}follow{%else%}unfollow{%endif%}">{{isFollowing}}</button>
-                                {% endif %}
                             </li>
                         {%endfor%}
                     </ul>

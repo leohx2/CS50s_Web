@@ -34,7 +34,7 @@ dialog {
     border-radius: 5px;
     box-shadow: 0 0 1em rgb(0 0 0 / .3);
     max-height: 300px;
-    padding: 5px 5px 10px 5px;
+    padding: 0;
     overflow-y: auto;
     width: 400px;
 }

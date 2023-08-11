@@ -238,14 +238,25 @@ function createModal(modal, openModal, closeModal) {
     const v_modal = document.getElementById(modal)
     const v_openModal = document.getElementById(openModal)
     const v_closeModal = document.getElementById(closeModal)
-
+    
     v_openModal.addEventListener('click', () => {
         v_modal.showModal()
+        document.querySelector("body").addEventListener('click', (e) => {
+        // Check if the e.target === v_modal, if yes the user is clicking outside of the modal and we close it
+        // Because of the itens inside of the modal the target can't select the modal unless the user click outside of it
+        // all the paddings were removed from dialog, causing a dialog area 100% filled with another elements.
+        // but the margin of the dialog still filling the rest of the page, causing the necessary result
+        console.log("clicking")
+        if (e.target === v_modal) {
+            v_modal.close()
+        }
+        })
     })
-
+    
     v_closeModal.addEventListener('click', () => {
         v_modal.close()
     })
+
 }
 
 // Function to follow and unfllow users and to change a picture in case the user needs to
