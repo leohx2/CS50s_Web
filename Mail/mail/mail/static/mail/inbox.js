@@ -47,6 +47,7 @@ function compose_email(mode, email=null) {
 
     // Show compose view and hide other views
     switch_view('#compose-view')
+    console.log(mode)
     if (mode==="send")
     {
         clear_out()
@@ -224,7 +225,6 @@ const form_submited = async (e) => {
 
     // Use a trycatch to make sure there will be no error in the website only in the console log maybe
     try {
-        if (recipients.trim().length === 0) throw "Empty recipients"
         const response = await fetch('/emails', {
             method: 'POST',
             body: JSON.stringify({
