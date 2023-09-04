@@ -56,6 +56,10 @@ textarea:focus{
     width: 40px;
 }
 
+.profilePicturePost, .profilePicture {
+    object-fit: contain;
+}
+
 .post {
     display: flex;
     justify-content: center;
