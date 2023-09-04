@@ -122,6 +122,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Adding images dir as well
-MEDIA_URL = '/media/'
+MEDIA_URL = '/network/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'network/media')
