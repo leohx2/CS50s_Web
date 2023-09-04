@@ -194,7 +194,7 @@ async function renderPosts(divPost, username=null, page=1){
         }
         const json = await response.json()
         // if there is no posts, render some "post" telling there is no posts
-        if (json.length === 1) {
+        if (json['posts'] === 0) {
             renderNoPosts(divPost)
             return
         }
