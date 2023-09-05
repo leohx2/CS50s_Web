@@ -1,0 +1,103 @@
+
+main {
+    overflow: hidden;
+}
+
+.navBar {
+    display: flex;
+    background-color: #070707;
+    height: 48px;
+    width: 100%;
+}
+
+.navBar ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0px;
+    width: 95%;
+}
+
+.navA{
+    text-decoration: none;
+    color: #FAFAFA;
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+}
+
+.navBar-language {
+    align-items: center;
+    display: flex;
+}
+
+.languageBtn {
+    background-color: inherit;
+    border: none;
+    color: #FAFAFA;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+}
+
+.languageBtn:hover, .navA:hover{
+    opacity: 1;
+}
+
+.active {
+    font-weight: 500;
+    opacity: 1;
+}
+
+.mainInfo {
+    background-image: linear-gradient(to top, #060606, #070707, #070707, #080808, #080808, #080808, #090909, #090909, #090909, #080808, #080808, #070707);
+    color: #FAFAFA;
+    display: flex;
+    gap:100px;
+    justify-content: space-between;
+    height: calc(100vh - 48px);
+    position: relative;
+    width: 100%;
+}
+
+.mainInfo-authorDescription {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.authorDescription-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    width: 50%;
+}
+
+.authorDescription-welcome {
+    font-size: 1.8rem;
+}
+
+.authorDescription-name {
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 0.3rem 0px;
+}
+
+.authorDescription-job {
+    font-size: 1.8rem;
+}
+
+.authorDescription-briefing {
+    font-size: 1.2rem;
+    margin-top: 1.8rem;
+}
+
+.mainInfo-authorPicture {
+    max-height: 100%;
+}
+
+.mainInfo-authorPicture img {
+    height: 100%;
+    object-fit:contain;
+}
