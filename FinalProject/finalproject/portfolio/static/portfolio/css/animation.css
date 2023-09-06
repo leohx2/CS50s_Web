@@ -11,7 +11,7 @@
 }
 
 .transition {
-    animation: transition 3s forwards ease-in-out;
+    animation: transition 2.5s forwards ease-in-out;
 }
 
 @keyframes transition {
@@ -29,7 +29,7 @@
     }
     50% {
         height: 100%;
-        width: 100%;
+        width: 110%;
     }
     99% {
         height: 100%;

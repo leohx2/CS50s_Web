@@ -28,6 +28,7 @@
         </header>
         <main>
             <div class="transictionMaker"></div>
+
             <section class="mainInfo">
                 <div class="mainInfo-authorDescription">
                     <div class="authorDescription-content">
@@ -39,6 +40,15 @@
                             vitae tempor mollis, mauris purus euismod nisl, et viverra justo ipsum vitae
                             ligula. Mauris quis auctor ligula
                         </span>
+                        <div class="authorDescription-buttons">
+                            <div class="tooltip">
+                                <button class="authorDescription-buttons-email" >
+                                    <span class=buttons-email-span>My e-mail</span>
+                                </button>
+                                <span class="tooltipText"></span>
+                            </div>
+                            <button class="authorDescription-buttons-projects" >Projects</button>
+                        </div>
                     </div>
                 </div>
                 <div class="mainInfo-authorPicture">
@@ -46,8 +56,12 @@
                 </div>
             </section>
 
+            <section>
+
+            </section>
+
         </main>
         <footer></footer>
-        <script src="{% static 'portfolio/javaScript/language.js' %}"></script>
+        <script src="{% static 'portfolio/javaScript/main.js' %}" type="module"></script>
     </body>
 </html>

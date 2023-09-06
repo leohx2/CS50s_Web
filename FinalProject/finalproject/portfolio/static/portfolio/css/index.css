@@ -101,3 +101,41 @@ main {
     height: 100%;
     object-fit:contain;
 }
+
+.authorDescription-buttons  {
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem
+}
+
+.authorDescription-buttons button {
+    background-color: #fafafae1;
+    border: none;
+    border-radius: 5px;
+    color: #080808;
+    cursor: pointer;
+    padding: 0.6rem;
+    transition: all 300ms ease-in-out;
+    width: 100px;
+}
+
+.authorDescription-buttons button:hover {
+    background-color: #FAFAFA;
+}
+
+.buttons-email-span{
+    transition: all 150ms ease-in-out;
+}
+
+.tooltip{
+    position: relative;
+}
+
+.tooltipText{
+    color: white;
+    background-color: red;
+    display: none;
+    padding: 0.5rem;
+    position: absolute;
+    transition: opacity 300ms ease-in-out;
+}
