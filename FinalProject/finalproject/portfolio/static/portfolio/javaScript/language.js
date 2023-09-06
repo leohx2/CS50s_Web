@@ -44,7 +44,7 @@ const changeLanguage = (language) => {
     const navAncorEl = document.querySelectorAll(".navA");
     const authorWelcome = document.querySelector(".authorDescription-welcome");
     const authorJob = document.querySelector(".authorDescription-job");
-    const emailBtn = document.querySelector('.authorDescription-buttons-email')
+    const emailBtnSpan = document.querySelector('.buttons-email-span')
     const projectsBtn = document.querySelector('.authorDescription-buttons-projects')
     // const authorBriefing = document.querySelector(".authorDescription-Briefing") comentend by now until there is acctualy a briefing
     
@@ -56,7 +56,7 @@ const changeLanguage = (language) => {
         navAncorEl[3].textContent = "Prêmios";
         authorWelcome.textContent = "Ola! Eu sou o";
         authorJob.textContent = "Artista plástico";
-        emailBtn.textContent = "Meu e-mail"
+        emailBtnSpan.textContent = "Meu e-mail"
         projectsBtn.textContent = "Projectos"
     } else {
         // English version
@@ -66,7 +66,7 @@ const changeLanguage = (language) => {
         navAncorEl[3].textContent = "Awards";
         authorWelcome.textContent = "Hello! I am";
         authorJob.textContent = "Fine artist";
-        emailBtn.textContent = "My e-mail"
+        emailBtnSpan.textContent = "My e-mail"
         projectsBtn.textContent = "Projects"
     }
 }
