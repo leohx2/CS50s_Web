@@ -10,33 +10,21 @@
     right: 0;
 }
 
-.transition {
-    animation: transition 2.5s forwards ease-in-out;
+.transitionOpacity {
+    animation: transitionOpacity 1s forwards ease-in-out;
 }
 
-@keyframes transition {
+@keyframes transitionOpacity {
     0% {
-        height: 0%;
-        width: 0%;
+        opacity: 1;
     }
-    1% {
-        height: 100%;
-        width: 0%;
+    30% {
+        opacity: 0;
     }
-    1% {
-        height: 100%;
-        width: 0%;
-    }
-    50% {
-        height: 100%;
-        width: 110%;
-    }
-    99% {
-        height: 100%;
-        width: 0%;
+    70% {
+        opacity: 0;
     }
     100% {
-        height: 0%;
-        width: 0%;
+        opacity: 1;
     }
 }

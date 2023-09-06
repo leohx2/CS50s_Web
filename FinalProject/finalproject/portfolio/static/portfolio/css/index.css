@@ -1,6 +1,8 @@
 
-main {
+body {
+    font-family: 'Josefin Sans', sans-serif;
     overflow: hidden;
+    background-color: #080808;
 }
 
 .navBar {
@@ -48,7 +50,7 @@ main {
 }
 
 .mainInfo {
-    background-image: linear-gradient(to top, #060606, #070707, #070707, #080808, #080808, #080808, #090909, #090909, #090909, #080808, #080808, #070707);
+    background-image: linear-gradient(to top, #050505, #070707, #070707, #080808, #080808, #080808, #090909, #090909, #090909, #080808, #080808, #070707);
     color: #FAFAFA;
     display: flex;
     gap:100px;
