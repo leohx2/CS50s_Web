@@ -5,6 +5,10 @@ body {
     background-color: #080808;
 }
 
+button {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
 .navBar {
     display: flex;
     background-color: #070707;
