@@ -1,4 +1,3 @@
-
 // Using that file will allow me to focus on the transictions of the web site
 const transition = document.querySelector('body');
 

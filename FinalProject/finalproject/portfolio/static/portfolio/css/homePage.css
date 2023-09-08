@@ -1,0 +1,98 @@
+
+.homePage {
+    background-image: linear-gradient(to top, #050505, #070707, #070707, #080808, #080808, #080808, #090909, #090909, #090909, #080808, #080808, #070707);
+    color: #FAFAFA;
+    display: flex;
+    gap:100px;
+    justify-content: space-between;
+    height: calc(100vh - 48px);
+    position: relative;
+    width: 100%;
+}
+
+.homePage-authorDescription {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.authorDescription-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    width: 50%;
+}
+
+.authorDescription-welcome {
+    font-size: 1.8rem;
+}
+
+.authorDescription-name {
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 0.3rem 0px;
+}
+
+.authorDescription-job {
+    font-size: 1.8rem;
+}
+
+.authorDescription-briefing {
+    font-size: 1.2rem;
+    margin-top: 1.8rem;
+}
+
+.homePage-authorPicture {
+    max-height: 100%;
+}
+
+.homePage-authorPicture img {
+    height: 100%;
+    object-fit:contain;
+}
+
+.authorDescription-buttons  {
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem
+}
+
+.authorDescription-buttons button {
+    background-color: #fafafae1;
+    border: none;
+    border-radius: 5px;
+    color: #080808;
+    cursor: pointer;
+    padding: 0.6rem;
+    transition: all 300ms ease-in-out;
+    width: 100px;
+}
+
+.authorDescription-buttons button:hover {
+    background-color: #FAFAFA;
+}
+
+.buttons-email-span{
+    transition: all 150ms ease-in-out;
+}
+
+.tooltip{
+    position: relative;
+}
+
+.tooltipText{
+    color: white;
+    background-color: rgba(211, 211, 211, 0.524);
+    border-radius: 5px;
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    padding: 0.5rem;
+    position: absolute;
+    pointer-events: none;
+    left: 0px;
+}

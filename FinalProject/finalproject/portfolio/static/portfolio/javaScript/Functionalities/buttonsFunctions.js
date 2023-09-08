@@ -2,7 +2,7 @@
 const EMAIL = 'info.jonarth@gmail.com'
 
 // Change the text when the mouse is over e-mail button and shows a tooltip text
-export function emailChange (bodyln) {
+export function emailChange (main) {
     // Query the necessary elements
     const emailBtn = document.querySelector('.authorDescription-buttons-email');
     const emailBtnSpan = document.querySelector('.buttons-email-span');
@@ -23,17 +23,17 @@ export function emailChange (bodyln) {
         emailBtnSpan.style.opacity = 0;
         setTimeout ( () => {
             emailBtnSpan.style.opacity = 1;
-            emailBtnSpan.textContent = bodyln.dataset.language === "pt" ? "Meu e-mail" : "My e-mail"
+            emailBtnSpan.textContent = main.dataset.language === "pt" ? "Meu e-mail" : "My e-mail"
         }, 300)
     }) 
 
     // Set the clipboard to the author e-mail
     emailBtn.addEventListener("click", () => {
         navigator.clipboard.writeText(`${EMAIL}`)
-        tooltipText.textContent = bodyln.dataset.language === "pt" ? "Copiado" : "Copied"
-        tooltipText.style.display = "block"
+        tooltipText.textContent = main.dataset.language === "pt" ? "Copiado" : "Copied"
+        tooltipText.classList.add("fadeAnimation")
         setTimeout (() => {
-            tooltipText.style.display = "none"
-        }, 2000)
+            tooltipText.classList.remove("fadeAnimation")
+        }, 1500)
     }) 
 }
