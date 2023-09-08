@@ -21,11 +21,11 @@
         <header>
             <nav class="navBar">
                 <ul>
-                    <li><a class="navA active" href="#">Home</a></li>
-                    <li><a class="navA " href="#">About me</a></li>
-                    <li><a class="navA" href="#">Projects</a></li>
-                    <li><a class="navA" href="#">Awards</a></li>
-                    <li><a class="navA" href="#">Contact me</a></li>
+                    <li><a data-page="home" class="navA {% if pageToRender == 'home' %} active {% endif %}" href="#">Home</a></li>
+                    <li><a data-page="about" class="navA {% if pageToRender == 'about' %} active {% endif %}" href="#">About me</a></li>
+                    <li><a data-page="projects" class="navA {% if pageToRender == 'projects' %} active {% endif %}" href="#">Projects</a></li>
+                    <li><a data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %}" href="#">Awards</a></li>
+                    <li><a data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %}" href="#">Contact me</a></li>
                 </ul>
                 <div class="navBar-language">
                     <button id="EN" class="languageBtn active">EN</button>

@@ -1,5 +1,5 @@
-import {emailChange as changeEmailButton} from './Functionalities/buttonsFunctions.js'
 import {homePage as homePageRender} from './Pages/homePage.js'
+import {setNavBarBehavior} from './NavBar/navBarRedirect.js'
 
 document.addEventListener('DOMContentLoaded', () => {
     // After the content is loaded get some content to be used
@@ -9,12 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'en': document.getElementById('EN'),
         'pt': document.getElementById('PT')
     };
+    // Set the navBar behavior, to change the page content and the active item class.
+    setNavBarBehavior()
+
     // Render the first page based on the main data-page-render, info passed via Django based on the URL info
     choosePageToRender(mainPage, sectionRender, buttons)
-
-    // Adding the copy function to the e-mail me button, to make easier to the user to copy the e-mail
-    // also add the hover effect to show the e-mail and the tooltip
-    changeEmailButton(mainPage);
 });
 
 function choosePageToRender(main, container, buttons){

@@ -1,9 +1,16 @@
 import {addLanguageChange} from './../Functionalities/language.js'
+import {emailChange as copyEmail} from './../Functionalities/buttonsFunctions.js'
+
 
 // Function the render the home page
 export function homePage (main, container, buttons) {
     // Add the changeLanguage to homePage
     addLanguageChange(buttons, main, "home");
+
+    // Setting the url page
+    history.pushState({}, "", "home")
+    
+    // Home page content.
     container.insertAdjacentHTML('afterbegin', 
     `
     <div class="homePage-authorDescription">
@@ -32,4 +39,8 @@ export function homePage (main, container, buttons) {
             <img src="../../static/portfolio/images/john_image_1.jpeg" alt="Jonathan Rosildo Image">
         </div>
     `);
+
+    // Adding the copy function to the e-mail me button, to make easier to the user to copy the e-mail
+    // also add the hover effect to show the e-mail and the tooltip
+    copyEmail(main);
 }
