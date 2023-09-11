@@ -84,6 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'EMAIL_PASSWORD': os.environ.get('DB_EMAIL_PASS') # E_mail app pass to send e-mail.
     }
 }
 

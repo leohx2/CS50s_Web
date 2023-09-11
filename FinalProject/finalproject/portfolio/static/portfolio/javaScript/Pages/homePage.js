@@ -7,6 +7,9 @@ export function homePage (main, container, buttons) {
     // Add the changeLanguage to homePage
     addLanguageChange(buttons, main, "home");
 
+    // Clean any content before insert a new one
+    container.innerHTML = ""
+
     // Setting the url page
     history.pushState({}, "", "home")
     

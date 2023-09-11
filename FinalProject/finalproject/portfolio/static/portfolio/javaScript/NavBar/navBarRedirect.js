@@ -1,7 +1,9 @@
+import {homePage as homePageRender} from './../Pages/homePage.js'
+import {renderContactPage} from './../Pages/contactPage.js'
 
 // This function will prevent the page to reload or change after the user click on the link on navBar.
 // It will also change the active class to make sure the current page is the one with the "active" class.
-export function setNavBarBehavior () {
+export function setNavBarBehavior (main, container, buttons) {
     // Query all the items from navBar
     const navAncorEl = document.querySelectorAll(".navA");
     
@@ -36,9 +38,11 @@ export function setNavBarBehavior () {
                     break;
                 case 'contact':
                     console.log('contact');
+                    renderContactPage(main, container, buttons)
                     break;
                 default:
                     console.log('home');
+                    homePageRender(main, container, buttons)
                     break;
             }
         })

@@ -1,15 +1,4 @@
 
-.homePage {
-    background-image: linear-gradient(to top, #050505, #070707, #070707, #080808, #080808, #080808, #090909, #090909, #090909, #080808, #080808, #070707);
-    color: #FAFAFA;
-    display: flex;
-    gap:100px;
-    justify-content: space-between;
-    height: calc(100vh - 48px);
-    position: relative;
-    width: 100%;
-}
-
 .homePage-authorDescription {
     align-items: center;
     display: flex;
