@@ -1,7 +1,7 @@
-
+import { addLanguageChange } from "../Functionalities/language.js";
 
 // Function to render the contact page.
-export function renderContactPage (main, container, buttons, backButton=false){
+export function renderContactPage (main, container, backButton=false){
     // First of all, erase the content
     container.innerHTML = ""
 
@@ -15,19 +15,37 @@ export function renderContactPage (main, container, buttons, backButton=false){
     }
 
     // Contact me page content
-    container.insertAdjacentHTML('afterbegin', `
-        <div class="contact-container">
-            <div class="contact-image">
-                <img src="../../static/portfolio/images/john_image_3.jpeg" alt="Jonathan Rosildo Image">
-            </div>
-            <form data-page="contact" action="">
-                <div class="input-container">
-                    <input class="form-fields" id="message-name" type="text" placeholder="Your name">
-                    <input class="form-fields" id="message-email" type="text" placeholder="Your Email">
+    if (main.dataset.language === 'en') {
+        container.insertAdjacentHTML('afterbegin', `
+            <div class="contact-container">
+                <div class="contact-image">
+                    <img src="../../static/portfolio/images/john_image_3.jpeg" alt="Jonathan Rosildo Image">
                 </div>
-                <textarea id="message-content" cols="30" rows="10" placeholder="Message"></textarea>
-                <input class="submitBtn" type="submit" value="Send message.">
-            </form>
-        </div>
-    `)
+                <form data-page="contact" action="">
+                    <div class="input-container">
+                        <input class="form-fields" id="message-name" type="text" placeholder="Your name">
+                        <input class="form-fields" id="message-email" type="text" placeholder="Your E-mail">
+                    </div>
+                    <textarea id="message-content" cols="30" rows="10" placeholder="Message"></textarea>
+                    <input class="submitBtn" type="submit" value="Send message.">
+                </form>
+            </div>
+        `)
+    } else {
+        container.insertAdjacentHTML('afterbegin', `
+            <div class="contact-container">
+                <div class="contact-image">
+                    <img src="../../static/portfolio/images/john_image_3.jpeg" alt="Jonathan Rosildo Image">
+                </div>
+                <form data-page="contact" action="">
+                    <div class="input-container">
+                        <input class="form-fields" id="message-name" type="text" placeholder="Nome">
+                        <input class="form-fields" id="message-email" type="text" placeholder="E-mail">
+                    </div>
+                    <textarea id="message-content" cols="30" rows="10" placeholder="Mensagem"></textarea>
+                    <input class="submitBtn" type="submit" value="Send message.">
+                </form>
+            </div>
+        `)
+    }
 }

@@ -41,11 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     choosePageToRender(main, container, buttons);
 });
 
-function choosePageToRender(main, container, buttons, backButton=false){
+export function choosePageToRender(main, container, backButton=false){
     console.log("choosePageToRender " + main.dataset.pageRender)
     if (main.dataset.pageRender === "home") {
-        homePageRender(main, container, buttons, backButton);
+        homePageRender(main, container, backButton);
     } else if (main.dataset.pageRender === "contact") {
-        renderContactPage(main, container, buttons, backButton);
+        renderContactPage(main, container, backButton);
     };
 }

@@ -1,6 +1,8 @@
 import { transictionMaker } from './transiction.js'
+import { choosePageToRender } from '../main.js';
 
-export function addLanguageChange (buttons, main, page) {
+
+export function addLanguageChange (buttons, main, container) {
     // Add the changeLangue function to each of them
     buttons['en'].addEventListener('click', () => {
         // Check if it's necessary to run the function by checking the dataset language
@@ -15,10 +17,12 @@ export function addLanguageChange (buttons, main, page) {
         
         // Call the transition function that will aply the changes with a delay
         transictionMaker(()=> {
-            // Call the function to change the page language
-            chosePageToChange(main.dataset.language, page)
             // Call the function to change the navBar language, every page has the same navBar
             changeNavBarLanguage(main.dataset.language)
+
+            // Re-render the page in the right language
+            main.dataset.pageRender = history.state.render
+            choosePageToRender(main, container)
         }, "opacity slow")
 
     });
@@ -36,20 +40,14 @@ export function addLanguageChange (buttons, main, page) {
 
         // Call the transition function that will aply the changes with a delay
         transictionMaker(()=> {
-            // Call the function to change the page language
-            chosePageToChange(main.dataset.language, page)
             // Call the function to change the navBar language, every page has the same navBar
             changeNavBarLanguage(main.dataset.language)
+
+            // Re-render the page in the right language
+            main.dataset.pageRender = history.state.render
+            choosePageToRender(main, container)
         }, "opacity slow")
     });
-}
-
-// Based on the page choose the right function changeLanguageX, where X is the page that we want to
-// change de language
-const chosePageToChange = (language, page) => {
-    if (page === 'home') {
-        changeLanguageHomePage(language)
-    }
 }
 
 // Catch and change the navBar content language 
@@ -69,30 +67,5 @@ const changeNavBarLanguage = (language) => {
         navAncorEl[2].textContent = "Projects";
         navAncorEl[3].textContent = "Awards";
         navAncorEl[4].textContent = "Contact me";
-    }
-}
-
-// Catch the home page content and change it to the language the user chose.
-// By dafault the language is English.
-const changeLanguageHomePage = (language) => {
-    // Getting the elements to change
-    const authorWelcome = document.querySelector(".authorDescription-welcome");
-    const authorJob = document.querySelector(".authorDescription-job");
-    const emailBtnSpan = document.querySelector('.buttons-email-span')
-    const projectsBtn = document.querySelector('.authorDescription-buttons-projects')
-    // const authorBriefing = document.querySelector(".authorDescription-Briefing") comentend by now until there is acctualy a briefing
-    
-    if (language === "pt") {
-        // Portuguese version
-        authorWelcome.textContent = "Ola! Eu sou o";
-        authorJob.textContent = "Artista plástico";
-        emailBtnSpan.textContent = "Meu e-mail"
-        projectsBtn.textContent = "Projectos"
-    } else {
-        // English version
-        authorWelcome.textContent = "Hello! I am";
-        authorJob.textContent = "Fine artist";
-        emailBtnSpan.textContent = "My e-mail"
-        projectsBtn.textContent = "Projects"
     }
 }

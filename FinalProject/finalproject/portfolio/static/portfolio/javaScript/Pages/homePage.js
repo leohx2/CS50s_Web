@@ -3,10 +3,7 @@ import {emailChange as copyEmail} from './../Functionalities/buttonsFunctions.js
 
 
 // Function the render the home page
-export function homePage (main, container, buttons, backButton=false) {
-    // Add the changeLanguage to homePage
-    addLanguageChange(buttons, main, "home");
-
+export function homePage (main, container, backButton=false) {
     // Clean any content before insert a new one
     container.innerHTML = ""
 
