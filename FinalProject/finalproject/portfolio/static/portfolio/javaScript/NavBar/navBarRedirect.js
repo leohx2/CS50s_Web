@@ -28,20 +28,20 @@ export function setNavBarBehavior (main, container, buttons) {
             // Now render the clicked page
             switch (e.target.dataset.page) {
                 case 'about':
-                    console.log('about');
+                    //console.log('about');
                     break;
                 case 'projects':
-                    console.log('projects');
+                    //console.log('projects');
                     break;
                 case 'awards':
-                    console.log('awards');
+                    //console.log('awards');
                     break;
                 case 'contact':
-                    console.log('contact');
+                    //console.log('contact');
                     renderContactPage(main, container, buttons)
                     break;
                 default:
-                    console.log('home');
+                    //console.log('home');
                     homePageRender(main, container, buttons)
                     break;
             }

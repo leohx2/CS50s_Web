@@ -11,12 +11,17 @@
 }
 
 .fadeAnimation{
-    animation: fade 1.5s forwards ease-in-out;
+    animation: fadeOut 1.5s forwards ease-in-out;
 }
 
 .transitionOpacity {
     animation: transitionOpacity 1s forwards ease-in-out;
 }
+
+.transitionOpacityFast {
+    animation: transitionOpacity 0.5s forwards ease-in-out;
+}
+
 
 @keyframes transitionOpacity {
     0% {
@@ -33,7 +38,7 @@
     }
 }
 
-@keyframes fade {
+@keyframes fadeOut {
     0%{
         opacity: 0;
     }

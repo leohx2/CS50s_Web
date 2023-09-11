@@ -19,7 +19,7 @@ export function addLanguageChange (buttons, main, page) {
             chosePageToChange(main.dataset.language, page)
             // Call the function to change the navBar language, every page has the same navBar
             changeNavBarLanguage(main.dataset.language)
-        })
+        }, "opacity slow")
 
     });
 
@@ -40,7 +40,7 @@ export function addLanguageChange (buttons, main, page) {
             chosePageToChange(main.dataset.language, page)
             // Call the function to change the navBar language, every page has the same navBar
             changeNavBarLanguage(main.dataset.language)
-        })
+        }, "opacity slow")
     });
 }
 

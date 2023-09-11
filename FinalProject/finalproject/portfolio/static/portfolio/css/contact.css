@@ -1,7 +1,13 @@
-.contact {
-    display: none;
+.form-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
-.contact p {
-    color: white;
+.form-container form {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
 }
