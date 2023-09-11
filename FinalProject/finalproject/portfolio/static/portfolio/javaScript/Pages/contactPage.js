@@ -16,14 +16,17 @@ export function renderContactPage (main, container, buttons, backButton=false){
 
     // Contact me page content
     container.insertAdjacentHTML('afterbegin', `
-        <div class="form-container">
+        <div class="contact-container">
+            <div class="contact-image">
+                <img src="../../static/portfolio/images/john_image_3.jpeg" alt="Jonathan Rosildo Image">
+            </div>
             <form data-page="contact" action="">
                 <div class="input-container">
-                    <input id="message-name" type="text" placeholder="Your name">
-                    <input id="message-email" type="text" placeholder="Your Email">
+                    <input class="form-fields" id="message-name" type="text" placeholder="Your name">
+                    <input class="form-fields" id="message-email" type="text" placeholder="Your Email">
                 </div>
                 <textarea id="message-content" cols="30" rows="10" placeholder="Message"></textarea>
-                <input type="submit" value="Send message.">
+                <input class="submitBtn" type="submit" value="Send message.">
             </form>
         </div>
     `)

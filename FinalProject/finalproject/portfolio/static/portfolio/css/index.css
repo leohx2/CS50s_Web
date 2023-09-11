@@ -5,7 +5,7 @@ body {
     background-color: #080808;
 }
 
-button {
+button, textarea, input {
     font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -54,7 +54,7 @@ button {
 }
 
 .mainSectionContainer {
-    background-image: linear-gradient(to top, #050505, #070707, #070707, #080808, #080808, #080808, #090909, #090909, #090909, #080808, #080808, #070707);
+    background-image: linear-gradient(to bottom, #070707, #070707, #080808, #080808, #080808, #080808, #070707, #070707, #060606, #060606, #050505, #040404);
     color: #FAFAFA;
     display: flex;
     gap:100px;

@@ -1,13 +1,61 @@
-.form-container {
+.contact-container {
     align-items: center;
+    background-image: linear-gradient(to bottom, #070707, #090909, #0b0b0b, #0d0d0d, #0f0f0f, #0f0f0f, #111111, #121212, #101010, #0f0f0f, #0f0f0f, #0e0e0e);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.contact-image {
+    height: 100%;
+    object-fit: contain;
+}
+
+.contact-image img {
     height: 100%;
     width: 100%;
 }
 
-.form-container form {
+.contact-container form {
     align-items: flex-start;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    left: 40%;
+    top: 40%
+}
+
+.input-container {
+    margin-bottom: 1rem;
+}
+
+.form-fields {
+    background-color: #FAFAFA;
+    border-radius: 3px;
+    border: none;
+    padding: 1rem 0.5rem;
+    width: 250px;
+}
+
+.form-fields:focus, textarea:focus {
+    outline: none;
+}
+
+textarea {
+    background-color: #FAFAFA;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    padding: 1rem 0.5rem;
+    resize: vertical;
+    width: 520px;
+}
+
+.submitBtn{
+    background-color: #FAFAFA;
+    border: none;
+    border-radius: 3px;
+    padding: 1rem 0.5rem;
+
 }
