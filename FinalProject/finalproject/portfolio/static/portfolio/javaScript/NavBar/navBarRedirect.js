@@ -43,11 +43,15 @@ export function setNavBarBehavior (main, container, buttons) {
                     break;
                 case 'contact':
                     transictionMaker(()=>{
+                        container.classList.remove(history.state.render)
+                        container.classList.add('contact')
                         renderContactPage(main, container, buttons);
                     }, "opacity fast")
                     break;
                 default:
                     transictionMaker(()=>{
+                        container.classList.remove(history.state.render)
+                        container.classList.add('home')
                         homePageRender(main, container, buttons);
                     }, "opacity fast")
                     break;

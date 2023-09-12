@@ -1,8 +1,8 @@
 
 body {
+    background-color: #080808;
     font-family: 'Josefin Sans', sans-serif;
     overflow: hidden;
-    background-color: #080808;
 }
 
 button, textarea, input {
@@ -54,11 +54,6 @@ button, textarea, input {
 }
 
 .mainSectionContainer {
-    background-image: linear-gradient(to bottom, #070707, #070707, #080808, #080808, #080808, #080808, #070707, #070707, #060606, #060606, #050505, #040404);
-    color: #FAFAFA;
-    display: flex;
-    gap:100px;
-    justify-content: space-between;
     height: calc(100vh - 48px);
     position: relative;
     width: 100%;

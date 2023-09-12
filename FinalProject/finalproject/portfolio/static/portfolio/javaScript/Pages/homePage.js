@@ -10,6 +10,7 @@ export function homePage (main, container, backButton=false) {
     // Set the url
     // The backbutton is a var to check if the user is on that page using the navBar or via the "back" or "foward" button from the browser.
     // If it is true use the replaceState that allow the user to use to foward button as well, otherwiser use the pushState.
+
     if (backButton === true) {
         history.replaceState({render: "home"}, "", "home")
     } else {
@@ -23,7 +24,7 @@ export function homePage (main, container, backButton=false) {
         <div class="homePage-authorDescription">
              <div class="authorDescription-content">
                  <h3 class="authorDescription-welcome">Hello! I am</h3>
-                 <h1 class="authorDescription-name">Jonathan Rosildo</h1>
+                 <h1 class="authorDescription-name">Jonarth</h1>
                  <span class="authorDescription-job">Fine artist</span>
                  <span class="authorDescription-briefing">
                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue, est
@@ -51,8 +52,8 @@ export function homePage (main, container, backButton=false) {
         `
         <div class="homePage-authorDescription">
              <div class="authorDescription-content">
-                 <h3 class="authorDescription-welcome">Ola! Eu sou o</h3>
-                 <h1 class="authorDescription-name">Jonathan Rosildo</h1>
+                 <h3 class="authorDescription-welcome">Olá! Eu sou o</h3>
+                 <h1 class="authorDescription-name">Jonarth</h1>
                  <span class="authorDescription-job">Artista plástico</span>
                  <span class="authorDescription-briefing">
                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue, est

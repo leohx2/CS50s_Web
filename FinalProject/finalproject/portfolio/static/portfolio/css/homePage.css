@@ -1,4 +1,12 @@
 
+.home {
+    background-image: linear-gradient(to bottom, #070707, #070707, #080808, #080808, #080808, #080808, #070707, #070707, #060606, #060606, #050505, #040404);
+    color: #FAFAFA;
+    display: flex;
+    gap:100px;
+    justify-content: space-between;
+}
+
 .homePage-authorDescription {
     align-items: center;
     display: flex;
@@ -22,6 +30,7 @@
 .authorDescription-name {
     font-size: 3rem;
     font-weight: 500;
+    font-family: 'Rock Salt', cursive;
     margin: 0.3rem 0px;
 }
 

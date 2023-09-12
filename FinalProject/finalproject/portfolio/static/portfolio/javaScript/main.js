@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // After the content is loaded get some content to be used
     const main = document.querySelector('main');
     const container = document.querySelector('[data-render-section=true]');
+    const body = document.querySelector('body');
     const buttons = {
         'en': document.getElementById('EN'),
         'pt': document.getElementById('PT')
@@ -27,8 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.state) {
             // currentState = olderState
             state = event.state
+            // Update the page to render 
             main.dataset.pageRender = state.render
-            transictionMaker(() => {choosePageToRender(main, container, buttons, true)}, "opacity fast")
+            // Call the transition maker and set the right active class.
+            transictionMaker(() => {
+                // Remove the current page class
+                container.classList.remove(...container.classList)
+                container.classList.add("mainSectionContainer")
+                choosePageToRender(main, container, true)
+            }, "opacity fast")
             document.querySelector(".active").classList.remove("active")
             document.querySelector(`[data-page=${state.render}]`).classList.add("active")
         }
@@ -42,10 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export function choosePageToRender(main, container, backButton=false){
-    console.log("choosePageToRender " + main.dataset.pageRender)
     if (main.dataset.pageRender === "home") {
+        container.classList.add("home")
         homePageRender(main, container, backButton);
     } else if (main.dataset.pageRender === "contact") {
+        container.classList.add("contact")
         renderContactPage(main, container, backButton);
     };
 }
