@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="{% static 'portfolio/css/animation.css' %}">
         <link rel="stylesheet" href="{% static 'portfolio/css/homePage.css' %}">
         <link rel="stylesheet" href="{% static 'portfolio/css/contact.css' %}">
-
+        {% block link %} {%endblock%}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -28,6 +28,10 @@
                     <li><a data-page="projects" class="navA {% if pageToRender == 'projects' %} active {% endif %}" href="#">Projects</a></li>
                     <li><a data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %}" href="#">Awards</a></li>
                     <li><a data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %}" href="#">Contact me</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a data-page="newProject" class="navA" href="#">NewProjectPost</a></li>
+                        <li><a class="authorA" href="{%url 'logout' %}">Logout</a></li>
+                    {% endif %}
                 </ul>
                 <div class="navBar-language">
                     <button id="EN" class="languageBtn active">EN</button>
@@ -36,11 +40,12 @@
             </nav>
         </header>
         <main data-language="en" data-page-render="{{pageToRender}}">
+        {% block main %}
             <div class="transictionMaker"></div>
 
             <section class="mainSectionContainer" data-render-section="true">
             </section>
-
+        {% endblock %}
         </main>
         <footer></footer>
         <script src="{% static 'portfolio/javaScript/main.js' %}" type="module"></script>

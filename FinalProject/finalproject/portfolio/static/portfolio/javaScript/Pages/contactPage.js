@@ -8,18 +8,16 @@ function emptyString(str) {
 // Check if it's possible to send the e-mail, button disabled until all fields filled
 function disabledButton(e, elements, button) {
     if (!emptyString(elements[0].value) && !emptyString(elements[1].value) && !emptyString(elements[2].value)) {
-        console.log("all filled")
-        button.classList.remove("disabled")
+        button.classList.remove("disabled");
     } else {
-        console.log("not filled")
         if (!button.classList.contains("disable")) {
-            button.classList.add("disabled")
+            button.classList.add("disabled");
         }
     }
 }
 
 // Handle Submit and sending the e-mail info to django
-function handleSubmit(e) {
+async function handleSubmit(e) {
     e.preventDefault()
     const name = document.getElementById("message-name");
     const email = document.getElementById("message-email");
@@ -29,7 +27,16 @@ function handleSubmit(e) {
         console.log("error, missing item");
         return
     } else {
-        // TODO -> SEND E-MAIL
+        // Send the e-mail info to django
+        const res = await fetch(`/contact`, {
+            method: 'POST',
+            body: JSON.stringify({
+                name: name.value,
+                email: email.value,
+                message: message.value
+            })
+        })
+        // Clean the input values after the send the e-mail
         name.value= "";
         email.value = "";
         message.value = "";
@@ -79,10 +86,12 @@ export function renderContactPage(main, container, backButton = false) {
                 <input class="submitBtn disabled" id="submitEmail" type="submit" value="Send message.">
             </form>
             <div class="contact-fields-socialMedia">
-                <div class="socialMedia-info">
-                    <i class="fa-brands fa-instagram"></i>
-                    <span>@jonarth.com_</span>
-                </div>
+                <a class="socialMedia-link" href="https://www.instagram.com/jonarth.com_/" target="blank">
+                    <div class="socialMedia-info">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>@jonarth.com_</span>
+                    </div>
+                </a>
                 <div class="socialMedia-info">
                     <i class="fa-solid fa-envelope"></i>
                     <span>info.jonarth@gmail.com</span>
@@ -118,10 +127,12 @@ export function renderContactPage(main, container, backButton = false) {
                 <input class="submitBtn disabled" id="submitEmail" type="submit" value="Enviar mensagem.">
             </form>
             <div class="contact-fields-socialMedia">
-                <div class="socialMedia-info">
-                    <i class="fa-brands fa-instagram"></i>
-                    <span>@jonarth.com_</span>
-                </div>
+                <a class="socialMedia-link" href="https://www.instagram.com/jonarth.com_/" target="blank">
+                    <div class="socialMedia-info">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>@jonarth.com_</span>
+                    </div>
+                </a>
                 <div class="socialMedia-info">
                     <i class="fa-solid fa-envelope"></i>
                     <span>info.jonarth@gmail.com</span>
@@ -133,13 +144,15 @@ export function renderContactPage(main, container, backButton = false) {
   }
   // Get the form in case it's submitted
   const formSubmit = document.getElementById("emailForm");
-  formSubmit.addEventListener('submit', (e) => {handleSubmit(e)})
+  formSubmit.addEventListener('submit', (e) => {handleSubmit(e)});
 
-  // add the onChange event 
-  const onchange = document.querySelectorAll('[data-event=onChange]')
-  const buttonDisable = document.getElementById("submitEmail")
+  // add an "on change" like event 
+  const onchange = document.querySelectorAll('[data-event=onChange]');
+  const buttonDisable = document.getElementById("submitEmail");
+  // By adding the "input" event the code can track when the input has new change, if the user write or
+  // erase any content the event will be triggered 
   onchange.forEach((item)=>{
-    item.addEventListener('input', (e) => disabledButton(e, onchange, buttonDisable))
+    item.addEventListener('input', (e) => disabledButton(e, onchange, buttonDisable));
   })
 
 }

@@ -23,7 +23,7 @@ button, textarea, input {
     width: 95%;
 }
 
-.navA{
+.navA, .authorA{
     text-decoration: none;
     color: #FAFAFA;
     opacity: 0.6;
@@ -44,7 +44,7 @@ button, textarea, input {
     transition: all 0.3s ease-in-out;
 }
 
-.languageBtn:hover, .navA:hover{
+.languageBtn:hover, .navA:hover, .authorA:hover{
     opacity: 1;
 }
 

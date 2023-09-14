@@ -1,0 +1,30 @@
+{% extends "portfolio/index.html" %}
+
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'portfolio/css/login.css' %}" >
+{% endblock %}
+
+{% block main%}
+    <!-- Background image from
+    https://unsplash.com/pt-br/fotografias/VkwRmha1_tI?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink -->
+    <section class="loginSection">
+        <div class="backgroundOnly"></div>
+        <div class="loginContainer">
+            <span>Login</span>
+            <form class="loginForm" action="{% url 'loginAuthor' %}" method="post">
+                {% csrf_token %}
+                <div class="labelGroup">
+                    <label for="username" class="loginLabel">Email</label>
+                    <input type="text" class="loginInput" name="username" placeholder="Username...">
+                </div>
+                <div class="labelGroup">
+                    <label for="password" class="loginLabel">Password</label>
+                    <input type="password" class="loginInput" name="password" placeholder="Password...">
+                </div>
+                <input class="loginBtn" type="submit" value="Login">
+            </form>
+        </div>
+    </section>
+{% endblock %}

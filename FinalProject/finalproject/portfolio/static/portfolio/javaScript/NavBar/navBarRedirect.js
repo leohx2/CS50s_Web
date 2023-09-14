@@ -41,6 +41,8 @@ export function setNavBarBehavior (main, container, buttons) {
                 case 'awards':
                     //console.log('awards');
                     break;
+                case 'newProject':
+                    break;
                 case 'contact':
                     transictionMaker(()=>{
                         container.classList.remove(history.state.render)
