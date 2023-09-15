@@ -34,7 +34,7 @@
 .contact-fields-headline{
     font-size: 2rem;
     margin-bottom: 3rem;
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
     width: var(--formWidth);
 }
@@ -88,12 +88,17 @@ textarea{
     border-radius: 3px;
     cursor: pointer;
     padding: 1rem 0.5rem;
+    position: relative;
     width: calc(var(--formWidth) + 1rem);
     opacity: 1;
     transition: all 0.2s ease-in-out;
 }
 
-.disabled {
+.submitLoading {
+    color: #FAFAFA;
+}
+
+.disabled{
     pointer-events: none;
     opacity: 0.8;
 }

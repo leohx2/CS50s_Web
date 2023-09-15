@@ -22,6 +22,18 @@
     animation: transitionOpacity 0.5s forwards ease-in-out;
 }
 
+.submitLoading::after{
+    animation: loading 1s ease infinite;
+    content: "";
+    height: 16px;
+    border: 5px solid transparent;
+    border-top-color: #080808;
+    border-radius: 50%;
+    inset: 0 0 0 0;
+    margin: auto;
+    position: absolute;
+    width: 16px;
+}
 
 @keyframes transitionOpacity {
     0% {
@@ -50,5 +62,14 @@
     }
     100%{
         opacity: 0;
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
     }
 }

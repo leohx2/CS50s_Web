@@ -40,7 +40,7 @@
 
 .authorDescription-briefing {
     font-size: 1.2rem;
-    margin-top: 1.8rem;
+    margin-top: 1rem;
 }
 
 .homePage-authorPicture {
@@ -61,7 +61,7 @@
 .authorDescription-buttons button {
     background-color: #fafafae1;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #080808;
     cursor: pointer;
     padding: 0.6rem;

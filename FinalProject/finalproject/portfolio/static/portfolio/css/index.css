@@ -1,12 +1,17 @@
 
 body {
     background-color: #080808;
-    font-family: 'Josefin Sans', sans-serif;
-    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    overflow-x: hidden;
 }
 
 button, textarea, input {
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+
+main {
+    position: relative;
 }
 
 .navBar {
@@ -57,4 +62,27 @@ button, textarea, input {
     height: calc(100vh - 48px);
     position: relative;
     width: 100%;
+}
+
+/* Waves took from  https://www.shapedivider.app/*/
+.custom-shape-divider-bottom-1694717140 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1694717140 svg {
+    position: relative;
+    display: block;
+    width: calc(107% + 1.3px);
+    height: 27px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1694717140 .shape-fill {
+    fill: #DEDEDE;
 }

@@ -1,0 +1,28 @@
+Página do projecto
+
+Thumbnail do projecto
+separar por alas:
+Design, escultura e pintura
+
+Design:
+
+Thumb           Thumb
+    titulo          titulo 
+
+
+
+escultura:
+
+Thumb           Thumb
+    titulo          titulo 
+
+
+
+Pintura:
+
+Thumb           Thumb
+    titulo          titulo 
+
+
+Quando clicar na thumb direcionar para a página do produto com mais de uma foto.
+

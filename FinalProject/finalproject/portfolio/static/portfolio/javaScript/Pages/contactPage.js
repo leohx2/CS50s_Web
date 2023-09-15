@@ -16,6 +16,16 @@ function disabledButton(e, elements, button) {
     }
 }
 
+// Change the button while python sends the e-mail
+function loading(btn) {
+    btn.classList.add("submitLoading")
+}
+
+// Change the button back to normal after the loading ends
+function endLoading(btn) {
+    btn.classList.remove("submitLoading")
+}
+
 // Handle Submit and sending the e-mail info to django
 async function handleSubmit(e) {
     e.preventDefault()
@@ -27,7 +37,11 @@ async function handleSubmit(e) {
         console.log("error, missing item");
         return
     } else {
+        // Get the input to apply the loading function
+        const btn = document.getElementById("submitEmail")
+
         // Send the e-mail info to django
+        loading(btn)
         const res = await fetch(`/contact`, {
             method: 'POST',
             body: JSON.stringify({
@@ -36,6 +50,7 @@ async function handleSubmit(e) {
                 message: message.value
             })
         })
+        endLoading(btn)
         // Clean the input values after the send the e-mail
         name.value= "";
         email.value = "";
@@ -83,7 +98,7 @@ export function renderContactPage(main, container, backButton = false) {
                     </div>
                 </div>
                 <textarea data-event="onChange" id="message-content" cols="30" rows="10" placeholder="Message..." required></textarea>
-                <input class="submitBtn disabled" id="submitEmail" type="submit" value="Send message.">
+                <button class="submitBtn disabled" id="submitEmail" type="submit">Send message</button>
             </form>
             <div class="contact-fields-socialMedia">
                 <a class="socialMedia-link" href="https://www.instagram.com/jonarth.com_/" target="blank">

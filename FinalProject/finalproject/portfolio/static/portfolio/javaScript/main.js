@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     choosePageToRender(main, container, buttons);
 });
 
+// Choose the page to render base on the ""
 export function choosePageToRender(main, container, backButton=false){
     if (main.dataset.pageRender === "home") {
         container.classList.add("home")
