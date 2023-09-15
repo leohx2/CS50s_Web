@@ -2,6 +2,7 @@ import {homePage as homePageRender} from './Pages/homePage.js'
 import {renderContactPage} from './Pages/contactPage.js'
 import {setNavBarBehavior} from './NavBar/navBarRedirect.js'
 import { transictionMaker } from './Functionalities/transiction.js';
+import { renderNewProject } from './Pages/newProject.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // After the content is loaded get some content to be used
@@ -51,11 +52,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Choose the page to render base on the ""
 export function choosePageToRender(main, container, backButton=false){
-    if (main.dataset.pageRender === "home") {
-        container.classList.add("home")
-        homePageRender(main, container, backButton);
-    } else if (main.dataset.pageRender === "contact") {
-        container.classList.add("contact")
-        renderContactPage(main, container, backButton);
-    };
+    switch (main.dataset.pageRender) {
+        case 'contact':
+            container.classList.add("contact");
+            renderContactPage(main, container, backButton);
+            break;
+        case 'newProject':
+            container.classList.add("newProject");
+            renderNewProject(main, container, backButton);
+            break;
+        default:
+            container.classList.add("home");
+            homePageRender(main, container, backButton);
+            break;
+    }
 }

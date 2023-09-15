@@ -1,4 +1,4 @@
-import { addLanguageChange } from "../Functionalities/language.js";
+import { cleandAndUpdateState } from "../Functionalities/cleanAndUpdateState.js";
 
 // check if the string is empty or filled with white spaces
 function emptyString(str) {
@@ -61,17 +61,8 @@ async function handleSubmit(e) {
 
 // Function to render the contact page.
 export function renderContactPage(main, container, backButton = false) {
-  // First of all, erase the content
-  container.innerHTML = "";
-
-  // Set the url
-  // The backbutton is a var to check if the user is on that page using the navBar or via the "back" or "foward" button from the browser.
-  // If it is true use the replaceState that allow the user to use to foward button as well, otherwiser use the pushState.
-  if (backButton === true) {
-    history.replaceState({ render: "contact" }, "", "contact");
-  } else {
-    history.pushState({ render: "contact" }, "", "contact");
-  }
+    // Clean any content before insert a new one and upadte the state
+    cleandAndUpdateState(container, "contact", backButton)
 
   // Contact me page content
   if (main.dataset.language === "en") {

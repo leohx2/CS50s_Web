@@ -1,21 +1,10 @@
-import {addLanguageChange} from './../Functionalities/language.js'
 import {emailChange as copyEmail} from './../Functionalities/buttonsFunctions.js'
-
+import { cleandAndUpdateState } from '../Functionalities/cleanAndUpdateState.js';
 
 // Function the render the home page
 export function homePage (main, container, backButton=false) {
-    // Clean any content before insert a new one
-    container.innerHTML = ""
-
-    // Set the url
-    // The backbutton is a var to check if the user is on that page using the navBar or via the "back" or "foward" button from the browser.
-    // If it is true use the replaceState that allow the user to use to foward button as well, otherwiser use the pushState.
-
-    if (backButton === true) {
-        history.replaceState({render: "home"}, "", "home")
-    } else {
-        history.pushState({render: "home"}, "", "home")
-    }
+    // Clean any content before insert a new one and upadte the state
+    cleandAndUpdateState(container, "home", backButton)
     
     // Home page content.
     if (main.dataset.language === 'en') {

@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{% static 'portfolio/css/homePage.css' %}">
         <link rel="stylesheet" href="{% static 'portfolio/css/contact.css' %}">
         <link rel="stylesheet" href="{% static 'portfolio/css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/newProject.css' %}">
         {% block link %} {%endblock%}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +31,7 @@
                     <li><a data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %}" href="#">Awards</a></li>
                     <li><a data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %}" href="#">Contact me</a></li>
                     {% if user.is_authenticated %}
-                        <li><a data-page="newProject" class="navA" href="#">New project</a></li>
+                        <li><a data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %}" href="#">New project</a></li>
                         <li><a class="authorA" href="{%url 'logout' %}">Logout</a></li>
                     {% endif %}
                 </ul>

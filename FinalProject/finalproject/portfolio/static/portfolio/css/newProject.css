@@ -1,0 +1,61 @@
+.newProject {
+    background-color: #FEFEFE;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-item {
+    height: 300px;
+    background-color: lightcoral;
+    display: none;
+    font-weight: bold;
+    color: white;
+    width: 100%;
+}
+
+.itemActive {
+    display: block;
+}
+
+.carousel-nav {
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.carousel-button {
+    background-color: red;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    height: 10px;
+    margin-left: 0.3rem;
+    width: 10px;
+}
+
+.activeCarousel {
+    background-color: blue;
+}
+
+.previousArrow {
+    color: rgba(224, 224, 224, 0.595);
+    cursor: pointer;
+    font-size: 2rem;
+    position: absolute;
+    top: calc(50% - 1rem);
+}
+
+.nextArrow {
+    color: rgba(224, 224, 224, 0.595);
+    cursor: pointer;
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    top: calc(50% - 1rem);
+}

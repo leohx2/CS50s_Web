@@ -26,3 +26,6 @@ Thumb           Thumb
 
 Quando clicar na thumb direcionar para a página do produto com mais de uma foto.
 
+
+&#9002; -> next
+&#9001; -> previous

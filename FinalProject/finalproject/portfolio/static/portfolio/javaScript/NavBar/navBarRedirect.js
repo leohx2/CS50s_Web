@@ -2,6 +2,7 @@ import {homePage as homePageRender} from './../Pages/homePage.js'
 import {renderContactPage} from './../Pages/contactPage.js'
 import { transictionMaker } from '../Functionalities/transiction.js';
 import { addLanguageChange } from '../Functionalities/language.js';
+import { renderNewProject } from '../Pages/newProject.js';
 
 // This function will prevent the page to reload or change after the user click on the link on navBar.
 // It will also change the active class to make sure the current page is the one with the "active" class.
@@ -42,6 +43,11 @@ export function setNavBarBehavior (main, container, buttons) {
                     //console.log('awards');
                     break;
                 case 'newProject':
+                    transictionMaker(()=>{
+                        container.classList.remove(history.state.render)
+                        container.classList.add('newProject')
+                        renderNewProject(main, container, buttons);
+                    }, "opacity fast")
                     break;
                 case 'contact':
                     transictionMaker(()=>{

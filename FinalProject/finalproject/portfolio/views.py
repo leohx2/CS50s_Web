@@ -62,6 +62,10 @@ def login_view (request):
 
 @login_required
 def logout_view (request):
-    print(f"\n\nWtf\n\n")
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
+
+@login_required
+def newProject(request):
+    return render(request, "portfolio/index.html", {"pageToRender": "newProject"})
