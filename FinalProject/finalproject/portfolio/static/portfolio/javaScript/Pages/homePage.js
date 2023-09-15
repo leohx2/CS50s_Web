@@ -34,7 +34,7 @@ export function homePage (main, container, backButton=false) {
                  <div class="authorDescription-buttons">
                      <div class="tooltip">
                          <button class="authorDescription-buttons-email" >
-                             <span class=buttons-email-span>My e-mail</span>
+                             <span class=buttons-email-span>info.jonarth@gmail.com</span>
                          </button>
                          <span class="tooltipText"></span>
                      </div>
@@ -63,7 +63,7 @@ export function homePage (main, container, backButton=false) {
                  <div class="authorDescription-buttons">
                      <div class="tooltip">
                          <button class="authorDescription-buttons-email" >
-                             <span class=buttons-email-span>Meu e-mail</span>
+                             <span class=buttons-email-span>info.jonarth@gmail.com</span>
                          </button>
                          <span class="tooltipText"></span>
                      </div>
