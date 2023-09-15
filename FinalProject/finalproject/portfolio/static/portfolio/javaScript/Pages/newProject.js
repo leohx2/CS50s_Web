@@ -81,18 +81,37 @@ function creatingCarousel () {
     })
 }
 
+// Function to render the thumb preview for the projects
+function thumbNailPreview() {
+    // Get the title and img input to apply the change the input listener
+    const titleInput = document.getElementById("titleThumbInput")
+    const imgInput = document.getElementById("imageThumbInput")
+
+    // Get the img and title html to apply the changes
+    const titlePreview = document.getElementById("titleThumbPreview")
+    const imagePreview = document.getElementById("imageThumbPreview")
+
+    // Add the evenListener to apply to title and image preview
+    titleInput.addEventListener('input', () => {
+        titlePreview.textContent = titleInput.value
+    })
+    imgInput.addEventListener('input', () => {
+        imagePreview.src = imgInput.value
+    })
+}
+
 // Data to create a new project
 const inputTitle = `
         <div class="labelGroup">
             <label for="title">Título do projeto</label>
-            <input type="text" name="title">
+            <input id="titleThumbInput" type="text" name="title">
         </div>
     `;
 
 const imageThumb = `
         <div class="labelGroup">
-            <label for="title">URL da image</label>
-            <input type="url" name="title">
+            <label for="image">URL da image</label>
+            <input id="imageThumbInput" type="url" name="image">
         </div>
     `;
 
@@ -107,15 +126,18 @@ export function renderNewProject(main, container, backButton=false) {
             <form class="carousel">
                 <span class="previousArrow">&#9001;</span>
                 <span class="nextArrow">&#9002;</span>
-                <div class="carousel-item" data-index="1">${inputTitle} ${imageThumb}</div>
+                <div class="carousel-item" data-index="1">${imageThumb} ${inputTitle}</div>
                 <div class="carousel-item" data-index="2"> Css stuff, TODO...</div>
             </form>
-            <div>
-                <span> Thumbnail PREVIEW TODO...</span>
+            <div class="postPreview">
+                <div class="postPreview-img">
+                    <img id="imageThumbPreview" src="../../static/portfolio/images/noImage.png" alt="thumbnail preview">
+                </div>
+                <span id="titleThumbPreview" class="postPreview-Title"> Título </span>
             </div>
         </div>
     `)
     // Create the carousel with the elements above
     creatingCarousel()
-
+    thumbNailPreview()
 }

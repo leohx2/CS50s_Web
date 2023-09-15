@@ -8,14 +8,14 @@
     width: 100vw;
 }
 
-.backgroundOnly {
+.loginSection::before {
     background: no-repeat url('../images/loginBackground.jpg') center;
     background-size: cover;
+    content: '';
     filter: grayscale(0.3);
     height: 100%;
     position: absolute;
     width: 100%;
-    z-index: 0;
 }
 
 .loginForm, .labelGroup, .loginContainer {
