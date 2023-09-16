@@ -95,6 +95,7 @@
 }
 
 .postPreview-img img{
+    box-shadow: 3px 3px 5px rgb(182, 182, 182);
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
