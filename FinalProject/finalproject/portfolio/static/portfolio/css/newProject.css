@@ -109,3 +109,20 @@
     display: flex;
     flex-direction: column;
 }
+
+/* --- bellow here, css of the second part of the new project page */
+
+.newProjectMaker-container {
+    align-items: center;
+    height: 100%;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    padding-top: 2rem;
+    width: 100%;
+}
+
+.projectTitleFinal {
+    font-size: 1.5rem;
+    font-weight: 600;
+}

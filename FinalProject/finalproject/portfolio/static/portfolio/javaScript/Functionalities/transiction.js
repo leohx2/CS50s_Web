@@ -1,5 +1,6 @@
 // Using that file will allow me to focus on the transictions of the web site
 const transition = document.querySelector('body');
+const transictionSection = document.querySelector('[data-render-section=true]');
 
 export function transictionMaker (func, mode) {
     // Bellow the function step by step, it will work the same way for all the "modes"
@@ -17,5 +18,20 @@ export function transictionMaker (func, mode) {
         transition.classList.add("transitionOpacityFast");
         setTimeout(() => func(), 250);
         setTimeout(() => transition.classList.remove("transitionOpacityFast"), 500);
+    }
+}
+
+export function transictionMakerSection (func, mode) {
+    // Do the same as the above but instead do it in the whole page do it only in the section
+
+    if (mode === "opacity slow") {
+        transictionSection.classList.add("transitionOpacity");
+        setTimeout(() => func(), 500);
+        setTimeout(() => transictionSection.classList.remove("transitionOpacity"), 1000);
+    }
+    else if (mode === "opacity fast") {
+        transictionSection.classList.add("transitionOpacityFast");
+        setTimeout(() => func(), 250);
+        setTimeout(() => transictionSection.classList.remove("transitionOpacityFast"), 500);
     }
 }

@@ -1,4 +1,5 @@
 import { cleandAndUpdateState } from "../Functionalities/cleanAndUpdateState.js"
+import { transictionMakerSection } from "../Functionalities/transiction.js";
 
 // Creating the carousel structure 
 function creatingCarousel () {
@@ -89,56 +90,61 @@ function thumbNailPreview() {
     const categoryPreview = document.getElementById("categoryThumbPreview");
 
     // Get the title and img inputs to apply the change the event listener
-    // 1 - image and title
-    const titleInput = document.getElementById("titleThumbInput");
-    const imgInput = document.getElementById("imageThumbInput");
+    const allInputs = {
+        // 1 - image and title
+        titleInput: document.getElementById("titleThumbInput"),
+        imgInput: document.getElementById("imageThumbInput"),
 
-    // 2 - Css items Img
-    const borderRadiusImg = document.getElementById("borderRadiusThumb");
-    const borderOutput = document.getElementById("borderRadiusPx");
+        // 2 - Css items Img
+        borderRadiusImg: document.getElementById("borderRadiusThumb"),
+        borderOutput: document.getElementById("borderRadiusPx"),
 
-    // 3 - Css items title
-    const titleFontSize = document.getElementById("titleSize");
-    const titleFontOutputRm = document.getElementById("titleSizeRm");
-    const titleFontWeight = document.getElementById("fontWeightInput");
-    const titleFontWeightOutput = document.getElementById("fontWeightOutput");
+        // 3 - Css items title
+        titleFontSize: document.getElementById("titleSize"),
+        titleFontOutputRm: document.getElementById("titleSizeRm"),
+        titleFontWeight: document.getElementById("fontWeightInput"),
+        titleFontWeightOutput: document.getElementById("fontWeightOutput"),
 
-    // 4 - Project category
-    const categoryInput = document.getElementById("categoriesSelect");
-
+        // 4 - Project category
+        categoryInput: document.getElementById("categoriesSelect"),
+    }
     // Add the evenListener to apply to title and image preview
-    titleInput.addEventListener('input', () => {
-        titlePreview.textContent = titleInput.value;
+    allInputs.titleInput.addEventListener('input', () => {
+        titlePreview.textContent = allInputs.titleInput.value;
     });
-    imgInput.addEventListener('input', () => {
-        imagePreview.src = imgInput.value;
+    allInputs.imgInput.addEventListener('input', () => {
+        imagePreview.src = allInputs.imgInput.value;
     });
 
     // Add the borderRadius to image
-    borderRadiusImg.addEventListener('input', () => {
-        imagePreview.style.borderRadius = `${borderRadiusImg.value}px`;
-        borderOutput.value = borderRadiusImg.value;
+    allInputs.borderRadiusImg.addEventListener('input', () => {
+        imagePreview.style.borderRadius = `${allInputs.borderRadiusImg.value}px`;
+        allInputs.borderOutput.value = allInputs.borderRadiusImg.value;
     });
 
     // Change the font size
-    titleFontSize.addEventListener('input', () => {
-        titlePreview.style.fontSize = `${titleFontSize.value}rem`;
-        titleFontOutputRm.value = titleFontSize.value;
+    allInputs.titleFontSize.addEventListener('input', () => {
+        titlePreview.style.fontSize = `${allInputs.titleFontSize.value}rem`;
+        allInputs.titleFontOutputRm.value = allInputs.titleFontSize.value;
     });
 
     // Change the font weight
-    titleFontWeight.addEventListener('input', () => {
-        titlePreview.style.fontWeight = `${titleFontWeight.value}`;
-        titleFontWeightOutput.value = `${titleFontWeight.value}`;
+    allInputs.titleFontWeight.addEventListener('input', () => {
+        titlePreview.style.fontWeight = `${allInputs.titleFontWeight.value}`;
+        allInputs.titleFontWeightOutput.value = `${allInputs.titleFontWeight.value}`;
     });
 
     // Change the category
-    categoryInput.addEventListener('change', () => {
-        categoryPreview.textContent = categoryInput.value;
+    allInputs.categoryInput.addEventListener('change', () => {
+        categoryPreview.textContent = allInputs.categoryInput.value;
     });
+
+    // Return all the inputs to make it easier to save latter on and pass the data to the Database
+    return (allInputs);
 }
 
 // Data to create a new project
+// ___INFO ABOUT THUMBNAIL START___
 // Step 1 - choose image and title.
 const imageThumb = `
         <div class="labelGroup">
@@ -163,6 +169,7 @@ const imageBorderCss = `
             <span>px</span>
         </div>
 `;
+
 const titleCss = `
         <div class="labelGroup">
             <label for="titleSize">Tamanho da fonte</label>
@@ -193,15 +200,10 @@ const categories = `
         </div>
 `;
 
-// Render the new project post page
-export function renderNewProject(main, container, backButton=false) {
-    // Clean any content before insert a new one and upadte the state
-    cleandAndUpdateState(container, "newProject", backButton);
-
-    // New project page content, with a carousel to load the options to create a new post.
-    container.insertAdjacentHTML('afterbegin', `
-        <div class="newProject-container">
-            <form class="carousel">
+// First part of the new project page, create the thumbnail view
+const thumbnailView = `
+        <div class="newProjectThumb-container">
+            <div class="carousel">
                 <span class="previousArrow">&#9001;</span>
                 <span class="nextArrow">&#9002;</span>
                 <div class="carousel-item" data-index="1">
@@ -216,7 +218,7 @@ export function renderNewProject(main, container, backButton=false) {
                     <span class="carousel-item-steps">Passo 3 - Categoria</span>
                     ${categories}
                 </div>
-            </form>
+            </div>
             <div class="postPreview">
                 <span id="categoryThumbPreview">Categoria</span>
                 <div class="postPreview-img">
@@ -224,9 +226,142 @@ export function renderNewProject(main, container, backButton=false) {
                 </div>
                 <span id="titleThumbPreview" class="postPreview-Title"> Título </span>
             </div>
+            <button class="newProject-preview-save">Salvar e continuar</button>
         </div>
-    `)
+`;
+// ___INFO ABOUT THUMBNAIL END ___
+
+// ___INFO ABOUT PROJECTMAKER START___
+
+const projectTitle = `
+    <label for="projectTitleInput"> Título </label>
+    <input type="text" id="projectTitleInput">
+`;
+
+// Second part of the new project page, create the project maker page
+const projectMakerView = `
+    <div class="newProjectMaker-container">
+        <div class="projectOptions">
+            <ul>
+                <li class="options-list title" >
+                    ${projectTitle}
+                </li>
+                <li class="options-list">
+                    <button class="projectOptions-choices" data-type="text" value="text">+ Texto</button>
+                </li>
+                <li class="options-list" >
+                    <button class="projectOptions-choices" data-type="image" value="image">+ Imagem</button>
+                </li>
+            </ul>
+        </div>
+        <div class="projectContent">
+            <h1 class="projectTitleFinal">Título aqui</h1>
+        </div>
+    </div>
+`;
+
+
+// Function to create a new text input and html elemnt to preview
+function newTextContent(previewContainer, inputContainer, orderCounting) {
+    // Create the elements
+    inputContainer.insertAdjacentHTML('beforeend', `
+        <div class="labelGroup">
+            <label for="newTextArea${orderCounting}">Texto ${orderCounting}</label>
+            <textarea id="newTextArea${orderCounting}" data-textarea-order="${orderCounting}">
+            </textarea>
+        </div>
+    `);
+    previewContainer.insertAdjacentHTML('beforeend', `
+        <pre class="textContent" data-precontent-order="${orderCounting}">
+        </pre>
+    `);
+
+    // add event listener to link the textarea content to the <pre> content
+    const preContent = document.querySelector(`[data-precontent-order="${orderCounting}"]`)
+    console.log(preContent)
+    const textareaContent = document.querySelector(`[data-textarea-order="${orderCounting}"]`);
+    textareaContent.addEventListener('input', () => {
+        preContent.textContent = textareaContent.value;
+    })
+}
+
+// Function to creat a new image input and the html elemnt preview
+function newImageContent(reviewContainer, inputContainer, orderCounting) {
+    // TODO...
+}
+
+// Set the second part of the new project page
+function projectMakerPreview(container) {
+    // The order counting will let me know the order to display the post element
+    let orderCounting = 0;
+
+    // The postContent will have following structure:
+    // Text have an list of lists that will have "content" and "order", exemple: 
+    // text:[["content 1", "1"], ["content 2", "3"]]
+    // The image will receive a list of list will the content "url", "order", "borderRadius" amd "height", exemple:
+    // image: [["image/image21", "2", "5px", "200px"], [["image/image32", "4", "5px", "200px"]]]
+    const postContent = {text: [], image: []};
+
+    // The div to insert new content, for preview and to edit
+    const projectPreviewContainer = container.querySelector(".projectContent")
+    const projectOptionsContainer = container.querySelector(".projectOptions")
+
+    // Select the elements to aply the changes
+    const finalTitle = container.querySelector(".projectTitleFinal");
+
+    // Select the buttons to apply the eventListener
+    const moreImageBtn = container.querySelector("[data-type=image]");
+    const moreTextBtn = container.querySelector("[data-type=text]");
+    
+    // Select the Title input with the values
+    const titleInput = container.querySelector("#projectTitleInput");
+
+    // Add an event listener to the Title
+    titleInput.addEventListener('input', () => {
+        finalTitle.textContent = titleInput.value;
+    });
+
+    // Adding the functions to moreImg and moretext buttons
+    moreImageBtn.addEventListener('click', () => {
+        orderCounting += 1
+        console.log(orderCounting)
+    });
+
+    moreTextBtn.addEventListener('click', () => {
+        orderCounting += 1
+        newTextContent(projectPreviewContainer , projectOptionsContainer, orderCounting)
+        const addText = ["content" ,orderCounting]
+    });
+}
+// ___INFO ABOUT PROJECTMAKER END___
+
+// Render the new project post page
+export function renderNewProject(main, container, backButton=false) {
+    // Clean any content before insert a new one and upadte the state
+    cleandAndUpdateState(container, "newProject", backButton);
+
+    // New project page content, with a carousel to load the options to create a new post.
+    // Part 1 -> Thumbnail
+    container.insertAdjacentHTML('afterbegin', thumbnailView);
     // Create the carousel with the elements above
-    creatingCarousel()
-    thumbNailPreview()
+    creatingCarousel();
+    // creating and saving the thumb settings
+    const thumbNailInputs = thumbNailPreview();
+
+    // Query the save button to receive the click 
+    const saveBtn = document.querySelector(".newProject-preview-save");
+    saveBtn.addEventListener("click", () => {
+        // Save the thumb data to the DATABASE 
+        // TODO...
+
+        // When the user saves the thumb we render the post content maker
+        // Transiction from the thumbMaker page to the this
+        transictionMakerSection(() => {
+            // Clean and render
+            container.innerHTML = "";
+            container.insertAdjacentHTML('afterbegin', projectMakerView);
+            projectMakerPreview(container);
+        }, "opacity fast");
+    });
+
 }

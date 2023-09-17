@@ -88,7 +88,7 @@ export function renderContactPage(main, container, backButton = false) {
                         <input class="form-fields" data-event="onChange" id="message-email" type="text" placeholder="exemple@gmail.com" required>
                     </div>
                 </div>
-                <textarea data-event="onChange" id="message-content" cols="30" rows="10" placeholder="Message..." required></textarea>
+                <textarea class="contactTextArea" data-event="onChange" id="message-content" cols="30" rows="10" placeholder="Message..." required></textarea>
                 <button class="submitBtn disabled" id="submitEmail" type="submit">Send message</button>
             </form>
             <div class="contact-fields-socialMedia">
@@ -129,7 +129,7 @@ export function renderContactPage(main, container, backButton = false) {
                         <input class="form-fields" data-event="onChange" id="message-email" type="text" placeholder="exemplo@gmail.com">
                     </div>
                 </div>
-                <textarea data-event="onChange" id="message-content" cols="30" rows="10" placeholder="Mensagem..."></textarea>
+                <textarea class="contactTextArea" data-event="onChange" id="message-content" cols="30" rows="10" placeholder="Mensagem..."></textarea>
                 <input class="submitBtn disabled" id="submitEmail" type="submit" value="Enviar mensagem.">
             </form>
             <div class="contact-fields-socialMedia">

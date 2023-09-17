@@ -73,7 +73,7 @@
     outline: none;
 }
 
-textarea{
+.contactTextArea{
     background-color: #FAFAFA;
     border-radius: 3px;
     margin-bottom: 1rem;

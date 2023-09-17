@@ -27,5 +27,56 @@ Thumb           Thumb
 Quando clicar na thumb direcionar para a página do produto com mais de uma foto.
 
 
-&#9002; -> next
-&#9001; -> previous
+um model um post precisa ter:
+id 
+Título
+textos -> foreign key
+imagens -> foreign key
+
+um model de um texto precisa ter
+id
+post_id = postId -> foreign key
+Conteúdo = "Conteúdo blablabla"
+order = 1
+
+um model de imagem precisa ter
+id
+post_id = postId -> foreign key
+Conteúdo = `<div><img src="image.com"></div>`
+height = x blank=True
+border = x
+order = 2
+
+exemplo:
+Post 
+id = 1 
+Título = Primeiro projecto
+
+Texto
+id = 1
+post_id = 1
+Conteúdo = "Conteúdo blablabla"
+order = 1
+
+Image
+id =  1
+post_id = 1
+Conteúdo = `<div><img src="image.com"></div>`
+height = 200px 
+border = 10px
+order = 2
+
+Texto
+id = 2
+post_id = 1
+Conteúdo = "Testando"
+order = 3
+
+resultando quando der load no post:
+"""
+Primeiro projecto
+
+Conteúdo blablabla
+<div><img src="image.com"></div>
+Testando
+"""
