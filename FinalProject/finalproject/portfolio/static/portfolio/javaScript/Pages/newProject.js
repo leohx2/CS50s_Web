@@ -267,8 +267,8 @@ function newTextContent(previewContainer, inputContainer, orderCounting) {
     inputContainer.insertAdjacentHTML('beforeend', `
         <div class="labelGroup">
             <label for="newTextArea${orderCounting}">Texto ${orderCounting}</label>
-            <textarea id="newTextArea${orderCounting}" data-textarea-order="${orderCounting}">
-            </textarea>
+            <textarea id="newTextArea${orderCounting}" data-textarea-order="${orderCounting}" 
+            placeholder="texto ${orderCounting} aqui..."></textarea>
         </div>
     `);
     previewContainer.insertAdjacentHTML('beforeend', `
