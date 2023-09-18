@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{% static 'portfolio/css/login.css' %}" >
 {% endblock %}
 
+{% block header %}
+{% endblock %}
+
 {% block main%}
     <!-- Background image from
     https://unsplash.com/pt-br/fotografias/VkwRmha1_tI?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink -->
@@ -15,7 +18,7 @@
             <form class="loginForm" action="{% url 'loginAuthor' %}" method="post">
                 {% csrf_token %}
                 <div class="labelGroup">
-                    <label for="username" class="loginLabel">Email</label>
+                    <label for="username" class="loginLabel">Username</label>
                     <input type="text" class="loginInput" name="username" placeholder="Username...">
                 </div>
                 <div class="labelGroup">
@@ -26,4 +29,7 @@
             </form>
         </div>
     </section>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
