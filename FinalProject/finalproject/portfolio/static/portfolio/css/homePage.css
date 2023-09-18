@@ -3,8 +3,10 @@
     background-image: linear-gradient(to bottom, #070707, #070707, #080808, #080808, #080808, #080808, #070707, #070707, #060606, #060606, #050505, #040404);
     color: #FAFAFA;
     display: flex;
+    height: calc(100vh - 48px);
     gap:100px;
     justify-content: space-between;
+    width: 100%;
 }
 
 .homePage-authorDescription {

@@ -1,5 +1,7 @@
 .newProject {
+    min-height: calc(100vh - 48px);
     background-color: #FEFEFE;
+    padding-bottom: 2rem;
 }
 
 .carousel {
@@ -125,4 +127,16 @@
 .projectTitleFinal {
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.imagePostPreview{
+    display: inline-block;
+    height: 200px;
+}
+
+.imagePreview {
+    box-shadow: 3px 3px 5px rgb(182, 182, 182);
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
 }

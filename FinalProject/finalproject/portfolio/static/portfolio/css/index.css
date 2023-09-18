@@ -59,9 +59,7 @@ main {
 }
 
 .mainSectionContainer {
-    height: calc(100vh - 48px);
     position: relative;
-    width: 100%;
 }
 
 /* Waves took from  https://www.shapedivider.app/*/

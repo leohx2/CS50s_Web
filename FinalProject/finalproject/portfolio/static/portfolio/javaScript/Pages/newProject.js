@@ -257,6 +257,7 @@ const projectMakerView = `
         <div class="projectContent">
             <h1 class="projectTitleFinal">Título aqui</h1>
         </div>
+        <button class="newProject-preview-save" >Salvar e publicar</button>
     </div>
 `;
 
@@ -265,7 +266,8 @@ const projectMakerView = `
 function newTextContent(previewContainer, inputContainer, orderCounting) {
     // Create the elements
     inputContainer.insertAdjacentHTML('beforeend', `
-        <div class="labelGroup">
+        <div class="labelGroup" data-labelGroup-order="${orderCounting}">
+            <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
             <label for="newTextArea${orderCounting}">Texto ${orderCounting}</label>
             <textarea id="newTextArea${orderCounting}" data-textarea-order="${orderCounting}" 
             placeholder="texto ${orderCounting} aqui..."></textarea>
@@ -277,17 +279,95 @@ function newTextContent(previewContainer, inputContainer, orderCounting) {
     `);
 
     // add event listener to link the textarea content to the <pre> content
-    const preContent = document.querySelector(`[data-precontent-order="${orderCounting}"]`)
-    console.log(preContent)
-    const textareaContent = document.querySelector(`[data-textarea-order="${orderCounting}"]`);
+    const preContent = previewContainer.querySelector(`[data-precontent-order="${orderCounting}"]`)
+    const textareaContent = inputContainer.querySelector(`[data-textarea-order="${orderCounting}"]`);
     textareaContent.addEventListener('input', () => {
         preContent.textContent = textareaContent.value;
+    })
+
+    // Add event listener to the delete button
+    const deleteBtnText = inputContainer.querySelector(`[data-delete-button-order="${orderCounting}"]`)
+    deleteBtnText.addEventListener('click', () => {
+        // Delete the label Group
+        inputContainer.querySelector(`[data-labelGroup-order="${orderCounting}"]`).remove()
+
+        // Delete the <pre> content as well
+        previewContainer.querySelector(`[data-precontent-order="${orderCounting}"]`).remove()
     })
 }
 
 // Function to creat a new image input and the html elemnt preview
 function newImageContent(reviewContainer, inputContainer, orderCounting) {
-    // TODO...
+    // Create the input image content with url input, border radius and height input as well
+    inputContainer.insertAdjacentHTML('beforeend', `
+        <div class="labelGroup" data-labelGroup-order="${orderCounting}">
+            <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
+            <label for="imageUrlInput${orderCounting}"> 
+                Url da image ${orderCounting}
+                <input type="url" data-image-input-order="${orderCounting}" id="imageUrlInput${orderCounting}" placehold="Url da imagem...">
+            </label>
+            <label for="imageBordeRadiusInput${orderCounting}"> 
+                Borda da imagem ${orderCounting}
+                <input type="range" min="0" max="100" value="0" step="1" data-image-border-order="${orderCounting}" id="imageBordeRadiusInput${orderCounting}">
+                <output for="imageBordeRadiusInput${orderCounting}" data-output-border-order="${orderCounting}" >0</output>
+                <span>px</span>
+                </label>
+            <label for="imageHeightInput${orderCounting}"> 
+                Tamanho da imagem ${orderCounting}
+                <input type="range" min="200" max="1000" value="200" step="20" data-image-size-order="${orderCounting}" id="imageHeightInput${orderCounting}">
+                <output for="imageHeightInput${orderCounting}" data-output-height-order="${orderCounting}" >200</output>
+                <span>px</span>
+            </label>
+        </div>
+    `);
+    // Creating the preview content
+    reviewContainer.insertAdjacentHTML('beforeend',`
+        <div class="imagePostPreview" data-imagePreview-order="${orderCounting}">
+            <img class="imagePreview" src="../../static/portfolio/images/noImage.png" data-image-order="${orderCounting}">
+        </div>
+    `);
+
+    // Conect the input with the preview
+    // First of all, query the created element
+    // Part 1 - input and output elements
+    const imageUrlInputPreview = inputContainer.querySelector(`[data-image-input-order="${orderCounting}"]`);
+    const borderInputPreview = inputContainer.querySelector(`[data-image-border-order="${orderCounting}"]`);
+    const borderOutputPreview = inputContainer.querySelector(`[data-output-border-order="${orderCounting}"]`);
+    const heightInputPreview = inputContainer.querySelector(`[data-image-size-order="${orderCounting}"]`);
+    const heightOutputPreview = inputContainer.querySelector(`[data-output-height-order="${orderCounting}"]`);
+
+    // Part 2 - preview elements
+    const divImagePreview = reviewContainer.querySelector(`[data-imagePreview-order="${orderCounting}"]`);
+    const imageItself = reviewContainer.querySelector(`[data-image-order="${orderCounting}"]`);
+
+    // Part 3 - conecting them
+    // Part 3.1 - Image src
+    imageUrlInputPreview.addEventListener('input', () => {
+        imageItself.src=`${imageUrlInputPreview.value}`;
+    })
+
+    // Part 3.2 - image border
+    borderInputPreview.addEventListener('input', () => {
+        imageItself.style.borderRadius=`${borderInputPreview.value}px`;
+        borderOutputPreview.value=`${borderInputPreview.value}`;
+    })
+
+    // Part 3.3 - image height
+    heightInputPreview.addEventListener('input', () => {
+        divImagePreview.style.height=`${heightInputPreview.value}px`;
+        heightOutputPreview.value=`${heightInputPreview.value}`;
+    })
+
+    // Add event listener to the delete button
+    const deleteBtn = inputContainer.querySelector(`[data-delete-button-order="${orderCounting}"]`)
+    deleteBtn.addEventListener('click', () => {
+        // Delete the label Group
+        inputContainer.querySelector(`[data-labelGroup-order="${orderCounting}"]`).remove()
+
+
+        // Delete the image div as well
+        reviewContainer.querySelector(`[data-imagePreview-order="${orderCounting}"]`).remove()
+    })
 }
 
 // Set the second part of the new project page
@@ -324,7 +404,7 @@ function projectMakerPreview(container) {
     // Adding the functions to moreImg and moretext buttons
     moreImageBtn.addEventListener('click', () => {
         orderCounting += 1
-        console.log(orderCounting)
+        newImageContent(projectPreviewContainer , projectOptionsContainer, orderCounting)
     });
 
     moreTextBtn.addEventListener('click', () => {
