@@ -119,7 +119,7 @@ function thumbNailPreview() {
     // Add the borderRadius to image
     allInputs.borderRadiusImg.addEventListener('input', () => {
         imagePreview.style.borderRadius = `${allInputs.borderRadiusImg.value}px`;
-        allInputs.borderOutput.value = allInputs.borderRadiusImg.value;
+        allInputs.borderOutput.value = `${allInputs.borderRadiusImg.value}px`;
     });
 
     // Change the font size
@@ -165,8 +165,7 @@ const imageBorderCss = `
         <div class="labelGroup">
             <label for="borderRadiusThumb">Borda</label>
             <input type="range" min="0" max="50" value="0" step="1" name="borderRadius" id="borderRadiusThumb">
-            <output name="outputRange" id="borderRadiusPx" for="borderRadiusThumb">0</output>
-            <span>px</span>
+            <output name="outputRange" id="borderRadiusPx" for="borderRadiusThumb">0px</output>
         </div>
 `;
 
@@ -191,11 +190,11 @@ const fontWeighHtmlContent= `
 const categories = `
         <div class="labelGroupColumn">
             <label for="categoriesSelect">Escolha a área do projeto</label>
-            <select name="categories" id="categoriesSelect">
+            <select name="categories" id="categoriesSelect" class="selectCategories">
                 <option value=""></option>
-                <option value="arte">Arte</option>
-                <option value="design">Design</option>
-                <option value="escultura">Escultura</option>
+                <option value="Arte">Arte</option>
+                <option value="Design">Design</option>
+                <option value="Escultura">Escultura</option>
             </select>
         </div>
 `;
@@ -220,13 +219,15 @@ const thumbnailView = `
                 </div>
             </div>
             <div class="postPreview">
-                <span id="categoryThumbPreview">Categoria</span>
+                <span class="categoryPreview" id="categoryThumbPreview">Categoria</span>
                 <div class="postPreview-img">
                     <img id="imageThumbPreview" src="../../static/portfolio/images/noImage.png" alt="thumbnail preview">
                 </div>
                 <span id="titleThumbPreview" class="postPreview-Title"> Título </span>
             </div>
-            <button class="newProject-preview-save">Salvar e continuar</button>
+            <div class="saveBtnContainer">
+                <button class="newProject-preview-save">Salvar e continuar</button>
+            </div>
         </div>
 `;
 // ___INFO ABOUT THUMBNAIL END ___
@@ -257,7 +258,9 @@ const projectMakerView = `
         <div class="projectContent">
             <h1 class="projectTitleFinal">Título aqui</h1>
         </div>
-        <button class="newProject-preview-save" >Salvar e publicar</button>
+        <div class="saveBtnContainer">
+            <button class="newProject-preview-save" >Salvar e publicar</button>
+        </div>
     </div>
 `;
 

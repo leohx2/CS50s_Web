@@ -1,18 +1,21 @@
 .newProject {
     min-height: calc(100vh - 48px);
     background-color: #FEFEFE;
-    padding-bottom: 2rem;
+    padding: 1rem 0 2rem 0;
 }
 
 .carousel {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 7px 5px -5px #7e7e7e83;
+    margin: auto;
     position: relative;
-    width: 100%;
-    padding-top: 1.5rem;
+    padding: 1.5rem 0px;
+    width: 50%;
 }
 
 .carousel-item {
-    background-color: gray;
-    color: white;
+    color: #242424d7;
     display: none;
     height: 200px;
     font-weight: bold;
@@ -21,20 +24,20 @@
 }
 
 .itemActive{
-    flex-wrap: wrap;
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     gap: 1rem;
     justify-content: center;
 }
 
 .carousel-item-sections{
+    align-items: center;
+    display: flex;
     flex-shrink: 1;
     flex-grow: 1;
     flex-basis: 50%;
-    align-items: center;
-    display: flex;
     flex-direction: column;
     gap: 1rem;
     justify-content: center;
@@ -50,21 +53,22 @@
 }
 
 .carousel-button {
-    background-color: rgba(37, 37, 37, 0.534);
+    background-color: rgba(50, 50, 50, 0.3);
     border-radius: 50%;
     cursor: pointer;
     display: inline-block;
     height: 10px;
     margin-left: 0.3rem;
+    transition: all 0.2s ease-in;
     width: 10px;
 }
 
 .activeCarousel {
-    background-color: rgb(37, 37, 37);
+    background-color: rgb(50, 50, 50, 0.7);
 }
 
 .previousArrow {
-    color: rgba(224, 224, 224, 0.595);
+    color: rgba(37, 37, 37, 0.445);
     cursor: pointer;
     font-size: 2rem;
     position: absolute;
@@ -72,7 +76,7 @@
 }
 
 .nextArrow {
-    color: rgba(224, 224, 224, 0.595);
+    color: rgba(37, 37, 37, 0.445);
     cursor: pointer;
     font-size: 2rem;
     position: absolute;
@@ -85,14 +89,21 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
+}
+
+.categoryPreview {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1.3rem 1rem 0 1rem;
 }
 
 .postPreview-img {
     align-items: center;
     height: 200px;
-    margin-top: 1rem;
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
     width: 200px;
 }
 
@@ -104,22 +115,72 @@
 }
 
 .postPreview-Title {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+}
+
+.labelGroup {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+}
+
+.labelGroup input {
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    padding: 0.3rem 1rem;
+}
+
+.labelGroup input:focus{
+    outline-color: #7e7e7e59;
 }
 
 .labelGroupColumn {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.selectCategories {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 0.3rem 1rem;
+}
+
+.selectCategories:focus {
+    outline-color: #7e7e7e59;
+}
+
+.saveBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.newProject-preview-save {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    background-color: #FEFEFE;
+    cursor: pointer;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    transition: 0.2s ease-in-out;
+}
+
+.newProject-preview-save:hover {
+    background-color: lightgray;
 }
 
 /* --- bellow here, css of the second part of the new project page */
 
 .newProjectMaker-container {
     align-items: center;
-    height: 100%;
     display: flex;
-    gap: 2rem;
     flex-direction: column;
+    gap: 2rem;
+    height: 100%;
     padding-top: 2rem;
     width: 100%;
 }
