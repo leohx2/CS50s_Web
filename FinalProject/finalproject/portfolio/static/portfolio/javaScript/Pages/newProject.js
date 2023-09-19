@@ -149,14 +149,14 @@ function thumbNailPreview() {
 const imageThumb = `
         <div class="labelGroup">
             <label for="imageThumbInput">URL da image</label>
-            <input id="imageThumbInput" type="url" name="image" placeholder="imagem url...">
+            <input class="inputNewProject" id="imageThumbInput" type="url" name="image" placeholder="imagem url...">
         </div>
 `;
 
 const inputTitle = `
         <div class="labelGroup">
             <label for="titleThumbInput">Título do projeto</label>
-            <input id="titleThumbInput" type="text" name="title" placeholder="título...">
+            <input class="inputNewProject" id="titleThumbInput" type="text" name="title" placeholder="título...">
         </div>
 `;
 
@@ -164,7 +164,7 @@ const inputTitle = `
 const imageBorderCss = `
         <div class="labelGroup">
             <label for="borderRadiusThumb">Borda</label>
-            <input type="range" min="0" max="50" value="0" step="1" name="borderRadius" id="borderRadiusThumb">
+            <input class="inputNewProject" type="range" min="0" max="50" value="0" step="1" name="borderRadius" id="borderRadiusThumb">
             <output name="outputRange" id="borderRadiusPx" for="borderRadiusThumb">0px</output>
         </div>
 `;
@@ -172,7 +172,7 @@ const imageBorderCss = `
 const titleCss = `
         <div class="labelGroup">
             <label for="titleSize">Tamanho da fonte</label>
-            <input name="fontSize" id="titleSize" type="range" min="0.5" max="2" step="0.1" value="1">
+            <input class="inputNewProject" name="fontSize" id="titleSize" type="range" min="0.5" max="2" step="0.1" value="1">
             <output name="outputFont" id="titleSizeRm" for="titleSize">1</output>
             <span>rem</span>
         </div>
@@ -181,7 +181,7 @@ const titleCss = `
 const fontWeighHtmlContent= `
         <div class="labelGroup">
             <label for="fontWeightInput">Peso da fonte</label>
-            <input name="fontWeight" id="fontWeightInput" type="range" min="200" max="900" step="100" value="200">
+            <input class="inputNewProject" name="fontWeight" id="fontWeightInput" type="range" min="200" max="900" step="100" value="200">
             <output name="outputFontWeight" id="fontWeightOutput" for="fontWeightInput">200</output>
         </div>
 `;
@@ -190,7 +190,7 @@ const fontWeighHtmlContent= `
 const categories = `
         <div class="labelGroupColumn">
             <label for="categoriesSelect">Escolha a área do projeto</label>
-            <select name="categories" id="categoriesSelect" class="selectCategories">
+            <select name="categories" id="categoriesSelect" class="inputNewProject">
                 <option value=""></option>
                 <option value="Arte">Arte</option>
                 <option value="Design">Design</option>
@@ -236,24 +236,23 @@ const thumbnailView = `
 
 const projectTitle = `
     <label for="projectTitleInput"> Título </label>
-    <input type="text" id="projectTitleInput">
+    <input class="inputNewProject" type="text" id="projectTitleInput">
 `;
 
 // Second part of the new project page, create the project maker page
 const projectMakerView = `
     <div class="newProjectMaker-container">
         <div class="projectOptions">
-            <ul>
-                <li class="options-list title" >
+            <ul class="projectOptions-lisContainer">
+                <li class="options-list-title" >
                     ${projectTitle}
                 </li>
-                <li class="options-list">
-                    <button class="projectOptions-choices" data-type="text" value="text">+ Texto</button>
-                </li>
-                <li class="options-list" >
-                    <button class="projectOptions-choices" data-type="image" value="image">+ Imagem</button>
-                </li>
+                <li class="projectOptions-choices">
+                    <button class="projectOptions-choices-btn" data-type="text" value="text">+ Texto</button>
+                    <button class="projectOptions-choices-btn" data-type="image" value="image">+ Imagem</button>
+                </li> 
             </ul>
+            <div class="projectOptionsNewElements" ></div>
         </div>
         <div class="projectContent">
             <h1 class="projectTitleFinal">Título aqui</h1>
@@ -269,10 +268,12 @@ const projectMakerView = `
 function newTextContent(previewContainer, inputContainer, orderCounting) {
     // Create the elements
     inputContainer.insertAdjacentHTML('beforeend', `
-        <div class="labelGroup" data-labelGroup-order="${orderCounting}">
-            <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
-            <label for="newTextArea${orderCounting}">Texto ${orderCounting}</label>
-            <textarea id="newTextArea${orderCounting}" data-textarea-order="${orderCounting}" 
+        <div class="labelGroupPreview" data-labelGroup-order="${orderCounting}">
+            <label for="newTextArea${orderCounting}">
+                <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
+                Texto ${orderCounting}
+            </label>
+            <textarea class="inputNewProject" id="newTextArea${orderCounting}" data-textarea-order="${orderCounting}" class="newTextTextarea" 
             placeholder="texto ${orderCounting} aqui..."></textarea>
         </div>
     `);
@@ -303,11 +304,11 @@ function newTextContent(previewContainer, inputContainer, orderCounting) {
 function newImageContent(reviewContainer, inputContainer, orderCounting) {
     // Create the input image content with url input, border radius and height input as well
     inputContainer.insertAdjacentHTML('beforeend', `
-        <div class="labelGroup" data-labelGroup-order="${orderCounting}">
-            <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
-            <label for="imageUrlInput${orderCounting}"> 
+        <div class="labelGroupPreview" data-labelGroup-order="${orderCounting}">
+            <label for="imageUrlInput${orderCounting}">
+                <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
                 Url da image ${orderCounting}
-                <input type="url" data-image-input-order="${orderCounting}" id="imageUrlInput${orderCounting}" placehold="Url da imagem...">
+                <input class="inputNewProject" type="url" data-image-input-order="${orderCounting}" id="imageUrlInput${orderCounting}" placehold="Url da imagem...">
             </label>
             <label for="imageBordeRadiusInput${orderCounting}"> 
                 Borda da imagem ${orderCounting}
@@ -387,7 +388,7 @@ function projectMakerPreview(container) {
 
     // The div to insert new content, for preview and to edit
     const projectPreviewContainer = container.querySelector(".projectContent")
-    const projectOptionsContainer = container.querySelector(".projectOptions")
+    const projectOptionsContainer = container.querySelector(".projectOptionsNewElements")
 
     // Select the elements to aply the changes
     const finalTitle = container.querySelector(".projectTitleFinal");
