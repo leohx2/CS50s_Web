@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // After the content is loaded get some content to be used
     const main = document.querySelector('main');
     const container = document.querySelector('[data-render-section=true]');
-    const body = document.querySelector('body');
     const buttons = {
         'en': document.getElementById('EN'),
         'pt': document.getElementById('PT')
