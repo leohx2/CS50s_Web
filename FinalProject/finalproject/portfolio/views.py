@@ -67,5 +67,11 @@ def logout_view (request):
 
 
 @login_required
+@csrf_exempt
 def newProject(request):
+    # Check if the user are sending a new post info
+    if request.method == "POST":
+        # Catch all the data the js sent and save it into a database, using the modelos Post, Text, Image
+        # TO DO...
+        pass
     return render(request, "portfolio/index.html", {"pageToRender": "newProject"})

@@ -83,7 +83,7 @@ function creatingCarousel () {
 }
 
 // Function to render the thumb preview for the projects
-function thumbNailPreview() {
+function thumbnailPreview() {
     // Get the img, title and the category html to apply the changes
     const titlePreview = document.getElementById("titleThumbPreview");
     const imagePreview = document.getElementById("imageThumbPreview");
@@ -125,7 +125,7 @@ function thumbNailPreview() {
     // Change the font size
     allInputs.titleFontSize.addEventListener('input', () => {
         titlePreview.style.fontSize = `${allInputs.titleFontSize.value}rem`;
-        allInputs.titleFontOutputRm.value = allInputs.titleFontSize.value;
+        allInputs.titleFontOutputRm.value = `${allInputs.titleFontSize.value}rem`;
     });
 
     // Change the font weight
@@ -139,7 +139,7 @@ function thumbNailPreview() {
         categoryPreview.textContent = allInputs.categoryInput.value;
     });
 
-    // Return all the inputs to make it easier to save latter on and pass the data to the Database
+    // Return all the inputs to make it easier to save later on and pass the data to the Database
     return (allInputs);
 }
 
@@ -149,14 +149,14 @@ function thumbNailPreview() {
 const imageThumb = `
         <div class="labelGroup">
             <label for="imageThumbInput">URL da image</label>
-            <input class="inputNewProject" id="imageThumbInput" type="url" name="image" placeholder="imagem url...">
+            <input class="inputNewProject" id="imageThumbInput" type="url" name="image" placeholder="imagem url..." required>
         </div>
 `;
 
 const inputTitle = `
         <div class="labelGroup">
             <label for="titleThumbInput">Título do projeto</label>
-            <input class="inputNewProject" id="titleThumbInput" type="text" name="title" placeholder="título...">
+            <input class="inputNewProject" id="titleThumbInput" type="text" name="title" placeholder="título..." required>
         </div>
 `;
 
@@ -164,7 +164,7 @@ const inputTitle = `
 const imageBorderCss = `
         <div class="labelGroup">
             <label for="borderRadiusThumb">Borda</label>
-            <input class="inputNewProject" type="range" min="0" max="50" value="0" step="1" name="borderRadius" id="borderRadiusThumb">
+            <input type="range" min="0" max="50" value="0" step="1" name="borderRadius" id="borderRadiusThumb">
             <output name="outputRange" id="borderRadiusPx" for="borderRadiusThumb">0px</output>
         </div>
 `;
@@ -172,17 +172,16 @@ const imageBorderCss = `
 const titleCss = `
         <div class="labelGroup">
             <label for="titleSize">Tamanho da fonte</label>
-            <input class="inputNewProject" name="fontSize" id="titleSize" type="range" min="0.5" max="2" step="0.1" value="1">
-            <output name="outputFont" id="titleSizeRm" for="titleSize">1</output>
-            <span>rem</span>
+            <input name="fontSize" id="titleSize" type="range" min="0.5" max="2" step="0.1" value="1">
+            <output name="outputFont" id="titleSizeRm" for="titleSize">1rem</output>
         </div>
 `;
 
 const fontWeighHtmlContent= `
         <div class="labelGroup">
             <label for="fontWeightInput">Peso da fonte</label>
-            <input class="inputNewProject" name="fontWeight" id="fontWeightInput" type="range" min="200" max="900" step="100" value="200">
-            <output name="outputFontWeight" id="fontWeightOutput" for="fontWeightInput">200</output>
+            <input name="fontWeight" id="fontWeightInput" type="range" min="200" max="900" step="100" value="400">
+            <output name="outputFontWeight" id="fontWeightOutput" for="fontWeightInput">400</output>
         </div>
 `;
 
@@ -236,7 +235,7 @@ const thumbnailView = `
 
 const projectTitle = `
     <label for="projectTitleInput"> Título </label>
-    <input class="inputNewProject" type="text" id="projectTitleInput">
+    <input class="inputNewProject" type="text" id="projectTitleInput" required >
 `;
 
 // Second part of the new project page, create the project maker page
@@ -258,20 +257,20 @@ const projectMakerView = `
             <h1 class="projectTitleFinal">Título aqui</h1>
         </div>
         <div class="saveBtnContainer">
-            <button class="newProject-preview-save" >Salvar e publicar</button>
+            <button class="newProject-preview-save" data-saveBtn="2">Salvar e publicar</button>
         </div>
     </div>
 `;
 
 
 // Function to create a new text input and html elemnt to preview
-function newTextContent(previewContainer, inputContainer, orderCounting) {
+function newTextContent(previewContainer, inputContainer, orderCounting, postContent) {
     // Create the elements
     inputContainer.insertAdjacentHTML('beforeend', `
         <div class="labelGroupPreview" data-labelGroup-order="${orderCounting}">
             <label for="newTextArea${orderCounting}">
                 <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
-                Texto ${orderCounting}
+                Texto, posição: ${orderCounting}
             </label>
             <textarea class="inputNewProject" id="newTextArea${orderCounting}" data-textarea-order="${orderCounting}" class="newTextTextarea" 
             placeholder="texto ${orderCounting} aqui..."></textarea>
@@ -297,30 +296,36 @@ function newTextContent(previewContainer, inputContainer, orderCounting) {
 
         // Delete the <pre> content as well
         previewContainer.querySelector(`[data-precontent-order="${orderCounting}"]`).remove()
+    
+        // Delete from the postContent array
+        const indexToRemove = postContent.text.findIndex((text) => {
+            return (text[-1] == orderCounting)
+        })
+
+        postContent.text.splice(indexToRemove, 1)
     })
+    return ([textareaContent, orderCounting])
 }
 
 // Function to creat a new image input and the html elemnt preview
-function newImageContent(reviewContainer, inputContainer, orderCounting) {
+function newImageContent(reviewContainer, inputContainer, orderCounting, postContent) {
     // Create the input image content with url input, border radius and height input as well
     inputContainer.insertAdjacentHTML('beforeend', `
         <div class="labelGroupPreview" data-labelGroup-order="${orderCounting}">
             <label for="imageUrlInput${orderCounting}">
                 <button class="deleteHtmlBtn" data-delete-button-order="${orderCounting}" >deletar</button>
-                Url da image ${orderCounting}
-                <input class="inputNewProject" type="url" data-image-input-order="${orderCounting}" id="imageUrlInput${orderCounting}" placehold="Url da imagem...">
+                Url da image, posição ${orderCounting}
+                <input class="inputNewProject" type="url" data-image-input-order="${orderCounting}" id="imageUrlInput${orderCounting}" placehold="Url da imagem..." required>
             </label>
             <label for="imageBordeRadiusInput${orderCounting}"> 
                 Borda da imagem ${orderCounting}
                 <input type="range" min="0" max="100" value="0" step="1" data-image-border-order="${orderCounting}" id="imageBordeRadiusInput${orderCounting}">
-                <output for="imageBordeRadiusInput${orderCounting}" data-output-border-order="${orderCounting}" >0</output>
-                <span>px</span>
+                <output for="imageBordeRadiusInput${orderCounting}" data-output-border-order="${orderCounting}" >0px</output>
                 </label>
             <label for="imageHeightInput${orderCounting}"> 
                 Tamanho da imagem ${orderCounting}
                 <input type="range" min="200" max="1000" value="200" step="20" data-image-size-order="${orderCounting}" id="imageHeightInput${orderCounting}">
-                <output for="imageHeightInput${orderCounting}" data-output-height-order="${orderCounting}" >200</output>
-                <span>px</span>
+                <output for="imageHeightInput${orderCounting}" data-output-height-order="${orderCounting}" >200px</output>
             </label>
         </div>
     `);
@@ -353,13 +358,13 @@ function newImageContent(reviewContainer, inputContainer, orderCounting) {
     // Part 3.2 - image border
     borderInputPreview.addEventListener('input', () => {
         imageItself.style.borderRadius=`${borderInputPreview.value}px`;
-        borderOutputPreview.value=`${borderInputPreview.value}`;
+        borderOutputPreview.value=`${borderInputPreview.value}px`;
     })
 
     // Part 3.3 - image height
     heightInputPreview.addEventListener('input', () => {
         divImagePreview.style.height=`${heightInputPreview.value}px`;
-        heightOutputPreview.value=`${heightInputPreview.value}`;
+        heightOutputPreview.value=`${heightInputPreview.value}px`;
     })
 
     // Add event listener to the delete button
@@ -371,7 +376,17 @@ function newImageContent(reviewContainer, inputContainer, orderCounting) {
 
         // Delete the image div as well
         reviewContainer.querySelector(`[data-imagePreview-order="${orderCounting}"]`).remove()
+
+        // Delete from the postContent array
+        const indexToRemove = postContent.image.findIndex((image) => {
+            return (image[-1] == orderCounting)
+        })
+
+        postContent.image.splice(indexToRemove, 1)
+
     })
+
+    return ([imageUrlInputPreview, borderOutputPreview, heightOutputPreview, orderCounting])
 }
 
 // Set the second part of the new project page
@@ -407,15 +422,18 @@ function projectMakerPreview(container) {
 
     // Adding the functions to moreImg and moretext buttons
     moreImageBtn.addEventListener('click', () => {
-        orderCounting += 1
-        newImageContent(projectPreviewContainer , projectOptionsContainer, orderCounting)
+        orderCounting += 1;
+        const addImg = newImageContent(projectPreviewContainer , projectOptionsContainer, orderCounting, postContent);
+        postContent.image.push(addImg)
     });
 
     moreTextBtn.addEventListener('click', () => {
-        orderCounting += 1
-        newTextContent(projectPreviewContainer , projectOptionsContainer, orderCounting)
-        const addText = ["content" ,orderCounting]
+        orderCounting += 1;
+        const addText = newTextContent(projectPreviewContainer , projectOptionsContainer, orderCounting, postContent);
+        postContent.text.push(addText);
     });
+
+    return postContent;
 }
 // ___INFO ABOUT PROJECTMAKER END___
 
@@ -430,13 +448,16 @@ export function renderNewProject(main, container, backButton=false) {
     // Create the carousel with the elements above
     creatingCarousel();
     // creating and saving the thumb settings
-    const thumbNailInputs = thumbNailPreview();
+    const thumbnailInputs = thumbnailPreview();
 
     // Query the save button to receive the click 
     const saveBtn = document.querySelector(".newProject-preview-save");
     saveBtn.addEventListener("click", () => {
-        // Save the thumb data to the DATABASE 
-        // TODO...
+        // Send the thumb data to the DATABASE 
+        // First we update the thumbnailInputs from an input html element for it's own value proprely
+        for (const key in thumbnailInputs) {
+            thumbnailInputs[key] = thumbnailInputs[key].value
+        }
 
         // When the user saves the thumb we render the post content maker
         // Transiction from the thumbMaker page to the this
@@ -444,7 +465,27 @@ export function renderNewProject(main, container, backButton=false) {
             // Clean and render
             container.innerHTML = "";
             container.insertAdjacentHTML('afterbegin', projectMakerView);
-            projectMakerPreview(container);
+
+            // loads the "dict" with all the texts and images from post, if the user delete something while writing the post it will automatically update.
+            const projectInputs = projectMakerPreview(container);
+
+            // Query for the save and post button 
+            const saveBtn2 = document.querySelector('[data-saveBtn="2"]');
+
+            // When the user click on save btn2 it'll send the data to the database and redirect to the project page.
+            saveBtn2.addEventListener('click', () => {
+                // First off all, we'll just update the value from a html element for it's own value
+                projectInputs.text.forEach((itemText) => {
+                    itemText[0] = itemText[0].value
+                })
+                projectInputs.image.forEach((itemImage) => {
+                    itemImage[0] = itemImage[0].value
+                    itemImage[1] = itemImage[1].value
+                    itemImage[2] = itemImage[2].value
+                })
+                // Second, send to DataBase all the data, thumbnailInputs and projectInputs
+                // TODO...
+            })
         }, "opacity fast");
     });
 
