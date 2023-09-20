@@ -10,6 +10,15 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
+from .models import Image, Post, Text, Thumbnail
+
+# Those global variables refers to the position of each item inside the list sent via js
+IMAGE_URL = 0
+BORDER_RADIUS = 1
+IMAGE_SIZE = 2
+IMAGE_ORDER = 3
+TEXT_CONTENT = 0
+TEXT_ORDER = 1
 
 # Create your views here.
 def index (request):
@@ -72,6 +81,39 @@ def newProject(request):
     # Check if the user are sending a new post info
     if request.method == "POST":
         # Catch all the data the js sent and save it into a database, using the modelos Post, Text, Image
-        # TO DO...
-        pass
+        data = json.loads(request.body)
+        #----
+        # Data contains 2 dict inside of it, 'thumbnail' and 'post'. 
+        # The 'thumbnail' has the 'borderOutput', 'categoryInputm', 'imgInput' (URL), 'titleFontOutputRm' (size in rem), 'titleInput'
+        # The 'post' another 3 keys inside of it, 'title', 'text' and 'image'. 'title' contains the title
+        # 'text' have a list of lists, each list has the text content and position, like 'text': [['Texto 1 ', 1], ['Text 2', 3]], where the text 2 will be displayed in the 3rd position
+        # in that scenario the 2nd element is an image.
+        # 'image' also have a list of lists, but with a little bit more informations - 'image': [[URL, borderRadius, height, position], [[URL, borderRadius, height, position]]]
+        #----
+        # Spliting up the data content
+        postTitle =  data['post']['title']
+        imageContent = data['post']['image']
+        textContent = data['post']['text']
+        thumbnailContent = data['thumbnail']
+        # Now we already now what we have in data variable we can save it in our database
+        print(f"\n{postTitle}\n{imageContent}\n{textContent}\n{thumbnailContent}\n")
+        # 1st, create the post
+        post = Post(title=postTitle)
+        post.save()
+
+        # 2snd, create the thumbnail
+        thumbnail = Thumbnail(FK_post=post, category=thumbnailContent['categoryInput'], image_url=thumbnailContent['imgInput'], 
+        title=thumbnailContent['titleInput'], title_size=thumbnailContent['titleFontOutputRm'], title_weight=thumbnailContent['titleFontWeight'])
+        thumbnail.save()
+
+        # 3rd, create the image 
+        for i in imageContent:
+            image = Image(borderRadius=i[BORDER_RADIUS], FK_post=post, position=i[IMAGE_ORDER], size=i[IMAGE_SIZE], url=i[IMAGE_URL])
+            image.save()
+        
+        # 4th, create the text
+        for i in textContent:
+            text = Text(text_content=i[TEXT_CONTENT], FK_post=post, position=i[TEXT_ORDER])
+            text.save()
+
     return render(request, "portfolio/index.html", {"pageToRender": "newProject"})

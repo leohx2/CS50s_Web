@@ -1,5 +1,6 @@
 import { cleandAndUpdateState } from "../Functionalities/cleanAndUpdateState.js"
-import { transictionMakerSection } from "../Functionalities/transiction.js";
+import { transictionMakerSection, transictionMaker } from "../Functionalities/transiction.js";
+import { homePage } from "./homePage.js";
 
 // Creating the carousel structure 
 function creatingCarousel () {
@@ -399,7 +400,7 @@ function projectMakerPreview(container) {
     // text:[["content 1", "1"], ["content 2", "3"]]
     // The image will receive a list of list will the content "url", "order", "borderRadius" amd "height", exemple:
     // image: [["image/image21", "2", "5px", "200px"], [["image/image32", "4", "5px", "200px"]]]
-    const postContent = {text: [], image: []};
+    const postContent = {text: [], image: [], title:''};
 
     // The div to insert new content, for preview and to edit
     const projectPreviewContainer = container.querySelector(".projectContent")
@@ -414,6 +415,7 @@ function projectMakerPreview(container) {
     
     // Select the Title input with the values
     const titleInput = container.querySelector("#projectTitleInput");
+    postContent.title = titleInput;
 
     // Add an event listener to the Title
     titleInput.addEventListener('input', () => {
@@ -438,7 +440,7 @@ function projectMakerPreview(container) {
 // ___INFO ABOUT PROJECTMAKER END___
 
 // Render the new project post page
-export function renderNewProject(main, container, backButton=false) {
+export async function renderNewProject(main, container, backButton=false) {
     // Clean any content before insert a new one and upadte the state
     cleandAndUpdateState(container, "newProject", backButton);
 
@@ -456,7 +458,7 @@ export function renderNewProject(main, container, backButton=false) {
         // Send the thumb data to the DATABASE 
         // First we update the thumbnailInputs from an input html element for it's own value proprely
         for (const key in thumbnailInputs) {
-            thumbnailInputs[key] = thumbnailInputs[key].value
+            thumbnailInputs[key] = thumbnailInputs[key].value;
         }
 
         // When the user saves the thumb we render the post content maker
@@ -473,18 +475,46 @@ export function renderNewProject(main, container, backButton=false) {
             const saveBtn2 = document.querySelector('[data-saveBtn="2"]');
 
             // When the user click on save btn2 it'll send the data to the database and redirect to the project page.
-            saveBtn2.addEventListener('click', () => {
+            saveBtn2.addEventListener('click', async () => {
                 // First off all, we'll just update the value from a html element for it's own value
+                projectInputs.title = projectInputs.title.value;
                 projectInputs.text.forEach((itemText) => {
-                    itemText[0] = itemText[0].value
-                })
+                    itemText[0] = itemText[0].value;
+                });
                 projectInputs.image.forEach((itemImage) => {
-                    itemImage[0] = itemImage[0].value
-                    itemImage[1] = itemImage[1].value
-                    itemImage[2] = itemImage[2].value
-                })
+                    itemImage[0] = itemImage[0].value;
+                    itemImage[1] = itemImage[1].value;
+                    itemImage[2] = itemImage[2].value;
+                });
                 // Second, send to DataBase all the data, thumbnailInputs and projectInputs
-                // TODO...
+                await fetch ("newProject", {
+                    method:'POST',
+                    body: JSON.stringify({
+                        thumbnail: {
+                            // Some of items of thumbnailInputs won't be necessary to pass to db.
+                            borderOutput: thumbnailInputs.borderOutput,
+                            categoryInput: thumbnailInputs.categoryInput,
+                            imgInput: thumbnailInputs.imgInput,
+                            titleFontOutputRm: thumbnailInputs.titleFontOutputRm,
+                            titleFontWeight: thumbnailInputs.titleFontWeight,
+                            titleInput: thumbnailInputs.titleInput,
+                        },
+                        post: {
+                            title: projectInputs.title,
+                            text: projectInputs.text,
+                            image: projectInputs.image,
+                        }
+                    })
+                });
+                // Send the user to home page
+                transictionMaker(()=>{
+                    container.classList.remove(history.state.render)
+                    container.classList.add('home')
+                    const activeItem = document.querySelector(".navA.active");
+                    activeItem.classList.remove("active")
+                    document.querySelector("[data-page='home']").classList.add("active")
+                    homePage(main, container);
+                }, "opacity fast")
             })
         }, "opacity fast");
     });
