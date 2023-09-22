@@ -8,34 +8,56 @@ export async function renderProjectsPage (main, container, backbutton=false) {
     // English content
     if (main.dataset.language === 'en'){
         container.insertAdjacentHTML('afterbegin',`
-        <div class="category-design-container">
+        <div class="category-container">
             <h2 class="category-title">Design</h2>
-            <div class="category-thumbnails">
-                ${await renderThumbnails("Design")}
+            <div class="category-thumbnails" id="Design">
             </div>
         </div>
-        <div class="category-painting-container">
-            ${await renderThumbnails("Pintura")}
+        <div class="category-container">
+            <h2 class="category-title">Painting</h2>
+            <div class="category-thumbnails" id="Pintura">
+            </div>
         </div>
-        <div class="category-sculpture-container">
-            ${await renderThumbnails("Escultura")}
+        <div class="category-container">
+            <h2 class="category-title">Sculpture</h2>
+            <div class="category-thumbnails" id="Escultura">
+            </div>
         </div>
         `);
+        await renderThumbnails("Design")
+        await renderThumbnails("Pintura")
+        await renderThumbnails("Escultura")
     };
 };
 
 async function renderThumbnails(category) {
     // fetch the data from django
     const res = await fetch(`/thumb_details/${category}`);
-    
+
     // jsonify the data
     // Data contains a list with dictionaries, the dictionary contains the thumbnail details, like:
-    // category, post_id, image_url, title, title_size, title_weight
+    // borderRadius, category, post_id, image_url, title, title_size, title_weight
     const data = await res.json();
-    console.log("----------"+category+"----------")
+
+    // Query the div to render the thumbnails
+    const container = document.getElementById(category)
+
     data.forEach((element) => {
-        console.log(element['title'])
+        container.insertAdjacentHTML('afterbegin',`
+            <div class="thumbnail-content" data-post-id="${element['post']}">
+                <div class="thumbnail-content-image-container">
+                    <img src="${element['image_url']}" data-post-image="${element['post']}">
+                </div>
+                <span data-post-title="${element['post']}" >${element['title']}</span>
+            </div>
+        `);
+
+        // Styling the elements, first we query and then apply the style
+        const imageStyle = container.querySelector(`[data-post-image='${element["post"]}']`)
+        const titleStyle =  container.querySelector(`[data-post-title='${element["post"]}']`)
+
+        imageStyle.style.borderRadius = element['borderRadius']
+        titleStyle.style.fontSize = element['title_size']
+        titleStyle.style.fontWeight = element['title_weight']
     });
-    console.log("--------------------")
-    return `<h2>teste ${category}</h2>`
 }

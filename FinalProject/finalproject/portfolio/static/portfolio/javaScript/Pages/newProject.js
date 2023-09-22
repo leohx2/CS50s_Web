@@ -1,6 +1,6 @@
 import { cleandAndUpdateState } from "../Functionalities/cleanAndUpdateState.js"
 import { transictionMakerSection, transictionMaker } from "../Functionalities/transiction.js";
-import { homePage } from "./homePage.js";
+import { renderProjectsPage } from "./projectsPage.js";
 
 // Creating the carousel structure 
 function creatingCarousel () {
@@ -173,7 +173,7 @@ const imageBorderCss = `
 const titleCss = `
         <div class="labelGroup">
             <label for="titleSize">Tamanho da fonte</label>
-            <input name="fontSize" id="titleSize" type="range" min="0.5" max="2" step="0.1" value="1">
+            <input name="fontSize" id="titleSize" type="range" min="1" max="1.5" step="0.1" value="1">
             <output name="outputFont" id="titleSizeRm" for="titleSize">1rem</output>
         </div>
 `;
@@ -509,11 +509,11 @@ export async function renderNewProject(main, container, backButton=false) {
                 // Send the user to home page
                 transictionMaker(()=>{
                     container.classList.remove(history.state.render)
-                    container.classList.add('home')
+                    container.classList.add('projects')
                     const activeItem = document.querySelector(".navA.active");
                     activeItem.classList.remove("active")
-                    document.querySelector("[data-page='home']").classList.add("active")
-                    homePage(main, container);
+                    document.querySelector("[data-page='projects']").classList.add("active")
+                    renderProjectsPage(main, container);
                 }, "opacity fast")
             })
         }, "opacity fast");

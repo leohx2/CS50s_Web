@@ -117,7 +117,7 @@ def newProject(request):
         post.save()
 
         # 2snd, create the thumbnail
-        thumbnail = Thumbnail(FK_post=post, category=thumbnailContent['categoryInput'], image_url=thumbnailContent['imgInput'], 
+        thumbnail = Thumbnail(FK_post=post, borderRadius=thumbnailContent['borderOutput'] ,category=thumbnailContent['categoryInput'], image_url=thumbnailContent['imgInput'], 
         title=thumbnailContent['titleInput'], title_size=thumbnailContent['titleFontOutputRm'], title_weight=thumbnailContent['titleFontWeight'])
         thumbnail.save()
 

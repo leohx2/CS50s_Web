@@ -61,6 +61,7 @@ class Text(models.Model):
 # Thumbnail content related to a post
 class Thumbnail(models.Model):
     id = models.AutoField(primary_key=True)
+    borderRadius = models.CharField(max_length=10, default=0) # String format, the information will be saved like "10px".
     category = models.CharField(max_length=15)
     FK_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_thumbnail")
     image_url = models.URLField(max_length=400)
@@ -71,6 +72,7 @@ class Thumbnail(models.Model):
     def serialize(self):
         return {
             'id': self.id,
+            'borderRadius': self.borderRadius,
             'category': self.category,
             'post': self.FK_post.id,
             'image_url': self.image_url,
