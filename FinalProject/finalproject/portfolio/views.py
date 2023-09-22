@@ -25,6 +25,21 @@ def index (request):
     return render(request, "portfolio/index.html", {'pageToRender': "home"})
 
 
+# Render the projects page, containing only the thumbanails of the projects, clickable 
+def projects (request):
+    return render(request, "portfolio/index.html", {"pageToRender": "projects"})
+
+# Send thumbnail details
+def thumb_details(request, categoryRender):
+    # query the thumb details
+    thumb = Thumbnail.objects.filter(category=categoryRender)
+     # Serialize it to make easier to select them into our JS file.
+    # To know more about the serialize function check the models.py
+    data = [i.serialize() for i in thumb]
+    return JsonResponse(data, safe=False)
+
+
+# Render the contact page
 @csrf_exempt
 def contact (request):
     if request.method == "POST":

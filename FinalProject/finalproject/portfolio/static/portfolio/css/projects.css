@@ -1,0 +1,6 @@
+.projects {
+    display: flex;
+    color: white;
+    height: calc(100vh - 48px);
+    width: 100%;
+}

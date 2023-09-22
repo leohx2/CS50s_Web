@@ -33,7 +33,7 @@ class Image(models.Model):
             'borderRadius': self.borderRadius,
             'id': self.id,
             'position':self.position,
-            'post': self.FK_post,
+            'post': self.FK_post.id,
             'size': self.size,
             'url': self.url
         }
@@ -54,7 +54,7 @@ class Text(models.Model):
             'id': self.id,
             'content': self.content,
             'position': self.position,
-            'post': self.FK_post,
+            'post': self.FK_post.id,
         }
 
 
@@ -72,7 +72,7 @@ class Thumbnail(models.Model):
         return {
             'id': self.id,
             'category': self.category,
-            'post': self.FK_post,
+            'post': self.FK_post.id,
             'image_url': self.image_url,
             'title': self.title,
             'title_size': self.title_size,

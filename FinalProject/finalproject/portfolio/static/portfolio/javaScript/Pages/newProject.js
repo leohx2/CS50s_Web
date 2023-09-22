@@ -192,7 +192,7 @@ const categories = `
             <label for="categoriesSelect">Escolha a área do projeto</label>
             <select name="categories" id="categoriesSelect" class="inputNewProject">
                 <option value=""></option>
-                <option value="Arte">Arte</option>
+                <option value="Pintura">Pintura</option>
                 <option value="Design">Design</option>
                 <option value="Escultura">Escultura</option>
             </select>
