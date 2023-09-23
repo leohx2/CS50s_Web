@@ -1,5 +1,7 @@
 import {emailChange as copyEmail} from './../Functionalities/buttonsFunctions.js'
 import { cleandAndUpdateState } from '../Functionalities/cleanAndUpdateState.js';
+import { transictionMaker } from '../Functionalities/transiction.js';
+import { renderProjectsPage } from './projectsPage.js';
 
 // Function the render the home page
 export function homePage (main, container, backButton=false) {
@@ -66,7 +68,17 @@ export function homePage (main, container, backButton=false) {
             </div>
         `);       
     }
-
+    // Send the user to projects page when clicks on projects button
+    document.querySelector(".authorDescription-buttons-projects").addEventListener('click', () => {
+        transictionMaker(()=>{
+            container.classList.remove(history.state.render)
+            container.classList.add('projects')
+            const activeItem = document.querySelector(".navA.active");
+            activeItem.classList.remove("active")
+            document.querySelector("[data-page='projects']").classList.add("active")
+            renderProjectsPage(main, container);
+        }, "opacity fast")
+    })
     // Adding the copy function to the e-mail me button, to make easier to the user to copy the e-mail
     // also add the hover effect to show the e-mail and the tooltip
     copyEmail(main);

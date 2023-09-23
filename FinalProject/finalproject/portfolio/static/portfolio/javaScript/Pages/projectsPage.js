@@ -27,6 +27,7 @@ export async function renderProjectsPage (main, container, backbutton=false) {
         await renderThumbnails("Design")
         await renderThumbnails("Pintura")
         await renderThumbnails("Escultura")
+
     };
 };
 
@@ -40,12 +41,12 @@ async function renderThumbnails(category) {
     const data = await res.json();
 
     // Query the div to render the thumbnails
-    const container = document.getElementById(category)
+    const container = document.getElementById(category);
 
     data.forEach((element) => {
         container.insertAdjacentHTML('afterbegin',`
             <div class="thumbnail-content" data-post-id="${element['post']}">
-                <div class="thumbnail-content-image-container">
+                <div class="thumbnail-content-image-container" data-post-image-container="${element['post']}">
                     <img src="${element['image_url']}" data-post-image="${element['post']}">
                 </div>
                 <span data-post-title="${element['post']}" >${element['title']}</span>
@@ -53,11 +54,13 @@ async function renderThumbnails(category) {
         `);
 
         // Styling the elements, first we query and then apply the style
-        const imageStyle = container.querySelector(`[data-post-image='${element["post"]}']`)
-        const titleStyle =  container.querySelector(`[data-post-title='${element["post"]}']`)
+        const imageStyle = container.querySelector(`[data-post-image='${element["post"]}']`);
+        const imageContainer = container.querySelector(`[data-post-image-container='${element["post"]}']`);
+        const titleStyle =  container.querySelector(`[data-post-title='${element["post"]}']`);
 
-        imageStyle.style.borderRadius = element['borderRadius']
-        titleStyle.style.fontSize = element['title_size']
-        titleStyle.style.fontWeight = element['title_weight']
+        imageStyle.style.borderRadius = element['borderRadius'];
+        imageContainer.style.borderRadius = element['borderRadius'];
+        titleStyle.style.fontSize = element['title_size'];
+        titleStyle.style.fontWeight = element['title_weight'];
     });
 }

@@ -506,7 +506,7 @@ export async function renderNewProject(main, container, backButton=false) {
                         }
                     })
                 });
-                // Send the user to home page
+                // Send the user to projects page
                 transictionMaker(()=>{
                     container.classList.remove(history.state.render)
                     container.classList.add('projects')
