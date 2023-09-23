@@ -28,6 +28,28 @@ export async function renderProjectsPage (main, container, backbutton=false) {
         await renderThumbnails("Pintura")
         await renderThumbnails("Escultura")
 
+    } else {
+        container.insertAdjacentHTML('afterbegin',`
+        <div class="category-container">
+            <h2 class="category-title">Escultura</h2>
+            <div class="category-thumbnails" id="Escultura">
+            </div>
+        </div>
+        <div class="category-container">
+            <h2 class="category-title">Design</h2>
+            <div class="category-thumbnails" id="Design">
+            </div>
+        </div>
+        <div class="category-container">
+            <h2 class="category-title">Pintura</h2>
+            <div class="category-thumbnails" id="Pintura">
+            </div>
+        </div>
+        `);
+        await renderThumbnails("Design")
+        await renderThumbnails("Pintura")
+        await renderThumbnails("Escultura")
+
     };
 };
 
