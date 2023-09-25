@@ -18,7 +18,7 @@
     width: 100%;
 }
 
-.loginForm, .labelGroup, .loginContainer {
+.loginForm, .labelGroupLogin, .loginContainer {
     display: flex;
     flex-direction: column;
 }
@@ -44,7 +44,7 @@
     width: 100%;
 }
 
-.labelGroup{
+.labelGroupLogin{
     width: 80%;
 }
 

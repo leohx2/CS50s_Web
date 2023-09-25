@@ -90,6 +90,7 @@ def logout_view (request):
     return HttpResponseRedirect(reverse("index"))
 
 
+# Render the new project view
 @login_required
 @csrf_exempt
 def newProject(request):
@@ -132,3 +133,8 @@ def newProject(request):
             text.save()
 
     return render(request, "portfolio/index.html", {"pageToRender": "newProject"})
+
+
+# Send data to the project page and render it if necessary
+def project_render(request, id):
+    return render(request, "portfolio/index.html", {"pageToRender": "project"})

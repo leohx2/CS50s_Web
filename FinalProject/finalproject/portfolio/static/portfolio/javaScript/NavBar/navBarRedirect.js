@@ -20,11 +20,6 @@ export function setNavBarBehavior (main, container, buttons) {
             // Go for every navItem and prevent the default behavior
             e.preventDefault();
 
-            // After that check if this item is the one with the active class, if yes does nothing, if its not
-            // query for the one naviTem with the active class remove the active class and add it to the one the user is clicking on
-            // and render the desired page.
-            if( e.target.classList.contains("active") === true) return;
-
             // Select the active item
             const activeItem = document.querySelector(".navA.active");
 

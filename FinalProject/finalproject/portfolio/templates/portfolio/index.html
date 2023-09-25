@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{% static 'portfolio/css/footer.css' %}">
         <link rel="stylesheet" href="{% static 'portfolio/css/newProject.css' %}">
         <link rel="stylesheet" href="{% static 'portfolio/css/projects.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/projectPage.css' %}">
         {% block link %} {%endblock%}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +31,7 @@
                 <ul>
                     <li><a data-page="home" class="navA {% if pageToRender == 'home' %} active {% endif %}" href="#">Home</a></li>
                     <li><a data-page="about" class="navA {% if pageToRender == 'about' %} active {% endif %}" href="#">About me</a></li>
-                    <li><a data-page="projects" class="navA {% if pageToRender == 'projects' %} active {% endif %}" href="#">Projects</a></li>
+                    <li><a data-page="projects" class="navA {% if pageToRender == 'projects' or pageToRender == 'project' %} active {% endif %}" href="#">Projects</a></li>
                     <li><a data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %}" href="#">Awards</a></li>
                     <li><a data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %}" href="#">Contact me</a></li>
                     {% if user.is_authenticated %}
@@ -60,8 +61,8 @@
         </main>
         {% block footer %}
         <footer>
-            <div class="footer-socialMedia">
-                <a class="socialMedia-footer" href="https://www.instagram.com/jonarth.com_/" target="blank">
+            <div class="footer-container">
+                <a class="socialMedia-footer-link" href="https://www.instagram.com/jonarth.com_/" target="blank">
                     <div class="socialMedia-footer-info">
                         <i class="fa-brands fa-instagram"></i>
                         <span>@jonarth.com_</span>
@@ -70,10 +71,9 @@
                 <div class="socialMedia-footer-info">
                     <i class="fa-solid fa-envelope"></i>
                     <span>info.jonarth@gmail.com</span>
-                </div>
-            </div>
-            
-            <span>&#169; Jonarth</span>
+                </div>   
+            </div> 
+            <span class="footer-copyR">&#169; Jonarth</span>
         </footer>
         {% endblock %}
         <script src="{% static 'portfolio/javaScript/main.js' %}" type="module"></script>

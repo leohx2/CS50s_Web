@@ -17,11 +17,11 @@
             <span>Login</span>
             <form class="loginForm" action="{% url 'loginAuthor' %}" method="post">
                 {% csrf_token %}
-                <div class="labelGroup">
+                <div class="labelGroupLogin">
                     <label for="username" class="loginLabel">Username</label>
                     <input type="text" class="loginInput" name="username" placeholder="Username...">
                 </div>
-                <div class="labelGroup">
+                <div class="labelGroupLogin">
                     <label for="password" class="loginLabel">Password</label>
                     <input type="password" class="loginInput" name="password" placeholder="Password...">
                 </div>

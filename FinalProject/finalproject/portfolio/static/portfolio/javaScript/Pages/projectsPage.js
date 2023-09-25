@@ -1,4 +1,6 @@
 import { cleandAndUpdateState } from "../Functionalities/cleanAndUpdateState.js";
+import { renderProject } from "./projectContentPage.js"
+import { transictionMaker } from "../Functionalities/transiction.js"
 
 // Exporting the projects render page.js
 export async function renderProjectsPage (main, container, backbutton=false) {
@@ -28,6 +30,18 @@ export async function renderProjectsPage (main, container, backbutton=false) {
         await renderThumbnails("Pintura")
         await renderThumbnails("Escultura")
 
+        // Add a fuction to the user be able to click and go to the project page
+        const divsThumb = container.querySelectorAll(".thumbnail-content");
+        divsThumb.forEach((divThumb) => {
+            divThumb.addEventListener('click', () => {
+                transictionMaker(() => {
+                    container.classList.remove(history.state.render)
+                    container.classList.add('project')
+                    renderProject(main, container, divThumb.dataset.postId ,backbutton)
+                }, "opacity fast")
+            })
+        })
+
     } else {
         container.insertAdjacentHTML('afterbegin',`
         <div class="category-container">
@@ -49,7 +63,7 @@ export async function renderProjectsPage (main, container, backbutton=false) {
         await renderThumbnails("Design")
         await renderThumbnails("Pintura")
         await renderThumbnails("Escultura")
-
+        
     };
 };
 

@@ -1,5 +1,5 @@
 
-export function cleandAndUpdateState(container, renderState, backButton) {
+export function cleandAndUpdateState(container, renderState, backButton, differentRender=null) {
     // Clean any content before insert a new one
     container.innerHTML = ""
 
@@ -8,8 +8,8 @@ export function cleandAndUpdateState(container, renderState, backButton) {
     // If it is true use the replaceState that allow the user to use to foward button as well, otherwiser use the pushState.
 
     if (backButton === true) {
-        history.replaceState({render: renderState}, "", renderState)
+        history.replaceState({render: differentRender === null ? renderState : differentRender}, "", `/${renderState}`)
     } else {
-        history.pushState({render: renderState}, "", renderState)
+        history.pushState({render: differentRender === null ? renderState : differentRender}, "", `/${renderState}`)
     }
 }
