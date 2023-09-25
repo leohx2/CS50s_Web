@@ -35,7 +35,8 @@ class Image(models.Model):
             'position':self.position,
             'post': self.FK_post.id,
             'size': self.size,
-            'url': self.url
+            'url': self.url,
+            'type': "image"
         }
 
 
@@ -52,9 +53,10 @@ class Text(models.Model):
     def serialize(self):
         return {
             'id': self.id,
-            'content': self.content,
+            'content': self.text_content,
             'position': self.position,
             'post': self.FK_post.id,
+            'type': "text"
         }
 
 

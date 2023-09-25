@@ -510,7 +510,7 @@ export async function renderNewProject(main, container, backButton=false) {
                 transictionMaker(()=>{
                     container.classList.remove(history.state.render)
                     container.classList.add('projects')
-                    document.querySelector(".navA.active").classList.itemremove("active")
+                    document.querySelector(".navA.active").classList.remove("active")
                     document.querySelector("[data-page='projects']").classList.add("active")
                     renderProjectsPage(main, container);
                 }, "opacity fast")

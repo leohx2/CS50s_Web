@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
+from .helper import content_organizer
 from .models import Image, Post, Text, Thumbnail
 
 # Those global variables refers to the position of each item inside the list sent via js
@@ -136,5 +137,25 @@ def newProject(request):
 
 
 # Send data to the project page and render it if necessary
+@csrf_exempt
 def project_render(request, id):
+    # If the method is post info django sends the data to JavaScript to render the post
+    if request.method == "POSTINFO":
+        # Query all the data needed
+        post = Post.objects.get(pk=id)
+        texts = Text.objects.filter(FK_post__id=id)
+        images = Image.objects.filter(FK_post__id=id)
+        
+        # organize the content position to send to js
+        content = content_organizer(texts, images)
+
+        # Pass it to a dict
+        dataToSend = {
+            'title': post.title,
+            'content': content
+        }
+
+        #print(f"\n\n{dataToSend}\n\n")
+        # Send it in a json format
+        return JsonResponse(dataToSend, safe=False)
     return render(request, "portfolio/index.html", {"pageToRender": "project"})

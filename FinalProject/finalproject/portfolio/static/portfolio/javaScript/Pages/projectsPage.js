@@ -63,7 +63,18 @@ export async function renderProjectsPage (main, container, backbutton=false) {
         await renderThumbnails("Design")
         await renderThumbnails("Pintura")
         await renderThumbnails("Escultura")
-        
+
+        // Add a fuction to the user be able to click and go to the project page
+        const divsThumb = container.querySelectorAll(".thumbnail-content");
+        divsThumb.forEach((divThumb) => {
+            divThumb.addEventListener('click', () => {
+                transictionMaker(() => {
+                    container.classList.remove(history.state.render)
+                    container.classList.add('project')
+                    renderProject(main, container, divThumb.dataset.postId ,backbutton)
+                }, "opacity fast")
+            })
+        })
     };
 };
 
