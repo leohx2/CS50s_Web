@@ -9,7 +9,6 @@ import { renderProject } from './Pages/projectContentPage.js';
 document.addEventListener('DOMContentLoaded', () => {
     // After the content is loaded get some content to be used
     const main = document.querySelector('main');
-    console.log(`testando\n${main.dataset.pageRender}\n`)
     const container = document.querySelector('[data-render-section=true]');
     const buttons = {
         'en': document.getElementById('EN'),

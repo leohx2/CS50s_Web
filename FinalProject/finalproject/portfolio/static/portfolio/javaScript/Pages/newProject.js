@@ -285,6 +285,11 @@ function newTextContent(previewContainer, inputContainer, orderCounting, postCon
     // add event listener to link the textarea content to the <pre> content
     const preContent = previewContainer.querySelector(`[data-precontent-order="${orderCounting}"]`)
     const textareaContent = inputContainer.querySelector(`[data-textarea-order="${orderCounting}"]`);
+
+    // Focus the textArea
+    textareaContent.focus()
+
+    // Link the preContent to the textAreaContent
     textareaContent.addEventListener('input', () => {
         preContent.textContent = textareaContent.value;
     })
@@ -322,18 +327,23 @@ function newImageContent(reviewContainer, inputContainer, orderCounting, postCon
                 Borda da imagem ${orderCounting}
                 <input type="range" min="0" max="100" value="0" step="1" data-image-border-order="${orderCounting}" id="imageBordeRadiusInput${orderCounting}">
                 <output for="imageBordeRadiusInput${orderCounting}" data-output-border-order="${orderCounting}" >0px</output>
-                </label>
-            <label for="imageHeightInput${orderCounting}"> 
-                Tamanho da imagem ${orderCounting}
-                <input type="range" min="200" max="1000" value="200" step="20" data-image-size-order="${orderCounting}" id="imageHeightInput${orderCounting}">
-                <output for="imageHeightInput${orderCounting}" data-output-height-order="${orderCounting}" >200px</output>
             </label>
+            <span>Tamanho da imagem ${orderCounting}</span>
+            <div class="radioInputs">
+                <input type="radio" data-image-size-order="${orderCounting}" name="size${orderCounting}" value="small" checked>
+                <label for="size${orderCounting}">Pequena</label>
+                <input type="radio" data-image-size-order="${orderCounting}" name="size${orderCounting}" value="medium">
+                <label for="size${orderCounting}">Médio</label>
+                <input type="radio" data-image-size-order="${orderCounting}" name="size${orderCounting}" value="big">
+                <label for="size${orderCounting}">Grande</label>
+            </div>
+            <span class="resizeInfo">*A imagem precisa ter qualidade suficiente para a mudança de tamanho</span>
         </div>
     `);
     // Creating the preview content
     reviewContainer.insertAdjacentHTML('beforeend',`
         <div class="imagePostPreview" data-imagePreview-order="${orderCounting}">
-            <img class="imagePreview" src="../../static/portfolio/images/noImage.png" data-image-order="${orderCounting}">
+            <img class="imagePost small" src="../../static/portfolio/images/noImage.png" data-image-order="${orderCounting}">
         </div>
     `);
 
@@ -343,8 +353,10 @@ function newImageContent(reviewContainer, inputContainer, orderCounting, postCon
     const imageUrlInputPreview = inputContainer.querySelector(`[data-image-input-order="${orderCounting}"]`);
     const borderInputPreview = inputContainer.querySelector(`[data-image-border-order="${orderCounting}"]`);
     const borderOutputPreview = inputContainer.querySelector(`[data-output-border-order="${orderCounting}"]`);
-    const heightInputPreview = inputContainer.querySelector(`[data-image-size-order="${orderCounting}"]`);
-    const heightOutputPreview = inputContainer.querySelector(`[data-output-height-order="${orderCounting}"]`);
+    const imageHeightOptions = inputContainer.querySelectorAll(`input[data-image-size-order="${orderCounting}"]`);
+    const imageRadiusChoice = {size: "small"}
+    // Focus on url field
+    imageUrlInputPreview.focus()
 
     // Part 2 - preview elements
     const divImagePreview = reviewContainer.querySelector(`[data-imagePreview-order="${orderCounting}"]`);
@@ -359,14 +371,19 @@ function newImageContent(reviewContainer, inputContainer, orderCounting, postCon
     // Part 3.2 - image border
     borderInputPreview.addEventListener('input', () => {
         imageItself.style.borderRadius=`${borderInputPreview.value}px`;
+        divImagePreview.style.borderRadius=`${borderInputPreview.value}px`;
         borderOutputPreview.value=`${borderInputPreview.value}px`;
     })
 
     // Part 3.3 - image height
-    heightInputPreview.addEventListener('input', () => {
-        divImagePreview.style.height=`${heightInputPreview.value}px`;
-        heightOutputPreview.value=`${heightInputPreview.value}px`;
-    })
+    imageHeightOptions.forEach((option) => {
+        option.addEventListener('input', () => {
+            imageItself.classList.remove(...imageItself.classList)
+            imageItself.classList.add('imagePost', option.value);
+            imageRadiusChoice.size = option.value
+            imageItself.src=`${imageUrlInputPreview.value === "" ? "../../static/portfolio/images/noImage.png" : imageUrlInputPreview.value}`;
+        });
+    });
 
     // Add event listener to the delete button
     const deleteBtn = inputContainer.querySelector(`[data-delete-button-order="${orderCounting}"]`)
@@ -387,7 +404,7 @@ function newImageContent(reviewContainer, inputContainer, orderCounting, postCon
 
     })
 
-    return ([imageUrlInputPreview, borderOutputPreview, heightOutputPreview, orderCounting])
+    return ([imageUrlInputPreview, borderOutputPreview, imageRadiusChoice ,orderCounting])
 }
 
 // Set the second part of the new project page
@@ -481,10 +498,11 @@ export async function renderNewProject(main, container, backButton=false) {
                 projectInputs.text.forEach((itemText) => {
                     itemText[0] = itemText[0].value;
                 });
+                console.log(projectInputs.image)
                 projectInputs.image.forEach((itemImage) => {
                     itemImage[0] = itemImage[0].value;
                     itemImage[1] = itemImage[1].value;
-                    itemImage[2] = itemImage[2].value;
+                    itemImage[2] = itemImage[2].size;
                 });
                 // Second, send to DataBase all the data, thumbnailInputs and projectInputs
                 await fetch ("newProject", {

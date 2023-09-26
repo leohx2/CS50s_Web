@@ -22,7 +22,7 @@ class Image(models.Model):
     borderRadius = models.CharField(max_length=10) # String format, the information will be saved like "10px".
     FK_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_image")
     position = models.IntegerField()
-    size = models.CharField(max_length=10) # String format, the information will be saved like "200px".
+    size = models.CharField(max_length=10) # String format, the information will be saved like "small" "medium" or "big".
     url = models.URLField(max_length=400)
     
     def __str__(self):

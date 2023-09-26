@@ -130,7 +130,7 @@
     padding: 0.3rem 1rem;
 }
 
-.inputNewProject{
+.inputNewProject:focus{
     outline-color: #7e7e7e59;
 }
 
@@ -253,12 +253,28 @@
 
 .imagePostPreview{
     display: inline-block;
-    height: 200px;
 }
 
-.imagePreview {
+.imagePost {
     box-shadow: 3px 3px 5px rgb(182, 182, 182);
-    max-height: 100%;
     max-width: 100%;
     object-fit: contain;
+}
+
+.small {
+    max-height: 250px;
+}
+
+.medium {
+    max-height: 500px;
+}
+
+.big {
+    max-height: 800px;
+}
+
+.resizeInfo {
+    font-size: 0.7rem;
+    color: #24242498;
+    font-weight: 600;
 }
