@@ -3,7 +3,7 @@ import { cleandAndUpdateState } from "../Functionalities/cleanAndUpdateState.js"
 // Image render
 function imageHTMLRender(imageContent, projectContentDiv){
     // Insert the content inside the right div
-    projectContentDiv.insertAdjacentHTML('afterbegin',`
+    projectContentDiv.insertAdjacentHTML('beforeend',`
     <div class="projectContent-imageContainer" data-imageDiv-id="${imageContent.id}">  
         <img class="imagePost" src="${imageContent.url}" data-image-id="${imageContent.id}">
     </div>
@@ -21,7 +21,7 @@ function imageHTMLRender(imageContent, projectContentDiv){
 // Text render
 function textHTMLRender(textContent, projectContentDiv){
     // Insert the content inside the right div
-    projectContentDiv.insertAdjacentHTML('afterbegin',`
+    projectContentDiv.insertAdjacentHTML('beforeend',`
     <pre>${textContent.content}</pre>
     `)
 }
