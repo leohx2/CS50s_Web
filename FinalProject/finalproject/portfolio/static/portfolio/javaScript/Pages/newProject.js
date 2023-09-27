@@ -1,6 +1,7 @@
 import { cleandAndUpdateState } from "../Functionalities/cleanAndUpdateState.js"
 import { transictionMakerSection, transictionMaker } from "../Functionalities/transiction.js";
 import { renderProjectsPage } from "./projectsPage.js";
+import { errorRender } from "../Functionalities/renderWarning.js";
 
 // Creating the carousel structure 
 function creatingCarousel () {
@@ -101,8 +102,6 @@ function thumbnailPreview() {
         borderOutput: document.getElementById("borderRadiusPx"),
 
         // 3 - Css items title
-        titleFontSize: document.getElementById("titleSize"),
-        titleFontOutputRm: document.getElementById("titleSizeRm"),
         titleFontWeight: document.getElementById("fontWeightInput"),
         titleFontWeightOutput: document.getElementById("fontWeightOutput"),
 
@@ -121,12 +120,6 @@ function thumbnailPreview() {
     allInputs.borderRadiusImg.addEventListener('input', () => {
         imagePreview.style.borderRadius = `${allInputs.borderRadiusImg.value}px`;
         allInputs.borderOutput.value = `${allInputs.borderRadiusImg.value}px`;
-    });
-
-    // Change the font size
-    allInputs.titleFontSize.addEventListener('input', () => {
-        titlePreview.style.fontSize = `${allInputs.titleFontSize.value}rem`;
-        allInputs.titleFontOutputRm.value = `${allInputs.titleFontSize.value}rem`;
     });
 
     // Change the font weight
@@ -149,14 +142,14 @@ function thumbnailPreview() {
 // Step 1 - choose image and title.
 const imageThumb = `
         <div class="labelGroup">
-            <label for="imageThumbInput">URL da image</label>
+            <label for="imageThumbInput">*URL da image</label>
             <input class="inputNewProject" id="imageThumbInput" type="url" name="image" placeholder="imagem url..." required>
         </div>
 `;
 
 const inputTitle = `
         <div class="labelGroup">
-            <label for="titleThumbInput">Título do projeto</label>
+            <label for="titleThumbInput">*Título do projeto</label>
             <input class="inputNewProject" id="titleThumbInput" type="text" name="title" placeholder="título..." required>
         </div>
 `;
@@ -167,14 +160,6 @@ const imageBorderCss = `
             <label for="borderRadiusThumb">Borda</label>
             <input type="range" min="0" max="50" value="0" step="1" name="borderRadius" id="borderRadiusThumb">
             <output name="outputRange" id="borderRadiusPx" for="borderRadiusThumb">0px</output>
-        </div>
-`;
-
-const titleCss = `
-        <div class="labelGroup">
-            <label for="titleSize">Tamanho da fonte</label>
-            <input name="fontSize" id="titleSize" type="range" min="1" max="1.5" step="0.1" value="1">
-            <output name="outputFont" id="titleSizeRm" for="titleSize">1rem</output>
         </div>
 `;
 
@@ -189,7 +174,7 @@ const fontWeighHtmlContent= `
 // Choose the category, the author can choose hes project category, between Painting, Design and sculpture 
 const categories = `
         <div class="labelGroupColumn">
-            <label for="categoriesSelect">Escolha a área do projeto</label>
+            <label for="categoriesSelect">*Escolha a área do projeto</label>
             <select name="categories" id="categoriesSelect" class="inputNewProject">
                 <option value=""></option>
                 <option value="Pintura">Pintura</option>
@@ -211,7 +196,7 @@ const thumbnailView = `
                 </div>
                 <div class="carousel-item" data-index="2">
                     <span class="carousel-item-steps">Passo 2 - Estilização do Título</span>
-                    ${titleCss} ${fontWeighHtmlContent}
+                    ${fontWeighHtmlContent}
                 </div>
                 <div class="carousel-item" data-index="3">
                     <span class="carousel-item-steps">Passo 3 - Categoria</span>
@@ -460,7 +445,7 @@ function projectMakerPreview(container) {
 export async function renderNewProject(main, container, backButton=false) {
     // Clean any content before insert a new one and upadte the state
     cleandAndUpdateState(container, "newProject", backButton);
-
+    
     // New project page content, with a carousel to load the options to create a new post.
     // Part 1 -> Thumbnail
     container.insertAdjacentHTML('afterbegin', thumbnailView);
@@ -473,7 +458,12 @@ export async function renderNewProject(main, container, backButton=false) {
     const saveBtn = document.querySelector(".newProject-preview-save");
     saveBtn.addEventListener("click", () => {
         // Send the thumb data to the DATABASE 
-        // First we update the thumbnailInputs from an input html element for it's own value proprely
+        // Fisrt we check if there is no missing value
+        if (thumbnailInputs.imgInput.value == "" || thumbnailInputs.titleInput.value == "" || thumbnailInputs.categoryInput.value == ""){
+            errorRender(container, "Por favor preencher todos os campos antes de continuar.");
+            return
+        }
+        // After that we update the thumbnailInputs from an input html element for it's own value proprely
         for (const key in thumbnailInputs) {
             thumbnailInputs[key] = thumbnailInputs[key].value;
         }
@@ -494,6 +484,10 @@ export async function renderNewProject(main, container, backButton=false) {
             // When the user click on save btn2 it'll send the data to the database and redirect to the project page.
             saveBtn2.addEventListener('click', async () => {
                 // First off all, we'll just update the value from a html element for it's own value
+                if (projectInputs.title.value == ""){
+                    errorRender(container, "Por favor preencher todos os campos antes de continuar.");
+                    return
+                }
                 projectInputs.title = projectInputs.title.value;
                 projectInputs.text.forEach((itemText) => {
                     itemText[0] = itemText[0].value;

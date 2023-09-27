@@ -101,7 +101,7 @@ def newProject(request):
         data = json.loads(request.body)
         #----
         # Data contains 2 dict inside of it, 'thumbnail' and 'post'. 
-        # The 'thumbnail' has the 'borderOutput', 'categoryInputm', 'imgInput' (URL), 'titleFontOutputRm' (size in rem), 'titleInput'
+        # The 'thumbnail' has the 'borderOutput', 'categoryInputm', 'imgInput' (URL), 'titleInput'
         # The 'post' another 3 keys inside of it, 'title', 'text' and 'image'. 'title' contains the title
         # 'text' have a list of lists, each list has the text content and position, like 'text': [['Texto 1 ', 1], ['Text 2', 3]], where the text 2 will be displayed in the 3rd position
         # in that scenario the 2nd element is an image.
@@ -120,7 +120,7 @@ def newProject(request):
 
         # 2snd, create the thumbnail
         thumbnail = Thumbnail(FK_post=post, borderRadius=thumbnailContent['borderOutput'] ,category=thumbnailContent['categoryInput'], image_url=thumbnailContent['imgInput'], 
-        title=thumbnailContent['titleInput'], title_size=thumbnailContent['titleFontOutputRm'], title_weight=thumbnailContent['titleFontWeight'])
+        title=thumbnailContent['titleInput'], title_weight=thumbnailContent['titleFontWeight'])
         thumbnail.save()
 
         # 3rd, create the image 

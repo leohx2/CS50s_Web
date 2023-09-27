@@ -7,14 +7,14 @@ import { renderProjectsPage } from '../Pages/projectsPage.js';
 
 // This function will prevent the page to reload or change after the user click on the link on navBar.
 // It will also change the active class to make sure the current page is the one with the "active" class.
-export function setNavBarBehavior (main, container, buttons) {
+export function setNavBarBehavior (main, container, buttons, body) {
     // Query all the items from navBar
     const navAncorEl = document.querySelectorAll(".navA");
     
     
     navAncorEl.forEach((navItem) => {
         // Add the changeLanguage to contact page
-        addLanguageChange(buttons, main, container);
+        addLanguageChange(buttons, main, container, body);
 
         navItem.addEventListener('click', (e) => {
             // Go for every navItem and prevent the default behavior
@@ -36,6 +36,10 @@ export function setNavBarBehavior (main, container, buttons) {
                     transictionMaker(()=>{
                         container.classList.remove(history.state.render)
                         container.classList.add('projects')
+                        if (body.classList.contains("blackBody")){
+                            body.classList.remove("blackBody")
+                            body.classList.add("whiteBody")
+                        }
                         renderProjectsPage(main, container, buttons);
                     }, "opacity fast")
                     break;
@@ -46,6 +50,10 @@ export function setNavBarBehavior (main, container, buttons) {
                     transictionMaker(()=>{
                         container.classList.remove(history.state.render)
                         container.classList.add('newProject')
+                        if (body.classList.contains("blackBody")){
+                            body.classList.remove("blackBody")
+                            body.classList.add("whiteBody")
+                        }
                         renderNewProject(main, container, buttons);
                     }, "opacity fast")
                     break;
@@ -53,6 +61,10 @@ export function setNavBarBehavior (main, container, buttons) {
                     transictionMaker(()=>{
                         container.classList.remove(history.state.render)
                         container.classList.add('contact')
+                        if (body.classList.contains("whiteBody")){
+                            body.classList.remove("whiteBody")
+                            body.classList.add("blackBody")
+                        }
                         renderContactPage(main, container, buttons);
                     }, "opacity fast")
                     break;
@@ -60,6 +72,10 @@ export function setNavBarBehavior (main, container, buttons) {
                     transictionMaker(()=>{
                         container.classList.remove(history.state.render)
                         container.classList.add('home')
+                        if (body.classList.contains("whiteBody")){
+                            body.classList.remove("whiteBody")
+                            body.classList.add("blackBody")
+                        }
                         homePageRender(main, container, buttons);
                     }, "opacity fast")
                     break;

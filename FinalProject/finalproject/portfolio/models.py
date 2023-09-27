@@ -68,7 +68,6 @@ class Thumbnail(models.Model):
     FK_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_thumbnail")
     image_url = models.URLField(max_length=400)
     title = models.CharField(max_length=100)
-    title_size = models.CharField(max_length=10) # String format, the information will be saved like "200rem".
     title_weight = models.CharField(max_length=10) # String format to make it easier to parse later on
 
     def serialize(self):
@@ -79,7 +78,6 @@ class Thumbnail(models.Model):
             'post': self.FK_post.id,
             'image_url': self.image_url,
             'title': self.title,
-            'title_size': self.title_size,
             'title_weight': self.title_weight
         }
     

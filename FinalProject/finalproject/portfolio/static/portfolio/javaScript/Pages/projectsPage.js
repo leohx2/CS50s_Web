@@ -107,7 +107,6 @@ async function renderThumbnails(category) {
 
         imageStyle.style.borderRadius = element['borderRadius'];
         imageContainer.style.borderRadius = element['borderRadius'];
-        titleStyle.style.fontSize = element['title_size'];
         titleStyle.style.fontWeight = element['title_weight'];
     });
 }

@@ -107,9 +107,9 @@
 
 .postPreview-img img{
     box-shadow: 3px 3px 5px rgb(182, 182, 182);
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .postPreview-Title {
@@ -128,6 +128,11 @@
     border: 1px solid lightgray;
     border-radius: 3px;
     padding: 0.3rem 1rem;
+}
+
+textarea.inputNewProject {
+    height: 3rem;
+    width: 200px;
 }
 
 .inputNewProject:focus{

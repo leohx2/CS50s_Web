@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // After the content is loaded get some content to be used
     const main = document.querySelector('main');
     const container = document.querySelector('[data-render-section=true]');
+    const body = document.querySelector('body')
     const buttons = {
         'en': document.getElementById('EN'),
         'pt': document.getElementById('PT')
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Remove the current page class
                 container.classList.remove(...container.classList)
                 container.classList.add("mainSectionContainer")
-                choosePageToRender(main, container, true)
+                choosePageToRender(main, container, body, true)
             }, "opacity fast")
             document.querySelector(".active").classList.remove("active")
             
@@ -55,34 +56,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     // Set the navBar behavior, to change the page content and the active item class.
-    setNavBarBehavior(main, container, buttons);
+    setNavBarBehavior(main, container, buttons, body);
     
     // Render the first page based on the main data-page-render, info passed via Django based on the URL info
-    choosePageToRender(main, container, buttons);
+    choosePageToRender(main, container, body);
 });
 
 // Choose the page to render base on the ""
-export function choosePageToRender(main, container, backButton=false){
+export function choosePageToRender(main, container, body, backButton=false){
     switch (main.dataset.pageRender) {
         case 'contact':
             container.classList.add("contact");
+            body.classList.add("blackBody");
             renderContactPage(main, container, backButton);
             break;
         case 'newProject':
             container.classList.add("newProject");
+            body.classList.add("whiteBody");
             renderNewProject(main, container, backButton);
             break;
         case 'project':
             container.classList.add("project");
+            body.classList.add("whiteBody");
             const idRender = window.location.href.split("/").pop()
             renderProject(main, container,`${idRender}` ,backButton)
             break;
         case 'projects':
             container.classList.add("projects");
+            body.classList.add("whiteBody");
             renderProjectsPage(main, container, backButton);
             break;
         default:
             container.classList.add("home");
+            body.classList.add("blackBody");
             homePageRender(main, container, backButton);
             break;
     }

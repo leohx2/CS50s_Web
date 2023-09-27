@@ -12,4 +12,6 @@ export function cleandAndUpdateState(container, renderState, backButton, differe
     } else {
         history.pushState({render: differentRender === null ? renderState : differentRender}, "", `/${renderState}`)
     }
+
+    window.scrollTo(0, 0)
 }

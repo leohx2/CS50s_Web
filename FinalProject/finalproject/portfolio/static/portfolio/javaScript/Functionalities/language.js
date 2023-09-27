@@ -2,7 +2,7 @@ import { transictionMaker } from './transiction.js'
 import { choosePageToRender } from '../main.js';
 
 
-export function addLanguageChange (buttons, main, container) {
+export function addLanguageChange (buttons, main, container, body) {
     // Add the changeLangue function to each of them
     buttons['en'].addEventListener('click', () => {
         // Check if it's necessary to run the function by checking the dataset language
@@ -22,7 +22,7 @@ export function addLanguageChange (buttons, main, container) {
 
             // Re-render the page in the right language
             main.dataset.pageRender = history.state.render
-            choosePageToRender(main, container)
+            choosePageToRender(main, container, body)
         }, "opacity slow")
 
     });
@@ -45,7 +45,7 @@ export function addLanguageChange (buttons, main, container) {
 
             // Re-render the page in the right language
             main.dataset.pageRender = history.state.render
-            choosePageToRender(main, container)
+            choosePageToRender(main, container, body)
         }, "opacity slow")
     });
 }

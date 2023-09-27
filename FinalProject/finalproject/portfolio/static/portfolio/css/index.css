@@ -1,9 +1,32 @@
+body::-webkit-scrollbar{
+    width: 5px;
+}
+
+.blackBody::-webkit-scrollbar-track {
+    background: #080808;
+}
+
+.blackBody::-webkit-scrollbar-thumb {
+    background: #FAFAFA;
+    border-radius: 10px;
+}
+
+.whiteBody::-webkit-scrollbar-track {
+    background: #FAFAFA;
+}
+
+.whiteBody::-webkit-scrollbar-thumb {
+    background: #080808;
+    border-radius: 10px;
+}
 
 body {
     background-color: #080808;
     font-family: 'Montserrat', sans-serif;
     font-weight: 200;
     overflow-x: hidden;
+    scroll-behavior: smooth;
+    --navBar-size: 48px;
 }
 
 button, textarea, input {
@@ -12,13 +35,16 @@ button, textarea, input {
 
 main {
     position: relative;
+    padding-top: var(--navBar-size);
 }
 
 .navBar {
     display: flex;
-    background-color: #070707;
-    height: 48px;
+    background-color: #070707cf;
+    height: var(--navBar-size);
+    position: fixed;
     width: 100%;
+    z-index: 3;
 }
 
 .navBar ul {
@@ -60,6 +86,35 @@ main {
 
 .mainSectionContainer {
     position: relative;
+}
+
+/* Error message css*/
+.errorContainer {
+    align-items: center;
+    background-color: rgb(255 0 0 / 72%);
+    color: white;
+    display: flex;
+    height: 1rem;
+    justify-content: space-between;
+    left: 0px;
+    padding: 1rem;
+    position: absolute;
+    top: 0px;
+    width: calc(100% - 1rem);
+    z-index: 2;
+}
+
+.errorMessage {
+    font-weight: 400;
+}
+
+.closeBtnWarning {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-right: 1rem;
+    font-weight: 600;
 }
 
 /* Waves took from  https://www.shapedivider.app/*/
