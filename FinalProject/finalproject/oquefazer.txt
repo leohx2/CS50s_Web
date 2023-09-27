@@ -1,42 +1,7 @@
-Página do projecto
+Deixar responsivo. 
 
-Thumbnail do projecto
-separar por alas:
-Design, escultura e pintura
+Fazer a versão inglês dos posts.
 
-Design:
+About me
 
-Thumb           Thumb
-    titulo          titulo 
-
-
-
-escultura:
-
-Thumb           Thumb
-    titulo          titulo 
-
-
-
-Pintura:
-
-Thumb           Thumb
-    titulo          titulo 
-
-
-Quando clicar na thumb direcionar para a página do produto com mais de uma foto.
-
-
-
-resultando quando der load no post:
-"""
-Primeiro projecto
-
-Conteúdo blablabla
-<div><img src="image.com"></div>
-Testando
-"""
-
-Verificar erros, n deixar fazer um "post" vazio ou faltando alguma informação.
-
-Css da pagina dos projetos
+Awards

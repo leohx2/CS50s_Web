@@ -181,12 +181,12 @@ textarea.inputNewProject {
 /* --- bellow here, css of the second part of the new project page */
 
 .newProjectMaker-container {
-    align-items: center;
     display: flex;
     flex-direction: column;
     gap: 2rem;
     height: 100%;
-    padding-top: 2rem;
+    justify-content: flex-start;
+    padding: 3rem;
     width: 100%;
 }
 
@@ -238,7 +238,7 @@ textarea.inputNewProject {
     flex-wrap: wrap;
     gap: 2rem;
     margin: auto;
-    max-width: 90%;
+    width: 95%;
 }
 
 .labelGroupPreview {
@@ -252,12 +252,18 @@ textarea.inputNewProject {
 }
 
 .projectTitleFinal {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 600;
+    margin-bottom: 3rem;
+}
+
+.textContent {
+    font-size: 1.2rem;
 }
 
 .imagePostPreview{
     display: inline-block;
+    margin: 1rem 0.5rem;
 }
 
 .imagePost {

@@ -22,7 +22,7 @@ function imageHTMLRender(imageContent, projectContentDiv){
 function textHTMLRender(textContent, projectContentDiv){
     // Insert the content inside the right div
     projectContentDiv.insertAdjacentHTML('beforeend',`
-    <pre>${textContent.content}</pre>
+    <pre class="projectContent-text">${textContent.content}</pre>
     `)
 }
 

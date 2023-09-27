@@ -2,8 +2,24 @@
     background-color: #FEFEFE;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: calc(100vh - 48px);
-    padding: 1rem 3rem 3rem 3rem;
+    padding: 3rem;
     width: 100%;
 }
+
+.projectTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+}
+
+.projectContent-text {
+    font-size: 1.2rem;
+}
+
+.projectContent-imageContainer {
+    display: inline-block;
+    margin: 1rem 0.5rem;
+}
+
