@@ -86,8 +86,6 @@ export function homePage (main, container, backButton=false) {
     // Safari is not the best browser ever, so to avoid an error on Home page we must set that:
     // Otherwise the .homePage-authorPicture would take way more space than necessary beacuse no width is set to it.
     const containerHeigt = container.offsetHeight
-    console.log(containerHeigt)
-    console.log((66.6 * containerHeigt) / 100)
     const divRenderedSize = document.querySelector(".homePage-authorPicture")
 
     // We based our divRenderedSize on 66.6% of height of the container (same as the height of the image, prevent Safari of taking more space than the image width)

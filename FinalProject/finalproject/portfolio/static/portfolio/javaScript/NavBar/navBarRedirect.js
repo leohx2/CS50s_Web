@@ -20,8 +20,9 @@ export function setNavBarBehavior (main, container, buttons, body) {
             // Go for every navItem and prevent the default behavior
             e.preventDefault();
 
-            // Select the active item
-            const activeItem = document.querySelector(".navA.active");
+            // Select the active item considering the windows width as well
+            console.log(container.offsetWidth )
+            const activeItem = container.offsetWidth > 500 ? document.querySelector(".navA.active.navBar-bigScreen") : document.querySelector(".navA.active.navBar-smallScreen");
 
             // Change the classes
             activeItem.classList.remove("active");

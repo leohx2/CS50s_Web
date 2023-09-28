@@ -29,14 +29,40 @@
             {% block header %}
             <nav class="navBar">
                 <ul>
-                    <li><a data-page="home" class="navA {% if pageToRender == 'home' %} active {% endif %}" href="#">Home</a></li>
-                    <li><a data-page="about" class="navA {% if pageToRender == 'about' %} active {% endif %}" href="#">About me</a></li>
-                    <li><a data-page="projects" class="navA {% if pageToRender == 'projects' or pageToRender == 'project' %} active {% endif %}" href="#">Projects</a></li>
-                    <li><a data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %}" href="#">Awards</a></li>
-                    <li><a data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %}" href="#">Contact me</a></li>
+                    <li><a href="#">
+                        <span data-page="home" class="navA {% if pageToRender == 'home' %} active {% endif %} navBar-smallScreen">H</span>
+                        <span data-page="home" class="navA {% if pageToRender == 'home' %} active {% endif %} navBar-bigScreen">Home</span>
+                    </a></li>
+
+                    <li><a href="#">
+                        <span data-page="about" class="navA {% if pageToRender == 'about' %} active {% endif %} navBar-smallScreen">A</span>
+                        <span data-page="about" class="navA {% if pageToRender == 'about' %} active {% endif %} navBar-bigScreen">About me</span>
+                    </a></li>
+
+                    <li><a href="#">
+                        <span data-page="projects" class="navA {% if pageToRender == 'projects' or pageToRender == 'project' %} active {% endif %} navBar-smallScreen">P</span>
+                        <span data-page="projects" class="navA {% if pageToRender == 'projects' or pageToRender == 'project' %} active {% endif %} navBar-bigScreen">Projects</span>
+                    </a></li>
+
+                    <li><a href="#">
+                        <span data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %} navBar-smallScreen">Aw</span>
+                        <span data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %} navBar-bigScreen">Awards</span>
+                    </a></li>
+
+                    <li><a href="#">
+                        <span data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %} navBar-smallScreen">C</span>
+                        <span data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %} navBar-bigScreen">Contact me</span> 
+                    </a></li>
+                    
                     {% if user.is_authenticated %}
-                        <li><a data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %}" href="#">New project</a></li>
-                        <li><a class="authorA" href="{%url 'logout' %}">Logout</a></li>
+                        <li><a data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %}" href="#">
+                            <span class="navBar-smallScreen">NP</span>
+                            <span class="navBar-bigScreen">New project</span>
+                        </a></li>
+                        <li><a class="authorA" href="{%url 'logout' %}">
+                            <span class="navBar-smallScreen">Lg</span>
+                            <span class="navBar-bigScreen">Logout</span>
+                        </a></li>
                     {% endif %}
                 </ul>
                 <div class="navBar-language">

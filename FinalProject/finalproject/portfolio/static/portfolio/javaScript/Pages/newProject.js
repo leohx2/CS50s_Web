@@ -492,7 +492,6 @@ export async function renderNewProject(main, container, backButton=false) {
                 projectInputs.text.forEach((itemText) => {
                     itemText[0] = itemText[0].value;
                 });
-                console.log(projectInputs.image)
                 projectInputs.image.forEach((itemImage) => {
                     itemImage[0] = itemImage[0].value;
                     itemImage[1] = itemImage[1].value;

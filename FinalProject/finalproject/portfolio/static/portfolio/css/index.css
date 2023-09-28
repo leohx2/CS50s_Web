@@ -54,11 +54,19 @@ main {
     width: 95%;
 }
 
+.navBar ul li a{
+    text-decoration: none;
+}
+
 .navA, .authorA{
     text-decoration: none;
     color: #FAFAFA;
     opacity: 0.6;
     transition: all 0.3s ease-in-out;
+}
+
+.navBar-smallScreen {
+    display: none;
 }
 
 .navBar-language {
@@ -138,4 +146,15 @@ main {
 
 .custom-shape-divider-bottom-1694717140 .shape-fill {
     fill: #DEDEDE;
+}
+
+/* responsive */
+@media screen and (max-width: 500px) {
+    .navBar-smallScreen {
+        display: inline-block;
+    }
+
+    .navBar-bigScreen {
+        display: none;
+    }
 }

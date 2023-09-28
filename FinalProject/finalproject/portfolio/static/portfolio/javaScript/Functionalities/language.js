@@ -17,8 +17,11 @@ export function addLanguageChange (buttons, main, container, body) {
         
         // Call the transition function that will aply the changes with a delay
         transictionMaker(()=> {
-            // Call the function to change the navBar language, every page has the same navBar
-            changeNavBarLanguage(main.dataset.language)
+            // Call the function to change the navBar language, every page has the same navBar, but keep it if it's a mobile page
+            if (container.offsetWidth > 400) 
+            {
+                changeNavBarLanguage(main.dataset.language)
+            }
 
             // Re-render the page in the right language
             main.dataset.pageRender = history.state.render
@@ -41,7 +44,10 @@ export function addLanguageChange (buttons, main, container, body) {
         // Call the transition function that will aply the changes with a delay
         transictionMaker(()=> {
             // Call the function to change the navBar language, every page has the same navBar
-            changeNavBarLanguage(main.dataset.language)
+            if (container.offsetWidth > 400) 
+            {
+                changeNavBarLanguage(main.dataset.language)
+            }
 
             // Re-render the page in the right language
             main.dataset.pageRender = history.state.render
@@ -55,17 +61,17 @@ const changeNavBarLanguage = (language) => {
     const navAncorEl = document.querySelectorAll(".navA");
     if (language === "pt") {
         // Portuguese version
-        navAncorEl[0].textContent = "Home";
-        navAncorEl[1].textContent = "Sobre mim";
-        navAncorEl[2].textContent = "Projectos";
-        navAncorEl[3].textContent = "Prêmios";
-        navAncorEl[4].textContent = "Contactos";
+        navAncorEl[1].textContent = "Home";
+        navAncorEl[3].textContent = "Sobre mim";
+        navAncorEl[5].textContent = "Projectos";
+        navAncorEl[7].textContent = "Prêmios";
+        navAncorEl[9].textContent = "Contactos";
     } else {
         // English version
-        navAncorEl[0].textContent = "Home";
-        navAncorEl[1].textContent = "About me";
-        navAncorEl[2].textContent = "Projects";
-        navAncorEl[3].textContent = "Awards";
-        navAncorEl[4].textContent = "Contact me";
+        navAncorEl[1].textContent = "Home";
+        navAncorEl[3].textContent = "About me";
+        navAncorEl[5].textContent = "Projects";
+        navAncorEl[7].textContent = "Awards";
+        navAncorEl[9].textContent = "Contact me";
     }
 }

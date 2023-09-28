@@ -95,3 +95,25 @@
     pointer-events: none;
     left: 0px;
 }
+
+/* responsive */
+@media screen and (max-width: 500px) {
+    .homePage-authorPicture {
+        display: none;
+    }
+    .home {
+        background-image: linear-gradient(to bottom, #070707, #090909, #0a0a0a, #0c0c0c, #0d0d0d, #111111, #151515, #181818, #1e1e1e, #232323, #292929, #2f2f2f);
+        gap:0px;
+    }
+    .authorDescription-content {
+        text-align: center;
+        width: 100%;
+    }
+    .authorDescription-buttons  {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+}
