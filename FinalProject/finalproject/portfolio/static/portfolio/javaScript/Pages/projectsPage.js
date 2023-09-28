@@ -96,7 +96,7 @@ async function renderThumbnails(category) {
                 <div class="thumbnail-content-image-container" data-post-image-container="${element['post']}">
                     <img src="${element['image_url']}" data-post-image="${element['post']}">
                 </div>
-                <span data-post-title="${element['post']}" >${element['title']}</span>
+                <span class="thumbnail-title" data-post-title="${element['post']}" >${element['title']}</span>
             </div>
         `);
 

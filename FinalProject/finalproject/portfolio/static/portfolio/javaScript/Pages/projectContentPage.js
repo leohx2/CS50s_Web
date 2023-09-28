@@ -40,8 +40,10 @@ export async function renderProject(main, container, post_id, backbutton=false) 
     
     // Render the title
     container.insertAdjacentHTML('afterbegin', `
-    <h2 class="projectTitle">${data.title}</h2>
-    <div class="projectContent"></div>
+    <div class="projectPage-container">
+        <h2 class="projectTitle">${data.title}</h2>
+        <div class="projectContent"></div>
+    <div>
     `)
 
     // Render the content

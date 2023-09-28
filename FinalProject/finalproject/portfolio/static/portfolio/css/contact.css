@@ -133,3 +133,56 @@
     text-decoration: none;
     color: inherit
 }
+
+/* Responsive */
+
+@media screen  and (max-width: 500px) {
+
+    .contact {
+        height: unset;
+        min-height: calc(100vh - 48px) !important;
+    }
+
+    .contact-container {
+        background-image: linear-gradient(to bottom, #070707, #090909, #0a0a0a, #0c0c0c, #0d0d0d, #111111, #151515, #181818, #1e1e1e, #232323, #292929, #2f2f2f);
+        padding-bottom: 1rem;
+        --formWidth: 100%;
+    }
+
+    .contact-fields-headline {
+        font-size: 3rem;
+    }
+
+    .contact-image{
+        display: none;
+    }
+
+    .contact-fields{
+        margin-left: 0;
+        padding: 2rem 2.5rem 2rem 2rem;
+        width: 100%;
+    }
+
+    .input-container{
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    
+    .inputTogether{
+        display: flex;
+        flex-direction: column;
+        width: var(--formWidth);
+    }
+
+    .inputLabel { 
+        font-weight: 300
+    }
+
+    .form-fields {
+        width: 100%;
+    }
+
+    .contactTextArea {
+        height: 5rem;
+    }
+}

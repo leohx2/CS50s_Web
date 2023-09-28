@@ -1,21 +1,21 @@
 .project {
     background-color: #FEFEFE;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     min-height: calc(100vh - 48px);
-    padding: 3rem;
     width: 100%;
 }
 
+.projectPage-container {
+    padding: 3rem;
+}
+
 .projectTitle {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 4rem;
+    font-weight: 700;
     margin-bottom: 3rem;
 }
 
 .projectContent-text {
-    font-size: 1.2rem;
+    font-weight: 300;
 }
 
 .projectContent-imageContainer {
@@ -23,3 +23,23 @@
     margin: 1rem 0.5rem;
 }
 
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .project {
+        padding: 0 0 2rem 0;
+    }
+
+    .projectPage-container {
+        padding: 1rem 2rem 2rem 2rem;
+    }
+    
+    .projectContent-text {
+        font-weight: 300;
+        margin: 0 0.5rem;
+    }
+    .projectTitle {
+        font-size: 3rem;
+        margin: 1.5rem 0.5rem 3rem;
+    }
+    
+}
