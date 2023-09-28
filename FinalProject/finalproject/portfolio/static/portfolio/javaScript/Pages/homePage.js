@@ -35,7 +35,7 @@ export function homePage (main, container, backButton=false) {
          </div>
     
             <div class="homePage-authorPicture">
-                <img src="../../static/portfolio/images/john_image_1.jpeg" alt="Jonathan Rosildo Image">
+                <img class="authorImg" src="../../static/portfolio/images/john_image_1.jpeg" alt="Jonathan Rosildo Image">
             </div>
         `);
     } else {
@@ -64,7 +64,7 @@ export function homePage (main, container, backButton=false) {
          </div>
     
             <div class="homePage-authorPicture">
-                <img src="../../static/portfolio/images/john_image_1.jpeg" alt="Jonathan Rosildo Image">
+                <img class="authorImg" src="../../static/portfolio/images/john_image_1.jpeg" alt="Jonathan Rosildo Image">
             </div>
         `);       
     }
@@ -82,4 +82,14 @@ export function homePage (main, container, backButton=false) {
     // Adding the copy function to the e-mail me button, to make easier to the user to copy the e-mail
     // also add the hover effect to show the e-mail and the tooltip
     copyEmail(main);
+
+    // Safari is not the best browser ever, so to avoid an error on Home page we must set that:
+    // Otherwise the .homePage-authorPicture would take way more space than necessary beacuse no width is set to it.
+    const containerHeigt = container.offsetHeight
+    console.log(containerHeigt)
+    console.log((66.6 * containerHeigt) / 100)
+    const divRenderedSize = document.querySelector(".homePage-authorPicture")
+
+    // We based our divRenderedSize on 66.6% of height of the container (same as the height of the image, prevent Safari of taking more space than the image width)
+    divRenderedSize.style.width = `${(66.6 * containerHeigt) / 100}px`
 }
