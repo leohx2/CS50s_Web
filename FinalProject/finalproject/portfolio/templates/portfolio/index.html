@@ -55,9 +55,9 @@
                     </a></li>
                     
                     {% if user.is_authenticated %}
-                        <li><a data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %}" href="#">
-                            <span class="navBar-smallScreen">NP</span>
-                            <span class="navBar-bigScreen">New project</span>
+                        <li><a href="#">
+                            <span data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %} navBar-smallScreen">NP</span>
+                            <span data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %} navBar-bigScreen">New project</span>
                         </a></li>
                         <li><a class="authorA" href="{%url 'logout' %}">
                             <span class="navBar-smallScreen">Lg</span>

@@ -139,8 +139,7 @@
 @media screen  and (max-width: 500px) {
 
     .contact {
-        height: unset;
-        min-height: calc(100vh - 48px) !important;
+        height: auto;
     }
 
     .contact-container {
