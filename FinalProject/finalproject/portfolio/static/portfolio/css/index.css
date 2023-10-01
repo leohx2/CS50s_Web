@@ -74,10 +74,6 @@ pre {
     transition: all 0.3s ease-in-out;
 }
 
-.navBar-smallScreen {
-    display: none;
-}
-
 .navBar-language {
     align-items: center;
     display: flex;
@@ -134,6 +130,10 @@ pre {
     font-weight: 600;
 }
 
+.material-symbols-outlined{
+    display: none !important;
+}
+
 /* Waves took from  https://www.shapedivider.app/*/
 .custom-shape-divider-bottom-1694717140 {
     position: absolute;
@@ -159,10 +159,14 @@ pre {
 
 /* responsive */
 @media screen and (max-width: 500px) {
-    .navBar-smallScreen {
-        display: inline-block;
-    }
-
+    .material-symbols-outlined {
+        display: inline-block !important;
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 200,
+        'GRAD' 0,
+        'opsz' 24
+      }
     .navBar-bigScreen {
         display: none;
     }

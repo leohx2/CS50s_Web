@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <!-- Thank you very much for the waves https://www.shapedivider.app/-->
+<!-- Thank you very much for the icons Google fonts - https://fonts.google.com/-->
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -22,6 +23,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     </head>
     <body>
@@ -30,37 +32,37 @@
             <nav class="navBar">
                 <ul>
                     <li><a href="#">
-                        <span data-page="home" class="navA {% if pageToRender == 'home' %} active {% endif %} navBar-smallScreen">H</span>
+                        <span data-page="home" class="material-symbols-outlined navA {% if pageToRender == 'home' %} active {% endif %} navBar-smallScreen">home</span>
                         <span data-page="home" class="navA {% if pageToRender == 'home' %} active {% endif %} navBar-bigScreen">Home</span>
                     </a></li>
 
                     <li><a href="#">
-                        <span data-page="about" class="navA {% if pageToRender == 'about' %} active {% endif %} navBar-smallScreen">A</span>
+                        <span data-page="about" class="material-symbols-outlined navA {% if pageToRender == 'about' %} active {% endif %} navBar-smallScreen">person</span>
                         <span data-page="about" class="navA {% if pageToRender == 'about' %} active {% endif %} navBar-bigScreen">About me</span>
                     </a></li>
 
                     <li><a href="#">
-                        <span data-page="projects" class="navA {% if pageToRender == 'projects' or pageToRender == 'project' %} active {% endif %} navBar-smallScreen">P</span>
+                        <span data-page="projects" class="material-symbols-outlined navA {% if pageToRender == 'projects' or pageToRender == 'project' %} active {% endif %} navBar-smallScreen">wall_art</span>
                         <span data-page="projects" class="navA {% if pageToRender == 'projects' or pageToRender == 'project' %} active {% endif %} navBar-bigScreen">Projects</span>
                     </a></li>
 
                     <li><a href="#">
-                        <span data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %} navBar-smallScreen">Aw</span>
+                        <span data-page="awards" class="material-symbols-outlined navA {% if pageToRender == 'awards' %} active {% endif %} navBar-smallScreen">trophy</span>
                         <span data-page="awards" class="navA {% if pageToRender == 'awards' %} active {% endif %} navBar-bigScreen">Awards</span>
                     </a></li>
 
                     <li><a href="#">
-                        <span data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %} navBar-smallScreen">C</span>
+                        <span data-page="contact" class="material-symbols-outlined  navA {% if pageToRender == 'contact' %} active {% endif %} navBar-smallScreen">contact_page</span>
                         <span data-page="contact" class="navA {% if pageToRender == 'contact' %} active {% endif %} navBar-bigScreen">Contact me</span> 
                     </a></li>
                     
                     {% if user.is_authenticated %}
                         <li><a href="#">
-                            <span data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %} navBar-smallScreen">NP</span>
+                            <span data-page="newProject" class="material-symbols-outlined  navA {% if pageToRender == 'newProject' %} active {% endif %} navBar-smallScreen">format_paint</span>
                             <span data-page="newProject" class="navA {% if pageToRender == 'newProject' %} active {% endif %} navBar-bigScreen">New project</span>
                         </a></li>
                         <li><a class="authorA" href="{%url 'logout' %}">
-                            <span class="navBar-smallScreen">Lg</span>
+                            <span class="material-symbols-outlined navBar-smallScreen">logout</span>
                             <span class="navBar-bigScreen">Logout</span>
                         </a></li>
                     {% endif %}
