@@ -73,9 +73,9 @@ export function homePage (main, container, backButton=false) {
         transictionMaker(()=>{
             container.classList.remove(history.state.render)
             container.classList.add('projects')
-            const activeItem = document.querySelector(".navA.active");
+            const activeItem = container.offsetWidth > 850 ? document.querySelector(".navA.active.navBar-bigScreen") : document.querySelector(".navA.active.navBar-smallScreen");
             activeItem.classList.remove("active")
-            document.querySelector("[data-page='projects']").classList.add("active")
+            container.offsetWidth > 850 ? document.querySelector(".navBar-bigScreen[data-page='projects']").classList.add("active") : document.querySelector(".navBar-smallScreen[data-page='projects']").classList.add("active")
             renderProjectsPage(main, container);
         }, "opacity fast")
     })

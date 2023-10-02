@@ -22,7 +22,7 @@ export function setNavBarBehavior (main, container, buttons, body) {
 
             // Select the active item considering the windows width as well
             console.log(container.offsetWidth )
-            const activeItem = container.offsetWidth > 500 ? document.querySelector(".navA.active.navBar-bigScreen") : document.querySelector(".navA.active.navBar-smallScreen");
+            const activeItem = container.offsetWidth > 850 ? document.querySelector(".navA.active.navBar-bigScreen") : document.querySelector(".navA.active.navBar-smallScreen");
 
             // Change the classes
             activeItem.classList.remove("active");

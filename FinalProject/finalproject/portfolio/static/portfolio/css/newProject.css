@@ -289,3 +289,63 @@ textarea.inputNewProject {
     color: #24242498;
     font-weight: 600;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 850px){
+    .postPreview-img {
+        height: 250px;
+        width: 250px;
+    }
+
+    .carousel {
+        width: 100%;
+    }
+
+    .itemActive {
+        margin: auto;
+        width: 70%;
+    }
+
+    .labelGroup {
+        display: block;
+        text-align: center;
+    }
+
+    .carousel-nav {
+        padding: 1rem 0px;
+    }
+
+    .errorContainer {
+        padding: 1rem 0 1rem 1rem;
+    }
+
+    .saveBtnContainer {
+        justify-content: center;
+    }
+    
+    .newProject-preview-save {
+        margin-right: 0px ;
+        margin-bottom: 1rem;
+    }
+
+    .labelStep1 {
+        margin-top: 0.5rem;
+    }
+
+    /* Part 2 of the new project*/
+    .newProjectMaker-container { 
+        padding: 0;
+    }
+    .projectContent {
+        padding: 1rem 2rem 2rem 2rem;
+    }
+    .projectTitleFinal {
+        font-size: 3rem;
+        margin: 1.5rem 0.5rem 3rem;
+    }
+    .textContent {
+        font-weight: 300;
+        margin: 0 0.5rem;
+    }
+}

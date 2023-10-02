@@ -143,14 +143,14 @@ function thumbnailPreview() {
 const imageThumb = `
         <div class="labelGroup">
             <label for="imageThumbInput">*URL da image</label>
-            <input class="inputNewProject" id="imageThumbInput" type="url" name="image" placeholder="imagem url..." required>
+            <input class="inputNewProject labelStep1" id="imageThumbInput" type="url" name="image" placeholder="imagem url..." required>
         </div>
 `;
 
 const inputTitle = `
         <div class="labelGroup">
             <label for="titleThumbInput">*Título do projeto</label>
-            <input class="inputNewProject" id="titleThumbInput" type="text" name="title" placeholder="título..." required>
+            <input class="inputNewProject labelStep1" id="titleThumbInput" type="text" name="title" placeholder="título..." required>
         </div>
 `;
 

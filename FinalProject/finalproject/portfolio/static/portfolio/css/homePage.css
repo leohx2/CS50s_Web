@@ -14,6 +14,7 @@
     display: flex;
     justify-content: center;
     height: 100%;
+    text-align: center;
     width: 100%;
 }
 
@@ -53,8 +54,9 @@
 
 .authorDescription-buttons  {
     display: flex;
+    gap: 1rem;
+    justify-content: center;
     margin-top: 1rem;
-    gap: 1rem
 }
 
 .authorDescription-buttons button {
@@ -94,7 +96,7 @@
 }
 
 /* responsive */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 850px) {
     .homePage-authorPicture {
         display: none;
     }
