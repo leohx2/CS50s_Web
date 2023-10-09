@@ -170,4 +170,11 @@ pre {
     .navBar-bigScreen {
         display: none;
     }
+
+    .navA, .authorA{
+        opacity: 0.4;
+    }
+    .active {
+        opacity: 1;
+    }
 }

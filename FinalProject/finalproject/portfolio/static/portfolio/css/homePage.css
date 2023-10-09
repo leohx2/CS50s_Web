@@ -3,21 +3,28 @@
     background-image: linear-gradient(to bottom, #070707, #070707, #080808, #080808, #080808, #080808, #070707, #070707, #060606, #060606, #050505, #040404);
     color: #FAFAFA;
     display: flex;
-    height: calc(100vh - 48px);
-    gap:100px;
-    justify-content: space-between;
+    flex-direction: column;
+    min-height: calc(100vh - 48px);
     width: 100%;
 }
 
-.homePage-authorDescription {
+.authorIntroduction  {
     align-items: center;
     display: flex;
     justify-content: center;
     height: 100%;
     text-align: center;
+    position: relative;
     width: 100%;
 }
-
+.homePage-authorDescription  {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    width: 100%;
+}
 .authorDescription-content {
     display: flex;
     flex-direction: column;
@@ -49,6 +56,7 @@
 
 .homePage-authorPicture img {
     height: 100%;
+    width: 100%;
     object-fit:contain;
 }
 
@@ -95,6 +103,36 @@
     left: 0px;
 }
 
+.waveShapeHome {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.waveShapeHome svg {
+    position: relative;
+    display: block;
+    width: calc(129% + 1.3px);
+    height: 56px;
+}
+
+.waveShapeHome .shape-fill {
+    fill: #E4E4E4;
+}
+
+/* styles for about me from now */
+
+.aboutMe{
+    background-color: #E4E4E4;
+    height: 600px;
+    position: relative;
+    width: 100%;
+}
+
 /* responsive */
 @media screen and (max-width: 850px) {
     .homePage-authorPicture {
@@ -104,6 +142,7 @@
         background-image: linear-gradient(to bottom, #070707, #090909, #0a0a0a, #0c0c0c, #0d0d0d, #111111, #151515, #181818, #1e1e1e, #232323, #292929, #2f2f2f);
         gap:0px;
     }
+
     .authorDescription-content {
         text-align: center;
         width: 100%;
