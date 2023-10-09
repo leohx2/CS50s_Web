@@ -15,7 +15,7 @@
     height: 100%;
     position: relative;
     width: 100%;
-    --formWidth:60%;
+    --formWidth: 70%;
 }
 
 .contact-image{
@@ -136,7 +136,33 @@
 
 /* Responsive */
 
-@media screen  and (max-width: 850px) {
+@media screen and (min-width: 700px) and (max-width: 1030px){
+    .contact-container {
+        --formWidth: 80% !important; 
+    }
+
+    .contact-container form {
+        align-items: center;
+    }
+
+    .contact-fields-headline {
+        width: unset;
+    }
+    .contact-image{
+        display: none;
+    }
+
+    .input-container {
+        width: calc(var(--formWidth) + 1rem) !important;
+    }
+
+    .inputTogether {
+        width: calc(100% - 1rem) !important;
+    }
+    
+}
+
+@media screen and (max-width: 1030px) {
 
     .contact {
         height: auto;

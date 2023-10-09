@@ -53,9 +53,9 @@ const authorIntroduction = (language) => {
         <div class="authorIntroduction">
             <div class="homePage-authorDescription">
                 <div class="authorDescription-content">
-                    <h3 class="authorDescription-welcome">Hello! I am</h3>
+                    <h3 class="authorDescription-welcome">Olá! Eu sou o</h3>
                     <h1 class="authorDescription-name">Jonarth</h1>
-                    <span class="authorDescription-job">Fine artist</span>
+                    <span class="authorDescription-job">Artista plástico</span>
                     <span class="authorDescription-briefing">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue, est
                         vitae tempor mollis, mauris purus euismod nisl, et viverra justo ipsum vitae
@@ -68,14 +68,14 @@ const authorIntroduction = (language) => {
                             </button>
                             <span class="tooltipText"></span>
                         </div>
-                        <button class="authorDescription-buttons-projects" >Projects</button>
+                        <button class="authorDescription-buttons-projects" >Projectos</button>
                     </div>
                 </div>
             </div>
-        
-                <div class="homePage-authorPicture">
-                    <img class="authorImg" src="../../static/portfolio/images/john_image_1.jpeg" alt="Jonathan Rosildo Image">
-                </div>
+
+            <div class="homePage-authorPicture">
+                <img class="authorImg" src="../../static/portfolio/images/john_image_1.jpeg" alt="Jonathan Rosildo Image">
+            </div>
                 ${waveShape()}
         </div>
         `)
@@ -125,7 +125,7 @@ export function homePage (main, container, backButton=false) {
 
     // Safari is not the best browser ever, so to avoid an error on Home page we must set that:
     // Otherwise the .homePage-authorPicture would take way more space than necessary beacuse no width is set to it.
-    const containerHeigt = container.offsetHeight
+    const containerHeigt = document.querySelector(".authorIntroduction").offsetHeight
     const divRenderedSize = document.querySelector(".homePage-authorPicture")
 
     // We based our divRenderedSize on 66.6% of height of the container (same as the height of the image, prevent Safari of taking more space than the image width)
