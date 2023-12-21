@@ -1,4 +1,5 @@
-.home {
+.home,
+.about_me {
     background-image: linear-gradient(
         to bottom,
         #070707,

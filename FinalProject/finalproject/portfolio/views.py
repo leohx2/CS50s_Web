@@ -21,10 +21,12 @@ IMAGE_ORDER = 3
 TEXT_CONTENT = 0
 TEXT_ORDER = 1
 
-# Create your views here.
+# Render the home page view
 def index (request):
     return render(request, "portfolio/index.html", {'pageToRender': "home"})
 
+def about (request):
+    return render(request, "portfolio/index.html", {'pageToRender': "about"})
 
 # Render the projects page, containing only the thumbanails of the projects, clickable 
 def projects (request):

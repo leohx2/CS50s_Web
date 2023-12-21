@@ -83,9 +83,18 @@ const authorIntroduction = (language) => {
 };
 
 // Function the render the home page and aboutme content
-export function homePage(main, container, backButton = false) {
+export function homePage(
+    main,
+    container,
+    backButton = false,
+    aboutMeScroll = false
+) {
     // Clean any content before insert a new one and upadte the state
-    cleandAndUpdateState(container, "home", backButton);
+    if (aboutMeScroll) {
+        cleandAndUpdateState(container, "about_me", backButton);
+    } else {
+        cleandAndUpdateState(container, "home", backButton);
+    }
 
     // Home page content.
     if (main.dataset.language === "en") {
@@ -99,6 +108,11 @@ export function homePage(main, container, backButton = false) {
             `${authorIntroduction("pt")} ${aboutMe("pt")}`
         );
     }
+    // If the user clicked on "about me" at the navBar we'll scroll down to about me section
+    if (aboutMeScroll)
+        document
+            .getElementById("aboutMe")
+            .scrollIntoView({ behavior: "smooth" });
     // Send the user to projects page when clicks on projects button
     document
         .querySelector(".authorDescription-buttons-projects")

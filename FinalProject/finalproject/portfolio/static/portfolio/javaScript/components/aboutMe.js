@@ -23,53 +23,53 @@ const educationPath = (language) => {
                     <p class="year">2019</p>
                 </div>    
                 <div class="educationPlaces">
-                    <p>Aristotle University of Thessaloniki</p>
-                    <p>ERASMUS +</p>
+                    <p class="places">Aristotle University of Thessaloniki</p>
+                    <p class="course">ERASMUS +</p>
                 </div>
             </li>
             <li class="educationList">
                 <div class="yearContainer">
-                    <p class="year">2016 - 2019</p>
+                    <p class="year">2016 <spam class="hiddenMobile">-</spam> 2019</p>
                 </div>    
                 <div class="educationPlaces">
-                    <p>
+                    <p class="places">
                         ${
                             language === "en"
                                 ? "Visual Arts and Technologies Degree"
                                 : "Licenciatura em Artes Visuais e Tecnologias"
                         }
                     </p>
-                    <p>Escola Superior de Educação de Lisboa</p>
+                    <p class="course">Escola Superior de Educação de Lisboa</p>
                 </div>
             </li>
             <li class="educationList">
                 <div class="yearContainer">
-                    <p class="year">2015 - 2016</p>
+                    <p class="year">2015 <spam class="hiddenMobile">-</spam> 2016</p>
                 </div>    
                 <div class="educationPlaces">
-                    <p>
+                    <p class="places">
                         ${
                             language === "en"
                                 ? "1st Year of a Degree in Equipment Design"
                                 : "1° Ano de Licenciatura em Design de Equipamento"
                         }
                     </p>
-                    <p>Faculdade de Belas-Artes de Lisboa</p>
+                    <p class="course">Faculdade de Belas-Artes de Lisboa</p>
                 </div>
             </li>
             <li class="educationList">
                 <div class="yearContainer">
-                    <p class="year">2012 - 2015</p>
+                    <p class="year">2012 <spam class="hiddenMobile">-</spam> 2015</p>
                 </div>    
                 <div class="educationPlaces">
-                    <p>
+                    <p class="places">
                         ${
                             language === "en"
                                 ? "Highschool grade in Science and Technology"
                                 : "12° ano em Ciências e Tecnologias"
                         }
                     </p>
-                    <p>Escola Secundária António Damásio</p>
+                    <p class="course">Escola Secundária António Damásio</p>
                 </div>
             </li>
         </ul>
@@ -81,7 +81,7 @@ const educationPath = (language) => {
 function aboutMe(language) {
     // With the aboutMeTextOne we'll render the first part, the brief of how the author got here
     return `
-        <div class="aboutMe">
+        <div class="aboutMe" id="aboutMe">
             <div class="authorBrief">
                 <h2 class="abouteMeSubtitle">
                     ${language === "en" ? "About me" : "Sobre mim"}
