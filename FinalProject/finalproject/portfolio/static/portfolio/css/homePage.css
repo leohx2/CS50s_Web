@@ -1,29 +1,41 @@
-
 .home {
-    background-image: linear-gradient(to bottom, #070707, #070707, #080808, #080808, #080808, #080808, #070707, #070707, #060606, #060606, #050505, #040404);
-    color: #FAFAFA;
+    background-image: linear-gradient(
+        to bottom,
+        #070707,
+        #070707,
+        #080808,
+        #080808,
+        #080808,
+        #080808,
+        #070707,
+        #070707,
+        #060606,
+        #060606,
+        #050505,
+        #040404
+    );
+    color: #fafafa;
     display: flex;
     flex-direction: column;
+    letter-spacing: 0.05em;
     min-height: calc(100vh - 48px);
     width: 100%;
 }
 
-.authorIntroduction  {
+.authorIntroduction {
     align-items: center;
     display: flex;
     justify-content: center;
     position: relative;
     width: 100%;
     height: calc(100vh - var(--navBar-size));
-
 }
-.homePage-authorDescription  {
+.homePage-authorDescription {
     align-items: center;
     display: flex;
     justify-content: center;
     text-align: center;
     width: 100%;
-    
 }
 .authorDescription-content {
     display: flex;
@@ -33,7 +45,8 @@
     width: 50%;
 }
 
-.authorDescription-welcome, .authorDescription-job {
+.authorDescription-welcome,
+.authorDescription-job {
     font-size: 1.8rem;
     font-weight: 400;
 }
@@ -41,7 +54,7 @@
 .authorDescription-name {
     font-size: 3rem;
     font-weight: 500;
-    font-family: 'Rock Salt', cursive;
+    font-family: "Rock Salt", cursive;
     margin: 0.3rem 0px;
 }
 
@@ -56,10 +69,10 @@
 
 .homePage-authorPicture img {
     height: 100%;
-    object-fit:contain;
+    object-fit: contain;
 }
 
-.authorDescription-buttons  {
+.authorDescription-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
@@ -77,18 +90,18 @@
 }
 
 .authorDescription-buttons button:hover {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
 }
 
-.buttons-email-span{
+.buttons-email-span {
     transition: all 150ms ease-in-out;
 }
 
-.tooltip{
+.tooltip {
     position: relative;
 }
 
-.tooltipText{
+.tooltipText {
     color: white;
     background-color: rgba(211, 211, 211, 0.524);
     border-radius: 5px;
@@ -120,21 +133,12 @@
 }
 
 .waveShapeHome .shape-fill {
-    fill: #E4E4E4;
-}
-
-/* styles for about me from now */
-
-.aboutMe{
-    background-color: #E4E4E4;
-    height: 600px;
-    position: relative;
-    width: 100%;
+    fill: #e4e4e4;
 }
 
 /* responsive */
 
-@media screen and (min-width: 851px) and (max-width: 1200px){
+@media screen and (min-width: 851px) and (max-width: 1200px) {
     .authorDescription-content {
         width: 90%;
     }
@@ -149,19 +153,32 @@
         display: none;
     }
     .home {
-        background-image: linear-gradient(to bottom, #070707, #090909, #0a0a0a, #0c0c0c, #0d0d0d, #111111, #151515, #181818, #1e1e1e, #232323, #292929, #2f2f2f);
-        gap:0px;
+        background-image: linear-gradient(
+            to bottom,
+            #070707,
+            #090909,
+            #0a0a0a,
+            #0c0c0c,
+            #0d0d0d,
+            #111111,
+            #151515,
+            #181818,
+            #1e1e1e,
+            #232323,
+            #292929,
+            #2f2f2f
+        );
+        gap: 0px;
     }
 
     .authorDescription-content {
         text-align: center;
         width: 100%;
     }
-    .authorDescription-buttons  {
+    .authorDescription-buttons {
         display: flex;
         gap: 1rem;
         justify-content: center;
         margin-top: 1rem;
     }
-
 }

@@ -13,11 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
-
-# import enviroment variables
-load_dotenv()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -134,6 +129,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email Settings
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'leobgse@gmail.com'
-EMAIL_HOST_PASSWORD = f'{os.environ.get("DB_EMAIL_PASS")}'
+EMAIL_HOST_PASSWORD = f'ffzuewgzulvrzyec'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

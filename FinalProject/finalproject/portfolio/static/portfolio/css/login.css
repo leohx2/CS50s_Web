@@ -1,9 +1,8 @@
-
 main {
     padding-top: 0px;
 }
 
-.loginSection{
+.loginSection {
     align-items: center;
     display: flex;
     color: #1f1f1f;
@@ -14,16 +13,18 @@ main {
 }
 
 .loginSection::before {
-    background: no-repeat url('../images/loginBackground.jpg') center;
+    background: no-repeat url("../images/loginBackground.jpg") center;
     background-size: cover;
-    content: '';
+    content: "";
     filter: grayscale(0.3);
     height: 100%;
     position: absolute;
     width: 100%;
 }
 
-.loginForm, .labelGroupLogin, .loginContainer {
+.loginForm,
+.labelGroupLogin,
+.loginContainer {
     display: flex;
     flex-direction: column;
 }
@@ -31,10 +32,10 @@ main {
 .loginContainer {
     align-items: center;
     justify-content: center;
-    background-color: #FEFEFE;
+    background-color: #fefefe;
     border-radius: 5px;
     height: 300px;
-    filter: grayscale(0) blur(0px) !important;    
+    filter: grayscale(0) blur(0px) !important;
     width: 600px;
 }
 
@@ -48,12 +49,12 @@ main {
     width: 100%;
 }
 
-.labelGroupLogin{
+.labelGroupLogin {
     width: 80%;
 }
 
 .loginInput {
-    padding:0.5rem;
+    padding: 0.5rem;
     border: 1px solid lightgray;
     border-radius: 5px;
     margin: 0.5rem 0px 1rem 0px;
@@ -79,7 +80,7 @@ main {
 }
 
 /* Responsive */
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
     .loginContainer {
         border-radius: 0px;
         height: unset;
