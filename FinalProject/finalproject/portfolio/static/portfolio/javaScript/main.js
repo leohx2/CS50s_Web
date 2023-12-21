@@ -89,7 +89,7 @@ export function choosePageToRender(main, container, body, backButton = false) {
             renderProject(main, container, `${idRender}`, backButton);
             break;
         case "about":
-            container.classList.add("home");
+            container.classList.add("about_me");
             body.classList.add("blackBody");
             homePageRender(main, container, backButton, true);
             break;
