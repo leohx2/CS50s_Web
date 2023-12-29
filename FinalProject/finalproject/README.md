@@ -51,7 +51,8 @@ Then if the user changes the page by clicking on a navBar link it will change th
 First we'll apply the transition and change the `.active` class from the navbar item. 
 After that the render page function will change the page content and if the main part of the page is black the scroll bar will be white, and if it's white the scroll bar will be black.
 
-In the contact page you'll find a form to be send an e-mail to the author, to get in touch with the person.
+In the contact page you'll find a form to send an e-mail to the author, to get in touch with the Author.
+
 For security reasons I'm not gonna let my password on gitHub. To make it work correctly you need to set those fields from the file finalproject/settings.py:
 ```
 # Email Settings
