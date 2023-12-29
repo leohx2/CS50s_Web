@@ -16,6 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
         en: document.getElementById("EN"),
         pt: document.getElementById("PT"),
     };
+    // After the content is loaded we'll have 2 items active, the mobile and the desktop version, to keep only one active we'll remove that active class.
+    if (container.offsetWidth > 850) {
+        document
+            .querySelector(`.active.navBar-smallScreen`)
+            .classList.remove("active");
+    } else {
+        document
+            .querySelector(`.active.navBar-bigScreen`)
+            .classList.remove("active");
+    }
 
     // State will work as a page control, where we control when the user goes back or fowards using the browser buttons
     let state = {
@@ -51,15 +61,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 container.classList.add("mainSectionContainer");
                 choosePageToRender(main, container, body, true);
             }, "opacity fast");
+            console.log(document.querySelector(".active"));
             document.querySelector(".active").classList.remove("active");
 
             // If the state.render == "project" we add the active class on the projects navItem
             if (state.render == "project") {
                 state.render = "projects";
             }
-            document
-                .querySelector(`[data-page=${state.render}]`)
-                .classList.add("active");
+
+            // Add the active class to the right item based on the device size
+            if (container.offsetWidth > 850) {
+                document
+                    .querySelector(
+                        `.navBar-bigScreen[data-page=${state.render}]`
+                    )
+                    .classList.add("active");
+            } else {
+                document
+                    .querySelector(
+                        `.navBar-smallScreen[data-page=${state.render}]`
+                    )
+                    .classList.add("active");
+            }
         }
     };
     // Set the navBar behavior, to change the page content and the active item class.
@@ -88,7 +111,12 @@ export function choosePageToRender(main, container, body, backButton = false) {
             const idRender = window.location.href.split("/").pop();
             renderProject(main, container, `${idRender}`, backButton);
             break;
-        case "about":
+        case "projects":
+            container.classList.add("projects");
+            body.classList.add("whiteBody");
+            renderProjectsPage(main, container, backButton);
+            break;
+        case "about" || "about_me":
             container.classList.add("about_me");
             body.classList.add("blackBody");
             homePageRender(main, container, backButton, true);

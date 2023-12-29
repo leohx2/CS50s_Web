@@ -93,12 +93,6 @@ pre {
     transition: all 0.3s ease-in-out;
 }
 
-.languageBtn:hover,
-.navA:hover,
-.authorA:hover {
-    opacity: 1;
-}
-
 .active {
     font-weight: 500;
     opacity: 1;
@@ -165,6 +159,13 @@ pre {
 }
 
 /* responsive */
+@media screen and (min-width: 851px) {
+    .languageBtn:hover,
+    .navA:hover,
+    .authorA:hover {
+        opacity: 1;
+    }
+}
 @media screen and (max-width: 850px) {
     .material-symbols-outlined {
         display: inline-block !important;
@@ -173,7 +174,6 @@ pre {
     .navBar-bigScreen {
         display: none;
     }
-
     .navA,
     .authorA {
         opacity: 0.4;

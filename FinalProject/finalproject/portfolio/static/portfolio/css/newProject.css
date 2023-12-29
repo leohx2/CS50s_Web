@@ -1,6 +1,6 @@
 .newProject {
     min-height: calc(100vh - 48px);
-    background-color: #FEFEFE;
+    background-color: #fefefe;
     padding: 1rem 0 2rem 0;
 }
 
@@ -21,7 +21,7 @@
     padding-bottom: 1rem;
 }
 
-.itemActive{
+.itemActive {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
@@ -30,7 +30,7 @@
     justify-content: center;
 }
 
-.carousel-item-sections{
+.carousel-item-sections {
     align-items: center;
     display: flex;
     flex-shrink: 1;
@@ -105,7 +105,7 @@
     width: 200px;
 }
 
-.postPreview-img img{
+.postPreview-img img {
     box-shadow: 3px 3px 5px rgb(182, 182, 182);
     height: 100%;
     width: 100%;
@@ -123,7 +123,7 @@
     gap: 1rem;
 }
 
- .inputNewProject{
+.inputNewProject {
     background: white;
     border: 1px solid lightgray;
     border-radius: 3px;
@@ -135,7 +135,7 @@ textarea.inputNewProject {
     width: 200px;
 }
 
-.inputNewProject:focus{
+.inputNewProject:focus {
     outline-color: #7e7e7e59;
 }
 
@@ -165,7 +165,7 @@ textarea.inputNewProject {
 .newProject-preview-save {
     border-radius: 5px;
     border: 1px solid lightgray;
-    background-color: #FEFEFE;
+    background-color: #fefefe;
     color: #101010;
     cursor: pointer;
     margin-right: 6rem;
@@ -174,7 +174,9 @@ textarea.inputNewProject {
     transition: 0.2s ease-in-out;
 }
 
-.newProject-preview-save:hover, .projectOptions-choices-btn:hover, .deleteHtmlBtn:hover {
+.newProject-preview-save:hover,
+.projectOptions-choices-btn:hover,
+.deleteHtmlBtn:hover {
     background-color: lightgray;
 }
 
@@ -216,10 +218,11 @@ textarea.inputNewProject {
     justify-content: center;
 }
 
-.projectOptions-choices-btn, .deleteHtmlBtn {
+.projectOptions-choices-btn,
+.deleteHtmlBtn {
     border-radius: 5px;
     border: 1px solid lightgray;
-    background-color: #FEFEFE;
+    background-color: #fefefe;
     color: #101010;
     cursor: pointer;
     font-weight: 500;
@@ -261,7 +264,7 @@ textarea.inputNewProject {
     font-size: 1.2rem;
 }
 
-.imagePostPreview{
+.imagePostPreview {
     display: inline-block;
     margin: 1rem 0.5rem;
 }
@@ -292,7 +295,7 @@ textarea.inputNewProject {
 
 /* RESPONSIVE */
 
-@media screen and (max-width: 850px){
+@media screen and (max-width: 850px) {
     .postPreview-img {
         height: 250px;
         width: 250px;
@@ -305,6 +308,7 @@ textarea.inputNewProject {
     .itemActive {
         margin: auto;
         width: 70%;
+        flex-wrap: nowrap;
     }
 
     .labelGroup {
@@ -313,7 +317,7 @@ textarea.inputNewProject {
     }
 
     .carousel-nav {
-        padding: 1rem 0px;
+        padding: 0;
     }
 
     .errorContainer {
@@ -323,9 +327,9 @@ textarea.inputNewProject {
     .saveBtnContainer {
         justify-content: center;
     }
-    
+
     .newProject-preview-save {
-        margin-right: 0px ;
+        margin-right: 0px;
         margin-bottom: 1rem;
     }
 
@@ -334,7 +338,7 @@ textarea.inputNewProject {
     }
 
     /* Part 2 of the new project*/
-    .newProjectMaker-container { 
+    .newProjectMaker-container {
         padding: 0;
     }
     .projectContent {

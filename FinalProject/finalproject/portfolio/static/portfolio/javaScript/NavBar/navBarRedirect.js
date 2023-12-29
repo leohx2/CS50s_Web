@@ -20,7 +20,6 @@ export function setNavBarBehavior(main, container, buttons, body) {
             e.preventDefault();
 
             // Select the active item considering the windows width as well
-            console.log(container.offsetWidth);
             const activeItem =
                 container.offsetWidth > 850
                     ? document.querySelector(".navA.active.navBar-bigScreen")
@@ -31,8 +30,9 @@ export function setNavBarBehavior(main, container, buttons, body) {
             e.target.classList.add("active");
 
             // Now render the clicked page
+            console.log(e.target.dataset.page);
             switch (e.target.dataset.page) {
-                case "about":
+                case "about_me" || "about":
                     transictionMaker(() => {
                         container.classList.remove(history.state.render);
                         container.classList.add("about_me");
@@ -53,9 +53,6 @@ export function setNavBarBehavior(main, container, buttons, body) {
                         }
                         renderProjectsPage(main, container, buttons);
                     }, "opacity fast");
-                    break;
-                case "awards":
-                    //console.log('awards');
                     break;
                 case "newProject":
                     transictionMaker(() => {

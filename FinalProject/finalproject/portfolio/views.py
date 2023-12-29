@@ -26,7 +26,7 @@ def index (request):
     return render(request, "portfolio/index.html", {'pageToRender': "home"})
 
 def about (request):
-    return render(request, "portfolio/index.html", {'pageToRender': "about"})
+    return render(request, "portfolio/index.html", {'pageToRender': "about_me"})
 
 # Render the projects page, containing only the thumbanails of the projects, clickable 
 def projects (request):
