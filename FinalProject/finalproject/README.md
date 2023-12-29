@@ -76,7 +76,7 @@ EMAIL_USE_TLS =
 
 ![email automatic anwser](readmepictures/received.jpg)
 
-## Files and they do part 1
+## Files and what they do part 1
 
 Starting with my python files:
 
@@ -136,7 +136,7 @@ Contain one function called `content_organizer` that will receive 2 arrays one o
 
 Register the models for the admin page have access to it.
 
-## Files and they do part 2
+## Files and what they do part 2
 
 HTML files:
 
@@ -161,7 +161,7 @@ If the pageToRender changes, the data-page-render changes to, and it will make t
 
 Login page that will login the user and redirect to the home page.
 
-## Files and they do part 3 
+## Files and what they do part 3 
 
 JavaScript files:
 
@@ -188,6 +188,91 @@ First we call the function `cleandAndUpdateState` to change the url and update t
 
 Then render the post page with all the data provided for the author initially.
 
+#### - newProject.js
 
+Probably the biggest file on the project, contains a few functions like:
+- renderNewProject, it's the "container" that will have all the steps to create a new post, the thumbnail and project content
+- creatingCarousel, it will create the carousel with the thumbnail options.
+- thumbnailPreview, render the thumbnail with the data provided on the function above, it will render "in real time", every change the user make on the carousel will reflect on the thumbnail preview.
+When the user clicks on the button to save and continue we'll render the next part of that page, the post content, that page will have 2 buttons an one text area, the text area is for the title, the two button will create a "new text" text area and the other an image field.
+- newImageContent, render the field to insert a new image to the project.
+- newTextContent, same as above but with text
+- projectMakerPreview, a real time preview for every change on the fields mentioned above, rendering the texts and images on change.
 
+#### - homePage.js
 
+First we call the function `cleandAndUpdateState` to change the url and update the history state.
+
+Then render the home page and the about me page content on the `main.dataset.language`, inside the homePage.js we call the aboutMe() located at aboutMe.js
+
+#### - aboutMe.js
+
+Renders the aboutMe content.
+
+#### - contactPage.js
+
+First we call the function `cleandAndUpdateState` to change the url and update the history state.
+
+Then render the form to send an e-mail to the author. If there's missing an field of form the submit button we'll be disabled. After the user submit the form a loading content replace the button content, after the request is completely done the loading ends and the button backs to "normal"
+
+#### - navBarRedirect.js
+
+This file will manage to change every content when the user clicks on each link in the navbar. It will change the .active class and render the correct version of the file, it will also check the scroll bar should be white or black.
+
+### - transiction.js
+
+Make the page transiction and it has 2 functions inside it, the `transictionMaker (func, mode)` apply the transiction for whole page, used to change pages and `transictionMakerSection (func, mode)` apply the transiction only for the section, used on the newProject page to change from the thumbNail part ton the project content part.
+
+Both accepts two different modes, "opacity slow" or "opacity fast" that will determine how long the transiction will last, the "func" parameter is the function to run in this time, like the new page will render while the transiction is happening, have a look:
+```
+if (mode === "opacity slow") {
+  transition.classList.add("transitionOpacity");
+  setTimeout(() => func(), 500);
+  setTimeout(() => transition.classList.remove("transitionOpacity"), 1000);
+}
+```
+
+### - renderWarning.js
+
+Render error message with a button to close it
+
+### - language.js
+
+Listen to the clicks on the "EN" and "PT" buttons, and based on which one is clicked change the `main.dataset.language` and the navBar items name, like from "About me" to "Sobre mim".
+
+### - cleanAndUpdateState.js
+
+Clean the html content to allow the content to be rendered in a "empty" place.
+Change the URL, update the state and scroll to the top of the page.
+
+### - buttonsFunctions.js
+
+Copy the e-mail to the transfer area and display a tooltip "copiado" or "copied" based on the language.
+
+## Files and what they do part 4
+
+Css files:
+
+files: aboutMe.css, animation.css, contact.css, footer.css, homePage.css, index.css, login.css, newProject.css, projectPage.css, projects.css, reset.css 
+
+I belive they are self explainatory, they are used to style each corresponding content.
+
+## How to run:
+
+If you need to set the contact page to work properly don't forget to set the fields from finalproject/settings.py:
+```
+# Email Settings
+EMAIL_HOST = 
+EMAIL_HOST_USER =
+EMAIL_HOST_PASSWORD = 
+EMAIL_PORT = 
+EMAIL_USE_TLS = 
+```
+First of all, create a super user on django to be able to create projects and to log in.
+
+ - `python3 manage.py createsuperuser`
+and then
+-  `python3 manage.py runserver`
+
+to acess to login page use the url 
+127.0.0.1:8000/loginAuthor, don't forget to change the "127.0.0.1:8000" if are using a different hoster.
