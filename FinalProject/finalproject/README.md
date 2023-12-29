@@ -276,3 +276,7 @@ and then
 
 to acess to login page use the url 
 127.0.0.1:8000/loginAuthor, don't forget to change the "127.0.0.1:8000" if are using a different hoster.
+
+## Aditional information:
+
+Please if you change the screen size from mobile to desktop (vice versa) you need to reload the page to work properly.
