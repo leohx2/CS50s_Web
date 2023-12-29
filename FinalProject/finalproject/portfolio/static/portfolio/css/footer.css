@@ -45,13 +45,15 @@ footer {
 @media screen and (max-width: 450px) {
   footer {
     align-items: start;
-    padding: 1rem;
   }
   .footer-container {
     align-items: start;
     flex-direction: column;
+    padding-top: 1rem;
+    padding-left: 1rem;
   }
   .footer-copyR {
     align-self: center;
+    padding-bottom: 1rem;
   }
 }

@@ -114,8 +114,7 @@ def newProject(request):
         imageContent = data['post']['image']
         textContent = data['post']['text']
         thumbnailContent = data['thumbnail']
-        # Now we already now what we have in data variable we can save it in our database
-        print(f"\n{postTitle}\n{imageContent}\n{textContent}\n{thumbnailContent}\n")
+        # Now we already know what we have in data variable we can save it in our database
         # 1st, create the post
         post = Post(title=postTitle)
         post.save()
@@ -157,7 +156,6 @@ def project_render(request, id):
             'content': content
         }
 
-        #print(f"\n\n{dataToSend}\n\n")
         # Send it in a json format
         return JsonResponse(dataToSend, safe=False)
     return render(request, "portfolio/index.html", {"pageToRender": "project"})
