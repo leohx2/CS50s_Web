@@ -76,4 +76,9 @@ EMAIL_USE_TLS =
 
 ![email automatic anwser](readmepictures/received.jpg)
 
+## Files and they do
+
+Starting with my python files:
+
+#### views.py
 

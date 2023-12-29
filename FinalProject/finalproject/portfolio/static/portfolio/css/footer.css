@@ -1,29 +1,57 @@
 footer {
-    align-items: center;
-    background-color: #dedede;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.5rem;
-    height: 150px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  background-color: #dedede;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  height: 150px;
+  position: relative;
+  width: 100%;
 }
 
 .footer-container {
-    align-items: flex-end;
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
 }
 
 .socialMedia-footer-link {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.socialMedia-footer-info {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hoverMe {
+  transition: all 300ms ease-in-out;
+}
+
+.hoverMe:hover {
+  transform: translateY(2px);
 }
 
 .socialMedia-footer-info i {
-    color: #303030;
-    font-size: 1.5rem;
-    font-weight: 800;
+  color: #303030;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+@media screen and (max-width: 450px) {
+  footer {
+    align-items: start;
+    padding: 1rem;
+  }
+  .footer-container {
+    align-items: start;
+    flex-direction: column;
+  }
+  .footer-copyR {
+    align-self: center;
+  }
 }
