@@ -49,6 +49,29 @@ And in the main.js we have something like this:
 That will run the most appropriate function for each scenario, it will be better explained on the right section of that README.md, where I'll explain file by file.
 Then if the user changes the page by clicking on a navBar link it will change the data-page-render as well, to do it our navBarRedirect.js will handle it all.
 First we'll apply the transition and change the `.active` class from the navbar item. 
-After that the render page will change the page content and if the main part of the project is black the scroll bar will be white, and if it's white the scroll bar will be black.
+After that the render page function will change the page content and if the main part of the page is black the scroll bar will be white, and if it's white the scroll bar will be black.
+
+In the contact page you'll find a form to be send an e-mail to the author, to get in touch with the person.
+For security reasons I'm not gonna let my password on gitHub. To make it work correctly you need to set those fields from the file finalproject/settings.py:
+```
+# Email Settings
+EMAIL_HOST = 
+EMAIL_HOST_USER =
+EMAIL_HOST_PASSWORD = 
+EMAIL_PORT = 
+EMAIL_USE_TLS = 
+```
+Here we have an example:
+
+![email sending](readmepictures/getInTouch.jpg)
+
+When someone sends an e-mail that is what the author will receive:
+
+![email received](readmepictures/emailReceived.jpg)
+
+Obs: please ignore the fact I'm sending it from me to myself, that's not a bug.
+
+And that is the automatic message the site send to the person that sent the e-mail.
+![email automatic anwser](readmepictures/received.jpg)
 
 
