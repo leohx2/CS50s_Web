@@ -16,8 +16,11 @@ This webapp allows the user to post new posts that can be part of 3 categories, 
 For the first part the user can choose the thumbnail image, by providing an image URL, border radius for the image from 0px to 50px, a title and a font weight.
 
 1 - Initial view
+
 2 - Step 1, Maximum border selected (just for an exemple), URL and title provided as well
+
 3 - Step 2, selecting the font weight
+
 4 - Step 3, selecting the category
 
 ![first step inital](readmepictures/new_project_1_border.jpg)
