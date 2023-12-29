@@ -62,17 +62,18 @@ EMAIL_HOST_PASSWORD =
 EMAIL_PORT = 
 EMAIL_USE_TLS = 
 ```
-Here we have an example:
+***Here we have an example:***
 
 ![email sending](readmepictures/getInTouch.jpg)
 
-When someone sends an e-mail that is what the author will receive:
+***When someone sends an e-mail this is what the author will receive:***
 
 ![email received](readmepictures/emailReceived.jpg)
 
-Obs: please ignore the fact I'm sending it from me to myself, that's not a bug.
+*Obs: please ignore the fact I'm sending it from me to myself, that's not a bug.*
 
-And that is the automatic message the site send to the person that sent the e-mail.
+***And this is the automatic message the site sends to the person that sent the e-mail:***
+
 ![email automatic anwser](readmepictures/received.jpg)
 
 
