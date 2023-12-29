@@ -47,7 +47,7 @@ And in the main.js we have something like this:
 `switch (main.dataset.pageRender)` 
 
 That will run the most appropriate function for each scenario, it will be better explained on the right section of that README.md, where I'll explain file by file.
-The if the user changes the page by clicking on a navBar link it will change the data-page-render as well, to do it our navBarRedirect.js will handle it all.
+Then if the user changes the page by clicking on a navBar link it will change the data-page-render as well, to do it our navBarRedirect.js will handle it all.
 First we'll apply the transition and change the `.active` class from the navbar item. 
 After that the render page will change the page content and if the main part of the project is black the scroll bar will be white, and if it's white the scroll bar will be black.
 
