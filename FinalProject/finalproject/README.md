@@ -1,4 +1,4 @@
-# Porfolio for an artist.
+# Portfolio for an artist
 
 This is my final project for the course "CS50’s Web Programming with Python and JavaScript", and I made it thinking about the necessity of a friend of mine and a lot of artists around the globe.
 This project is a personal portfolio for a Brazilian friend that can be constantly updated for a person that doesn't need to know how to code. All the pages that are visible only for the logged user are written in Portuguese, the "Home", "about me" and "contact me" pages have the english and portuguese version, that can be chosen at the navbar.
