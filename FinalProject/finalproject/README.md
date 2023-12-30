@@ -280,3 +280,4 @@ to acess to login page use the url
 ## Aditional information:
 
 Please if you change the screen size from mobile to desktop (vice versa) you need to reload the page to work properly.
+Also, if you need the 404 to work properly set DEBUG = False and run the project like `manage.py runserver --insecure` here you have a better explanation for that -> [Stackoverflow](https://stackoverflow.com/questions/5836674/why-does-debug-false-setting-make-my-django-static-files-access-fail) 
