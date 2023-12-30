@@ -1,8 +1,8 @@
 # Portfolio for an artist
 
 This is my final project for the course "CS50’s Web Programming with Python and JavaScript", and I made it thinking about the necessity of a friend of mine and a lot of artists around the globe.
-This project is a personal portfolio for a Brazilian friend that can be constantly updated for a person that doesn't need to know how to code. All the pages that are visible only for the logged user are written in Portuguese, the "Home", "about me" and "contact me" pages have the english and portuguese version, that can be chosen at the navbar.
-This is how a non logged user sees the navBar (image 1 is for desktop and 2 for mobile):
+This project is a personal portfolio for a Brazilian friend that can be constantly updated by a person who doesn't need to know how to code. All the pages that are visible only for the logged user are written in Portuguese, the "Home", "about me" and "contact me" pages have the english and portuguese version, that can be chosen at the navbar.
+This is how a non-logged user sees the navBar (image 1 is for desktop and 2 for mobile):
 ![navbar](readmepictures/language.jpg)
 ![navbar_mobile](readmepictures/navbar_mobile_nonloged.jpg)
 
@@ -11,13 +11,13 @@ This is how a logged user sees the navBar (image 1 is for desktop and 2 for mobi
 ![navbar_mobile](readmepictures/navbar_mobile_loged.jpg)
 
 This project is a single page app that uses pure JavaScript to change the page without actually reloading it. With a fast fade transition, it gives the user a great experience for the scenario change, smoothly and not abrupt. 
-This web app allows the user to post new posts that can be part of 3 categories, Design, Painting and Sculpture. It's really simple to creat a new post, everything is mobile responsive so the user doesn't have to worry about doing it only in the computer.
+This web app allows the user to create new posts in three categories: Design, Painting, and Sculpture. It's really simple to creat a new post, everything is mobile responsive so the user doesn't have to worry about doing it only in the computer.
 
-For the first part the user can choose the thumbnail image, by providing an image URL, select the border radius for the image from 0px to 50px, a title and a font weight.
+In the first part, the user can choose the thumbnail image by providing an image URL, select the border radius for the image (from 0px to 50px), and choose a title and font weight.
 
-Don't worry, if you forget something the error message will tell you so.
+Don't worry, if you forget something, the error message will tell you so.
 
-Next step the user will be able to write the post inserting all the texts and images that he wants to. The user needs to provide the URL image, choose the border radius but now from 0px to 100px and the size. **The image will be resized only if it has enough quality to*, no one wants a 144p big image in a portfolio.
+In the next step the user will be able to write the post and insert all the desired texts and images. The user needs to provide the URL image, choose the border radius but now from 0px to 100px and the size. **The image will be resized only if it has enough quality to*, no one wants a 144p big image in a portfolio.
 Right below it, the user will have the preview of the post, to make it easier to know how it will look like after he posts it.
 
 Tadaa! Now you have it on the projects page.
@@ -31,12 +31,12 @@ The user will be able not just to write a new post, but to style it as he needs 
 While the user is creating the new post he will have the real time preview, every character written on the textarea will also appear on the post preview.
 
 The user can add as many text or images as he wants to. The image has 3 sizes, small, medium and large, but it will only be resized if the quality of the image allows it, to keep the ratio and quality of it, otherwise the size does not change.
-To have the possibility to log in you must create a super user in django database. I didn't create a register page to prevent someone without the permission to create a new account to create it, that's not the idea for the project, the idea is that only the person who owns the code can create users that can manipulate the website content.
+To have the possibility to log in, you must create a super user in django database. I didn't create a register page to prevent someone without the permission to create a new account to create it, that's not the idea for the project, the idea is that only the person who owns the code can create users that can manipulate the website content.
 
-To provide a better experience to the user I created a modern layout and a single page app using only javaScript, that was a real challenge. I organized my project almost like a React project, by components and rendering only one HTML file the `index.html`. The login page is a different file and can be accessed by the url /loginAuthor.
+To provide a better experience to the user, I created a modern layout and a single page app using only javaScript, that was a real challenge. I organized my project almost like a React project, by components and rendering only one HTML file the `index.html`. The login page is a different file and can be accessed by the url /loginAuthor.
 To make sure the user will have a great experience using the website I handled the previous and forward button, by setting the window.popstate and window.history. 
 
-To change the URL without using an external library (like react router) I had to set the history.pushState and/or history.replace depending on the scenario.
+To change the URL without using an external library (like react router), I had to set the history.pushState and/or history.replace depending on the scenario.
 
 Combining the Django views data and conditional render with JavaScript I was able to render the right page based on the data attribute, by sending the data from django as `{'pageToRender': "x"}` I can allocate it in a data attribute on main, like this:
 
@@ -51,9 +51,9 @@ Then if the user changes the page by clicking on a navBar link it will change th
 First we'll apply the transition and change the `.active` class from the navbar item. 
 After that the render page function will change the page content and if the main part of the page is black the scroll bar will be white, and if it's white the scroll bar will be black.
 
-In the contact page you'll find a form to send an e-mail to the author, to get in touch with the Author.
+In the contact page you'll find a form to send an e-mail to the author, to get in touch with the author.
 
-For security reasons I'm not gonna let my password on gitHub. To make it work correctly you need to set those fields from the file finalproject/settings.py:
+For security reasons I'm not going to leave my password on gitHub. To make it work correctly you need to set those fields from the file finalproject/settings.py:
 ```
 # Email Settings
 EMAIL_HOST = 
@@ -72,17 +72,17 @@ EMAIL_USE_TLS =
 
 *Obs: please ignore the fact I'm sending it from me to myself, that's not a bug.*
 
-***And this is the automatic message the site sends to the person that sent the e-mail:***
+***And this is the automatic message the site sends to the person who sent the e-mail:***
 
 ![email automatic anwser](readmepictures/received.jpg)
 
 ## Files and what they do part 1
 
-Starting with my python files:
+Starting with my Python files:
 
 #### - views.py
 
-In this file we have my project router divided and global variable.
+In this file we have the routing for my project and global variables.
 
 First we have the views `index`, `about` and `projects` that will only render the `index.html` sending the data `{"pageToRender": "home"}`, `{"pageToRender": "about_me"}` and `{"pageToRender": "projects"}` respectively.
 That will make the right page be rendered by a function in main.js.
@@ -94,7 +94,7 @@ Then the `contact` that is another endpoint, but this one use "POST" method, sen
 
 The `login_view`, that will autheticate the user and redirect to the home page or just show an error message. After that we have the `logout_view` that will just logout the user.
 
-Now the `newProject` is an endpoint that uses the "POST" method and require a login to be used. That endpoing will catch all the data sent from JavaScript and send it to the righ database model. 
+Now the `newProject` is an endpoint that uses the "POST" method and requires a login to be used. That endpoing will catch all the data sent from JavaScript and send it to the righ database model. 
 From the JavaScript we'll receive here 4 items:
 - title
 - An array of arrays called imageContent, each array contains the borderRadius, related post, position to display it (if there's a text and an image on the post here is how we know which one render first. Or 10 images and 3 texts, position will tell us the position of every single item), size of the image and the URL address of each image.
@@ -112,11 +112,11 @@ TEXT_ORDER = 1
 ```
 They are the positions of each related item on the array received from JavaScript.
 
-The `project_render` will send the data from the database to JavaScript to render. Here we call the helper function `content_organizer` to serialize and send a sorted list to JavaScript to now exactly the order of each text and image.
+The `project_render` will send the data from the database for JavaScript to render. Here we call the helper function `content_organizer` to serialize and send a sorted list to JavaScript to now exactly the order of each text and image.
 
 #### - urls.py
 
-Register the url patterns to know what should the program do when the user access each url.
+Register the url patterns to know what should the program do when the user accesses each url.
 
 #### - models.py
 
@@ -134,11 +134,11 @@ Contain one function called `content_organizer` that will receive 2 arrays one o
 
 #### - admin.py
 
-Register the models for the admin page have access to it.
+Register the models for the admin page to have access to it.
 
 ## Files and what they do part 2
 
-HTML files:
+Html files:
 
 #### - index.html
 
@@ -159,7 +159,7 @@ If the pageToRender changes, the data-page-render changes to, and it will make t
 
 #### - login.html
 
-Login page that will login the user and redirect to the home page.
+Log in page that will login the user and redirect to the home page.
 
 ## Files and what they do part 3 
 
@@ -251,15 +251,15 @@ Copy the e-mail to the transfer area and display a tooltip "copiado" or "copied"
 
 ## Files and what they do part 4
 
-Css files:
+CSS files:
 
 files: aboutMe.css, animation.css, contact.css, footer.css, homePage.css, index.css, login.css, newProject.css, projectPage.css, projects.css, reset.css 
 
-I belive they are self explainatory, they are used to style each corresponding content.
+I believe they are self-explanatory. They are used to style each corresponding content.
 
 ## How to run:
 
-If you need to set the contact page to work properly don't forget to set the fields from finalproject/settings.py:
+If you need to set the contact page to work properly, don't forget to set the fields from finalproject/settings.py:
 ```
 # Email Settings
 EMAIL_HOST = 
@@ -274,9 +274,10 @@ First of all, create a super user on django to be able to create projects and to
 and then
 -  `python3 manage.py runserver`
 
-to acess to login page use the url 
-127.0.0.1:8000/loginAuthor, don't forget to change the "127.0.0.1:8000" if are using a different hoster.
+to access to login page use the URL 
+127.0.0.1:8000/***loginAuthor***, don't forget to change the "127.0.0.1:8000" if are using a different hoster.
 
 ## Aditional information:
 
-Please if you change the screen size from mobile to desktop (vice versa) you need to reload the page to work properly.
+Please, if you change the screen size from mobile to desktop (vice versa) you need to reload the page to work properly.
+Also, if you need the 404 to work properly set DEBUG = False and run the project like `manage.py runserver --insecure` here you have a better explanation for that: [Stackoverflow](https://stackoverflow.com/questions/5836674/why-does-debug-false-setting-make-my-django-static-files-access-fail) 
