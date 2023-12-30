@@ -22,7 +22,7 @@ Right below it, the user will have the preview of the post, to make it easier to
 
 Tadaa! Now you have it on the projects page.
 
-Everything above will be showed in the youtube video.
+Everything above will be showed in the youtube video, check it [here](https://www.youtube.com/watch?v=umRPNgarDkw).
 
 ## Distinctiveness and Complexity
 
