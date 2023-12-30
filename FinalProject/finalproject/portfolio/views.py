@@ -159,3 +159,8 @@ def project_render(request, id):
         # Send it in a json format
         return JsonResponse(dataToSend, safe=False)
     return render(request, "portfolio/index.html", {"pageToRender": "project"})
+
+
+# 404 error page
+def handling_404(request, exception):
+  return render(request, "portfolio/index.html", {'pageToRender': "home"})

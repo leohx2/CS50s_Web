@@ -20,3 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('portfolio.urls'))
 ]
+
+handler404 = 'portfolio.views.handling_404'
